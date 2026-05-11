@@ -1,0 +1,1776 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<style data-omelette-injected="">html,body{background:transparent}</style><script data-omelette-injected="">(()=>{var j=["https://claude.ai","https://preview.claude.ai"];var x=true;var S=30000;var f=3000;document.addEventListener("DOMContentLoaded",()=>{const H=window.Babel;const G="om-src-id";if(H&&H.registerPlugin&&!(H.availablePlugins&&H.availablePlugins[G])){H.registerPlugin(G,({types:Y})=>({visitor:{JSXOpeningElement(U,Q){const J=U.node;if(J.name&&J.name.type==="JSXMemberExpression")return;for(let V=0;V<J.attributes.length;V++){const L=J.attributes[V];if(L.type==="JSXAttribute"&&L.name&&L.name.name==="data-om-id")return}const W=Q.file&&Q.file.opts&&Q.file.opts.filename||"?";const Z=J.loc&&J.loc.start;const z=`jsx:${W}:${J.start??0}:${Z?Z.line:0}:${Z?Z.column+1:0}`;J.attributes.push(Y.jsxAttribute(Y.jsxIdentifier("data-om-id"),Y.stringLiteral(z)))}}}))}const k="om-text-extract";let A=false;if(x&&H&&H.registerPlugin&&!(H.availablePlugins&&H.availablePlugins[k])){const Y=window.React;if(Y&&Y.useSyncExternalStore&&Y.createElement){A=true;const U={};const Q=new Set;let J=0;window.__omTextO=U;window.__omTextSet=(z)=>{for(const V in z){const L=z[V];if(L==null)delete U[V];else U[V]=L}J++;Q.forEach((V)=>V())};const W=(z)=>{Q.add(z);return()=>Q.delete(z)};const Z=()=>J;window.__OmT=function z(V){Y.useSyncExternalStore(W,Z,Z);return Y.createElement("span",{"data-om-text":V.i,className:"__om-t"},V.i in U?U[V.i]:V.children)};H.registerPlugin(k,({types:z})=>{const V={style:1,script:1,noscript:1,textarea:1,title:1,option:1,text:1,tspan:1,textPath:1};const L={placeholder:1,alt:1,title:1,label:1,"aria-label":1,"aria-description":1,"aria-placeholder":1};const _=($,C)=>z.logicalExpression("??",z.memberExpression(z.logicalExpression("||",z.memberExpression(z.identifier("window"),z.identifier("__omTextO")),z.objectExpression([])),z.stringLiteral($),true),C);const E=($)=>$.file&&$.file.opts&&$.file.opts.filename||"?";const B=($)=>$.file&&$.file.code||"";const b=($,C)=>{const X=(F)=>F&&F.start!=null&&F.end!=null&&(F.type==="StringLiteral"||F.type==="TemplateLiteral"&&F.expressions.length===0)?[F.start,F.end]:null;const N=X(C);if(N)return N;if(C&&C.type==="Identifier"){const F=$.scope.getBinding(C.name);if(F&&F.constant&&F.path.node.type==="VariableDeclarator"){return X(F.path.node.init)}}return null};const M=($,C,X)=>{const N=$.node;let F=false;const w=(K,q)=>{F=true;return z.jsxElement(z.jsxOpeningElement(z.jsxIdentifier("__OmT"),[z.jsxAttribute(z.jsxIdentifier("i"),z.stringLiteral(K))],false),z.jsxClosingElement(z.jsxIdentifier("__OmT")),[q],false)};const D=N.children.map((K)=>{if(K.type==="JSXText"){if(K.start==null||K.end==null)return K;const q=X.slice(K.start,K.end);const R=q.length-q.trimStart().length;const m=q.length-q.trimEnd().length;if(R+m>=q.length)return K;return w(`txt:${C}:${K.start+R}:${K.end-m}`,K)}if(K.type==="JSXExpressionContainer"){const q=b($,K.expression);if(q)return w(`str:${C}:${q[0]}:${q[1]}`,K)}return K});if(F)N.children=D};return{visitor:{JSXOpeningElement($,C){const X=$.node;const N=E(C);const F={};for(let w=0;w<X.attributes.length;w++){const D=X.attributes[w];if(D.type!=="JSXAttribute"||!D.name)continue;const K=D.name.name;if(!L[K])continue;if(!D.value||D.value.type!=="StringLiteral")continue;if(D.value.start==null||D.value.end==null)continue;const q=`txt:${N}:${D.value.start}:${D.value.end}`;F[K]=q;D.value=z.jsxExpressionContainer(_(q,z.stringLiteral(D.value.value)))}if(Object.keys(F).length){X.attributes.push(z.jsxAttribute(z.jsxIdentifier("data-om-text-attrs"),z.stringLiteral(JSON.stringify(F))))}},JSXElement($,C){const X=$.node.openingElement;const N=X&&X.name&&X.name.name;if(N==="__OmT")return;if(typeof N==="string"&&V[N])return;M($,E(C),B(C))},JSXFragment($,C){M($,E(C),B(C))}}}})}}const u=A?["transform-react-jsx-source",G,k]:["transform-react-jsx-source",G];document.querySelectorAll('script[type="text/babel"],script[type="text/jsx"]').forEach((Y,U)=>{const Q=Y.getAttribute("data-plugins")||"";const J=u.filter((W)=>Q.indexOf(W)<0);if(J.length){Y.setAttribute("data-plugins",Q?`${Q},${J.join(",")}`:J.join(","))}if(!Y.hasAttribute("data-filename")){Y.setAttribute("data-filename",Y.getAttribute("src")||`inline-${U}`)}})});var y=window.parent;if(y&&y!==window){const H=(Q,J)=>{try{y.postMessage({__omelette_log:true,type:Q,data:J},"*")}catch{}};["log","warn","error"].forEach((Q)=>{const J=console[Q];console[Q]=(...W)=>{const Z=W.map((z)=>{try{return typeof z==="object"?JSON.stringify(z):String(z)}catch{try{return String(z)}catch{return"[unstringifiable]"}}}).join(" ");H(Q,Z);J.apply(console,W)}});window.addEventListener("error",(Q)=>{const J=Q.target;if(J&&J!==window&&J.tagName){const W=J.src||J.href||"";H("resource_error",`${J.tagName} failed to load: ${W}`)}else{H("error",`${Q.message||"Unknown error"} at ${Q.filename||"?"}:${Q.lineno||0}:${Q.colno||0}`)}},true);window.addEventListener("unhandledrejection",(Q)=>{const J=Q.reason;const W=J instanceof Error?`${J.message} ${J.stack}`:String(J);H("error",`Unhandled rejection: ${W}`)});const G=()=>{try{y.postMessage({type:"omelette:height",height:document.documentElement.scrollHeight},"*")}catch{}};if(document.readyState==="complete")G();else window.addEventListener("load",G);if(window.ResizeObserver)new ResizeObserver(G).observe(document.documentElement);const k={};let A=0;window.claude={complete(Q){return new Promise((J,W)=>{if(!j.length){W(new Error("claude.complete: no parent origin"));return}const Z=`c${++A}`;const z=()=>setTimeout(()=>{delete k[Z];W(new Error(`claude.complete: no data for ${S/1000}s`))},S);const V=z();k[Z]={resolve:J,reject:W,text:"",t:V,arm:z};try{for(const L of j){y.postMessage({__om_api:true,id:Z,body:Q},L)}}catch(L){clearTimeout(V);delete k[Z];W(L)}})}};const u={};let Y=0;window.omelette={writeFile:(Q,J)=>new Promise((W,Z)=>{if(!j.length){W();return}const z=`f${++Y}`;const V=setTimeout(()=>{delete u[z];W()},f);u[z]={resolve:W,reject:Z,t:V};try{for(const L of j){y.postMessage({__om_file:true,id:z,op:"write",path:Q,content:J},L)}}catch{clearTimeout(V);delete u[z];W()}})};const U=(Q)=>{try{return JSON.stringify(Q)}catch{return JSON.stringify(String(Q))}};window.addEventListener("message",(Q)=>{if(j.indexOf(Q.origin)<0)return;if(Q.source!==y)return;const J=Q.data;if(!J)return;if(J.type==="omelette-preview-refresh"){if(typeof J.token!=="string"||!/^[0-9a-f.-]+$/.test(J.token))return;const z=Math.max(1,Math.floor((J.expiresAt||0)-Date.now()/1000));document.cookie="__Host-omelette-preview="+J.token+"; Path=/; Secure; SameSite=None; Partitioned; Max-Age="+z;return}if(J.__om_file_r){const z=u[J.id];if(!z)return;clearTimeout(z.t);delete u[J.id];if(J.ok)z.resolve();else z.reject(new Error(J.error||"write failed"));return}if(J.__om_api_r){const z=k[J.id];if(!z)return;if(J.error!=null){clearTimeout(z.t);delete k[J.id];z.reject(new Error(J.error));return}if(J.chunk!=null){clearTimeout(z.t);z.t=z.arm();z.text+=J.chunk;return}if(J.done){clearTimeout(z.t);delete k[J.id];z.resolve(J.text!=null?J.text:z.text);return}return}if(!J.__om_eval)return;const W=J;const Z=(z)=>{Q.source.postMessage({...z,__om_eval_r:1,id:W.id},Q.origin)};try{const z=(0,eval)(W.code);if(z&&typeof z.then==="function"){z.then((V)=>Z({ok:1,v:U(V)}),(V)=>Z({ok:0,e:String(V)}))}else{Z({ok:1,v:U(z)})}}catch(z){Z({ok:0,e:String(z)})}})}})();
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TaxEase AI — PRD &amp; Design System</title>
+<link href="taxease_prd_design_system_data/css2.css" rel="stylesheet">
+<link rel="stylesheet" href="taxease_prd_design_system_data/tabler-icons.min.css">
+<style>
+
+/* ============================================================
+   DESIGN TOKENS — LIGHT MODE
+   ============================================================ */
+[data-theme="light"] {
+  --bg-base:          #F5F2EF;
+  --bg-surface-1:     #FFFFFF;
+  --bg-subtle:        #EDE9E4;
+
+  --border-default:   #E2DDD8;
+  --border-strong:    #C8C0B8;
+  --border-focus:     #E8521A;
+
+  --text-primary:     #1A1208;
+  --text-secondary:   #3D2E1E;
+  --text-tertiary:    #6B5A48;
+  --text-disabled:    #B0A090;
+  --text-inverse:     #F5F2EF;
+  --text-on-accent:   #FFFFFF;
+
+  --accent-orange:         #E8521A;
+  --accent-orange-hover:   #C94211;
+  --accent-orange-press:   #A83510;
+  --accent-orange-subtle:  #FFF0EA;
+
+  --accent-teal:           #0F6E56;
+  --accent-teal-hover:     #0B5542;
+  --accent-teal-subtle:    #E1F5EE;
+
+  --status-success:      #0F6E56;
+  --status-success-bg:   #E1F5EE;
+  --status-warning:      #BA7517;
+  --status-warning-bg:   #FAEEDA;
+  --status-error:        #A32D2D;
+  --status-error-bg:     #FCEBEB;
+  --status-info:         #185FA5;
+  --status-info-bg:      #E6F1FB;
+
+  --shadow-sm:   0 1px 2px rgba(26,18,8,0.06), 0 1px 3px rgba(26,18,8,0.04);
+  --shadow-md:   0 4px 8px rgba(26,18,8,0.08), 0 2px 4px rgba(26,18,8,0.04);
+  --shadow-lg:   0 8px 20px rgba(26,18,8,0.10), 0 4px 8px rgba(26,18,8,0.05);
+  --shadow-xl:   0 16px 40px rgba(26,18,8,0.12), 0 8px 16px rgba(26,18,8,0.06);
+
+  --radius-btn:  10px;
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --radius-full: 9999px;
+}
+
+/* ============================================================
+   DESIGN TOKENS — DARK MODE
+   ============================================================ */
+[data-theme="dark"] {
+  --bg-base:          #0D0A07;
+  --bg-surface-1:     #171008;
+  --bg-subtle:        #1F160A;
+
+  --border-default:   #2E200F;
+  --border-strong:    #4A3320;
+  --border-focus:     #E8521A;
+
+  --text-primary:     #F5EDE0;
+  --text-secondary:   #C8B09A;
+  --text-tertiary:    #7A6050;
+  --text-disabled:    #3D2E1E;
+  --text-inverse:     #1A1208;
+  --text-on-accent:   #1A1208;
+
+  --accent-orange:         #F4845A;
+  --accent-orange-hover:   #F5A07A;
+  --accent-orange-press:   #E8521A;
+  --accent-orange-subtle:  #1F0E06;
+
+  --accent-teal:           #1D9E75;
+  --accent-teal-hover:     #25C08E;
+  --accent-teal-subtle:    #071A12;
+
+  --status-success:      #1D9E75;
+  --status-success-bg:   #071A12;
+  --status-warning:      #D4942A;
+  --status-warning-bg:   #1E1206;
+  --status-error:        #D94F40;
+  --status-error-bg:     #1F0A08;
+  --status-info:         #4A9FE0;
+  --status-info-bg:      #071525;
+
+  --shadow-sm:   0 1px 2px rgba(0,0,0,0.40);
+  --shadow-md:   0 4px 8px rgba(0,0,0,0.45);
+  --shadow-lg:   0 8px 20px rgba(0,0,0,0.50);
+  --shadow-xl:   0 16px 40px rgba(0,0,0,0.60);
+
+  --radius-btn:  10px;
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --radius-full: 9999px;
+}
+
+/* ============================================================
+   DESIGN TOKENS — READING MODE
+   ============================================================ */
+[data-theme="reading"] {
+  --bg-base:          #FAF6F0;
+  --bg-surface-1:     #FDF9F4;
+  --bg-subtle:        #F0E8DC;
+
+  --border-default:   #E0D4C0;
+  --border-strong:    #C8B898;
+  --border-focus:     #E8521A;
+
+  --text-primary:     #1A1208;
+  --text-secondary:   #3D2E1E;
+  --text-tertiary:    #6B5A48;
+  --text-disabled:    #B0A090;
+  --text-inverse:     #FAF6F0;
+  --text-on-accent:   #FFFFFF;
+
+  --accent-orange:         #E8521A;
+  --accent-orange-hover:   #C94211;
+  --accent-orange-press:   #A83510;
+  --accent-orange-subtle:  #FFF0EA;
+
+  --accent-teal:           #0F6E56;
+  --accent-teal-hover:     #0B5542;
+  --accent-teal-subtle:    #E1F5EE;
+
+  --status-success:      #0F6E56;
+  --status-success-bg:   #E1F5EE;
+  --status-warning:      #BA7517;
+  --status-warning-bg:   #FAEEDA;
+  --status-error:        #A32D2D;
+  --status-error-bg:     #FCEBEB;
+  --status-info:         #185FA5;
+  --status-info-bg:      #E6F1FB;
+
+  --shadow-sm:   0 1px 2px rgba(26,18,8,0.06), 0 1px 3px rgba(26,18,8,0.04);
+  --shadow-md:   0 4px 8px rgba(26,18,8,0.08), 0 2px 4px rgba(26,18,8,0.04);
+  --shadow-lg:   0 8px 20px rgba(26,18,8,0.10), 0 4px 8px rgba(26,18,8,0.05);
+  --shadow-xl:   0 16px 40px rgba(26,18,8,0.12), 0 8px 16px rgba(26,18,8,0.06);
+
+  --radius-btn:  10px;
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --radius-full: 9999px;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+a { text-decoration: none; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Manrope', sans-serif;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-size: 16px;
+  line-height: 1.6;
+  transition: background 0.3s ease, color 0.3s ease;
+  min-height: 100vh;
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.ds-shell { display: flex; min-height: 100vh; }
+
+.ds-sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  background: var(--bg-surface-1);
+  border-right: 1px solid var(--border-default);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 24px 0 28px;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+.ds-sidebar::-webkit-scrollbar { width: 3px; }
+.ds-sidebar::-webkit-scrollbar-thumb { background: var(--border-default); border-radius: 3px; }
+
+.ds-main {
+  flex: 1;
+  padding: 52px 64px 80px;
+  max-width: 940px;
+}
+
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+.sidebar-brand {
+  padding: 0 20px 20px;
+  border-bottom: 1px solid var(--border-default);
+  margin-bottom: 18px;
+}
+.sidebar-brand-name {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+.sidebar-brand-name span { color: var(--accent-orange); }
+.sidebar-brand-sub {
+  font-size: 10px;
+  color: var(--text-disabled);
+  margin-top: 3px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.sidebar-section-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-disabled);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 16px 20px 6px;
+}
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  font-family: 'Manrope', sans-serif;
+}
+.sidebar-link i { font-size: 15px; opacity: 0.6; flex-shrink: 0; }
+.sidebar-link:hover { color: var(--text-primary); background: var(--bg-subtle); }
+.sidebar-link:hover i { opacity: 1; }
+.sidebar-link.active {
+  color: #FFFFFF;
+  background: linear-gradient(135deg, #E8521A 0%, #C94211 100%);
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  margin: 0 10px;
+  width: calc(100% - 20px);
+  padding: 7px 10px;
+}
+.sidebar-link.active i { opacity: 1; }
+[data-theme="dark"] .sidebar-link.active {
+  color: #F5EDE0;
+  background: linear-gradient(135deg, #E8521A 0%, #F4845A 100%);
+}
+
+/* ============================================================
+   MODE SWITCHER
+   ============================================================ */
+.mode-switcher {
+  position: fixed;
+  top: 18px;
+  right: 24px;
+  display: flex;
+  gap: 2px;
+  background: var(--bg-surface-1);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  padding: 4px;
+  box-shadow: var(--shadow-md);
+  z-index: 1000;
+  transition: background 0.3s, border-color 0.3s;
+}
+.mode-btn {
+  padding: 5px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: 'Manrope', sans-serif;
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  background: transparent;
+  color: var(--text-tertiary);
+  transition: all 0.2s;
+  letter-spacing: 0.02em;
+}
+.mode-btn.active {
+  background: var(--accent-orange);
+  color: #FFFFFF;
+}
+[data-theme="dark"] .mode-btn.active { color: #FFFFFF; }
+
+/* ============================================================
+   SECTION STRUCTURE
+   ============================================================ */
+.ds-section { margin-bottom: 80px; scroll-margin-top: 40px; }
+.ds-section-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent-orange);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.ds-section-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.025em;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+.ds-section-desc {
+  font-size: 14px;
+  color: var(--text-tertiary);
+  line-height: 1.65;
+  margin-bottom: 28px;
+  max-width: 580px;
+}
+.ds-subsection-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  margin-top: 32px;
+}
+.ds-rule { height: 1px; background: var(--border-default); margin: 44px 0; }
+
+/* ============================================================
+   CARDS & INFO BLOCKS
+   ============================================================ */
+.info-card {
+  background: var(--bg-surface-1);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  margin: 16px 0;
+  box-shadow: var(--shadow-sm);
+}
+.info-card.highlight {
+  background: var(--accent-orange-subtle);
+  border-color: #F4845A;
+}
+[data-theme="dark"] .info-card.highlight { border-color: #E8521A; }
+.info-card.teal {
+  background: var(--accent-teal-subtle);
+  border-color: #9FE1CB;
+}
+[data-theme="dark"] .info-card.teal { border-color: #1D9E75; }
+.info-card-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.info-card-title i { color: var(--accent-orange); font-size: 16px; }
+.info-card.teal .info-card-title i { color: var(--accent-teal); }
+.info-card p { font-size: 13px; line-height: 1.65; color: var(--text-secondary); margin: 0; }
+
+/* ============================================================
+   GRID UTILITIES
+   ============================================================ */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 16px 0; }
+.flex { display: flex; }
+.flex-wrap { flex-wrap: wrap; }
+.gap-8 { gap: 8px; }
+.gap-12 { gap: 12px; }
+.items-center { align-items: center; }
+
+/* ============================================================
+   STAT CARDS
+   ============================================================ */
+.stat-card {
+  background: var(--bg-surface-1);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: 16px 18px;
+  box-shadow: var(--shadow-sm);
+}
+.stat-card .sc-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-disabled);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+.stat-card .sc-value { font-size: 22px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.02em; }
+.stat-card .sc-desc { font-size: 12px; color: var(--text-tertiary); margin-top: 5px; line-height: 1.5; }
+
+/* ============================================================
+   FEATURE ROWS
+   ============================================================ */
+.feature-row {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 16px;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  margin-bottom: 10px;
+  background: var(--bg-surface-1);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.15s;
+}
+.feature-row:hover { box-shadow: var(--shadow-md); }
+.feature-row .icon-wrap {
+  width: 38px; height: 38px;
+  border-radius: var(--radius-md);
+  background: var(--accent-orange-subtle);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.feature-row .icon-wrap i { color: var(--accent-orange); font-size: 18px; }
+.feature-row .f-title { font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+.feature-row .f-desc { font-size: 12px; color: var(--text-tertiary); line-height: 1.6; }
+
+/* Priority tags */
+.priority-tag {
+  font-size: 10px; font-weight: 700;
+  padding: 3px 9px; border-radius: var(--radius-full);
+  margin-left: auto; flex-shrink: 0; align-self: flex-start; margin-top: 2px;
+  letter-spacing: 0.04em;
+}
+.p-must    { background: var(--status-error-bg);   color: var(--status-error); }
+.p-should  { background: var(--status-warning-bg); color: var(--status-warning); }
+.p-could   { background: var(--status-success-bg); color: var(--status-success); }
+
+/* ============================================================
+   TIMELINE
+   ============================================================ */
+.timeline { position: relative; padding-left: 1.5rem; margin: 16px 0; }
+.timeline::before {
+  content: ''; position: absolute; left: 7px; top: 4px; bottom: 4px;
+  width: 1px; background: var(--border-default);
+}
+.tl-item { position: relative; margin-bottom: 20px; }
+.tl-dot {
+  position: absolute; left: -1.5rem; top: 2px;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--accent-orange);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 0 3px var(--accent-orange-subtle);
+}
+.tl-dot i { font-size: 8px; color: #fff; }
+.tl-label { font-size: 10px; font-weight: 700; color: var(--accent-orange); margin-bottom: 3px; letter-spacing: 0.06em; text-transform: uppercase; }
+.tl-title { font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+.tl-desc { font-size: 12px; color: var(--text-tertiary); line-height: 1.6; }
+
+/* ============================================================
+   COLOR TOKEN GRID
+   ============================================================ */
+.token-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+}
+.token-card {
+  background: var(--bg-surface-1);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.token-swatch { height: 52px; width: 100%; }
+.token-info { padding: 10px 12px; }
+.token-name { font-size: 11px; font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+.token-value { font-size: 10px; color: var(--text-tertiary); font-family: monospace; }
+
+/* ============================================================
+   TYPOGRAPHY TABLE
+   ============================================================ */
+.type-table { width: 100%; border-collapse: collapse; }
+.type-table tr { border-bottom: 1px solid var(--border-default); }
+.type-table tr:first-child { border-top: 1px solid var(--border-default); }
+.type-table td { padding: 14px 0; vertical-align: middle; }
+.type-preview-cell { width: 55%; }
+.type-meta-cell { width: 15%; text-align: right; padding-right: 12px !important; }
+.type-meta-label { display: block; font-size: 9px; color: var(--text-disabled); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 2px; }
+.type-meta-val { font-size: 12px; font-weight: 600; color: var(--text-tertiary); }
+
+/* ============================================================
+   SPACING
+   ============================================================ */
+.spacing-row {
+  display: flex; align-items: center; gap: 20px;
+  padding: 10px 0; border-bottom: 1px solid var(--border-default);
+}
+.spacing-row:first-child { border-top: 1px solid var(--border-default); }
+.spacing-bar-wrap { width: 160px; flex-shrink: 0; }
+.spacing-bar { background: var(--accent-orange); height: 10px; border-radius: 3px; opacity: 0.65; }
+[data-theme="dark"] .spacing-bar { opacity: 0.85; }
+.spacing-size { font-size: 12px; font-weight: 700; color: var(--text-primary); width: 40px; flex-shrink: 0; }
+.spacing-desc { font-size: 12px; color: var(--text-tertiary); }
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn-group { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.btn-block {
+  background: var(--bg-surface-1);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: 20px 22px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-sm);
+}
+.btn-block-label {
+  font-size: 10px; font-weight: 700; color: var(--text-disabled);
+  letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 14px;
+}
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 7px; font-family: 'Manrope', sans-serif; font-weight: 600;
+  border: none; cursor: pointer; border-radius: 10px;
+  transition: all 0.18s ease; white-space: nowrap; outline: none;
+  letter-spacing: 0.01em;
+}
+.btn-sm  { font-size: 12px; padding: 7px 16px; }
+.btn-md  { font-size: 14px; padding: 10px 22px; }
+.btn-lg  { font-size: 15px; padding: 13px 28px; }
+
+.btn-primary { background: var(--accent-orange); color: #FFFFFF; box-shadow: var(--shadow-sm); }
+.btn-primary:hover { background: var(--accent-orange-hover); box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.btn-primary:active { background: var(--accent-orange-press); transform: translateY(0); box-shadow: none; }
+
+.btn-secondary {
+  background: var(--bg-surface-1); color: var(--text-primary);
+  border: 1px solid var(--border-strong); box-shadow: var(--shadow-sm);
+}
+.btn-secondary:hover { background: var(--bg-subtle); border-color: var(--accent-orange); transform: translateY(-1px); }
+.btn-secondary:active { transform: translateY(0); }
+
+.btn-ghost { background: transparent; color: var(--accent-orange); border: 1px solid #F4845A; }
+.btn-ghost:hover { background: var(--accent-orange-subtle); }
+
+.btn-teal { background: var(--accent-teal); color: #FFFFFF; box-shadow: var(--shadow-sm); }
+.btn-teal:hover { background: var(--accent-teal-hover); box-shadow: var(--shadow-md); transform: translateY(-1px); }
+
+.btn:disabled { opacity: 0.38; cursor: not-allowed; pointer-events: none; }
+
+/* ============================================================
+   PILLS & BADGES
+   ============================================================ */
+.pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 12px; font-weight: 600; line-height: 16px;
+  padding: 3px 10px; border-radius: var(--radius-full); white-space: nowrap;
+}
+.pill-orange  { background: var(--accent-orange-subtle); color: var(--accent-orange); }
+.pill-teal    { background: var(--accent-teal-subtle); color: var(--accent-teal); }
+.pill-success { background: var(--status-success-bg); color: var(--status-success); }
+.pill-warning { background: var(--status-warning-bg); color: var(--status-warning); }
+.pill-error   { background: var(--status-error-bg); color: var(--status-error); }
+.pill-info    { background: var(--status-info-bg); color: var(--status-info); }
+.pill-neutral { background: var(--bg-subtle); color: var(--text-secondary); border: 1px solid var(--border-default); }
+.pill-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+
+/* ============================================================
+   INPUTS
+   ============================================================ */
+.input-wrap { display: flex; flex-direction: column; gap: 6px; }
+.input-label { font-size: 12px; font-weight: 600; color: var(--text-secondary); }
+.input {
+  font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 400;
+  color: var(--text-primary); background: var(--bg-surface-1);
+  border: 1px solid var(--border-default); border-radius: var(--radius-md);
+  padding: 10px 14px; outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s; width: 100%;
+}
+.input::placeholder { color: var(--text-disabled); }
+.input:focus { border-color: var(--border-focus); box-shadow: 0 0 0 3px rgba(232,82,26,0.12); }
+
+/* ============================================================
+   ALERTS
+   ============================================================ */
+.alert {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 14px 16px; border-radius: var(--radius-md);
+  border-left: 3px solid; font-size: 14px; line-height: 1.5;
+  margin: 8px 0;
+}
+.alert-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+.alert-content { flex: 1; }
+.alert-title { font-weight: 700; font-size: 13px; margin-bottom: 3px; }
+.alert-body  { font-size: 13px; color: var(--text-secondary); }
+.alert-success { background: var(--status-success-bg); border-color: var(--status-success); color: var(--status-success); }
+.alert-warning { background: var(--status-warning-bg); border-color: var(--status-warning); color: var(--status-warning); }
+.alert-error   { background: var(--status-error-bg);   border-color: var(--status-error);   color: var(--status-error); }
+.alert-info    { background: var(--status-info-bg);    border-color: var(--status-info);    color: var(--status-info); }
+
+/* ============================================================
+   PROGRESS
+   ============================================================ */
+.progress-wrap { display: flex; flex-direction: column; gap: 7px; margin: 8px 0; }
+.progress-header { display: flex; justify-content: space-between; align-items: center; }
+.progress-label { font-size: 13px; font-weight: 600; color: var(--text-secondary); }
+.progress-val   { font-size: 12px; font-weight: 700; color: var(--text-tertiary); }
+.progress-track { height: 6px; background: var(--bg-subtle); border-radius: var(--radius-full); overflow: hidden; }
+.progress-fill  {
+  height: 100%; border-radius: var(--radius-full); background: var(--accent-orange);
+  transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+  position: relative; overflow: hidden;
+}
+.progress-fill::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
+  animation: shimmer-prog 2s infinite;
+}
+@keyframes shimmer-prog { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+.progress-fill.fill-teal { background: var(--accent-teal); }
+.progress-fill.fill-success { background: var(--status-success); }
+
+/* ============================================================
+   TOOLTIP
+   ============================================================ */
+.tooltip-wrap { position: relative; display: inline-flex; }
+.tooltip-box {
+  position: absolute; bottom: calc(100% + 8px); left: 50%;
+  transform: translateX(-50%);
+  background: var(--text-primary); color: var(--text-inverse);
+  font-size: 12px; font-weight: 500;
+  padding: 6px 10px; border-radius: var(--radius-sm);
+  white-space: nowrap; pointer-events: none;
+  opacity: 0; transition: opacity 0.15s; z-index: 100;
+}
+.tooltip-box::after {
+  content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+  border: 5px solid transparent; border-top-color: var(--text-primary);
+}
+.tooltip-wrap:hover .tooltip-box { opacity: 1; }
+
+/* ============================================================
+   DATA TABLE
+   ============================================================ */
+.data-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 14px 0; }
+.data-table th {
+  text-align: left; padding: 10px 14px;
+  background: var(--bg-subtle); font-weight: 700; color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-default);
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;
+}
+.data-table td {
+  padding: 10px 14px; border-bottom: 1px solid var(--border-default);
+  color: var(--text-tertiary); vertical-align: top; line-height: 1.5;
+}
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: var(--bg-subtle); }
+.check { color: var(--status-success); font-weight: 700; }
+.cross { color: var(--status-error); font-weight: 700; }
+
+/* ============================================================
+   SKELETON
+   ============================================================ */
+.skeleton {
+  background: linear-gradient(90deg, var(--bg-subtle) 0%, var(--border-default) 50%, var(--bg-subtle) 100%);
+  background-size: 200% 100%;
+  animation: skel-shimmer 1.6s infinite;
+  border-radius: var(--radius-sm);
+}
+@keyframes skel-shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+.skel-line  { height: 13px; margin-bottom: 8px; }
+.skel-title { height: 18px; margin-bottom: 12px; }
+
+/* ============================================================
+   CHAT UI PREVIEW
+   ============================================================ */
+.screen-frame {
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-surface-1);
+  margin: 14px 0;
+  box-shadow: var(--shadow-md);
+}
+.screen-topbar {
+  background: var(--bg-subtle);
+  border-bottom: 1px solid var(--border-default);
+  padding: 11px 16px;
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13px; font-weight: 700; color: var(--text-primary);
+}
+.screen-topbar i { color: var(--accent-orange); }
+.screen-body { padding: 20px; }
+.chat-bubble {
+  max-width: 82%; padding: 10px 14px; border-radius: 12px;
+  font-size: 13px; line-height: 1.55; margin-bottom: 10px;
+}
+.bubble-ai {
+  background: var(--bg-subtle); color: var(--text-primary);
+  border-radius: 4px 12px 12px 12px;
+}
+.bubble-user {
+  background: var(--accent-orange); color: #fff;
+  margin-left: auto; border-radius: 12px 4px 12px 12px;
+}
+.chat-meta { font-size: 11px; color: var(--text-tertiary); margin-bottom: 4px; font-weight: 600; }
+
+/* Pulse dot */
+.pulse-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent-teal); display: inline-block;
+  animation: pulse-anim 2s ease-in-out infinite;
+}
+@keyframes pulse-anim {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.75); }
+}
+
+/* Refund card */
+.refund-card {
+  background: linear-gradient(135deg, #E8521A 0%, #C94211 100%);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px; color: #fff;
+  position: relative; overflow: hidden;
+}
+.refund-card .rc-label { font-size: 11px; opacity: 0.8; margin-bottom: 4px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+.refund-card .rc-amount { font-size: 28px; font-weight: 800; margin-bottom: 6px; letter-spacing: -0.02em; }
+.refund-card .rc-sub { font-size: 12px; opacity: 0.8; }
+
+/* Motion demo */
+.motion-demo {
+  width: 52px; height: 52px; background: var(--accent-orange);
+  border-radius: var(--radius-md); cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow-md);
+}
+.motion-demo:hover { transform: scale(1.15) rotate(5deg); box-shadow: var(--shadow-lg); }
+.motion-demo i { color: #fff; font-size: 24px; }
+
+/* Tech badge */
+.tech-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--bg-surface-1); border: 1px solid var(--border-default);
+  border-radius: var(--radius-md); padding: 6px 12px;
+  font-size: 12px; font-weight: 600; color: var(--text-secondary);
+  margin: 3px; box-shadow: var(--shadow-sm);
+}
+
+/* User persona card */
+.persona-card {
+  background: var(--bg-surface-1);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  overflow: hidden; margin-bottom: 12px;
+  box-shadow: var(--shadow-sm);
+}
+.persona-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px 18px 12px;
+  border-bottom: 1px solid var(--border-default);
+  background: var(--bg-subtle);
+}
+.persona-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; flex-shrink: 0;
+}
+.persona-name { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+.persona-role { font-size: 11px; color: var(--text-tertiary); margin-top: 2px; }
+.persona-body { padding: 14px 18px; }
+.persona-row { display: flex; gap: 6px; margin-bottom: 8px; font-size: 13px; line-height: 1.5; }
+.persona-row:last-child { margin-bottom: 0; }
+.persona-row strong { color: var(--text-primary); font-weight: 700; min-width: 80px; flex-shrink: 0; }
+.persona-row span { color: var(--text-tertiary); }
+
+/* scrollbar */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-thumb { background: var(--border-default); border-radius: 3px; }
+
+</style>
+<style data-designer-overlay="1"></style></head>
+<body>
+
+<!-- MODE SWITCHER -->
+<div class="mode-switcher">
+  <button class="mode-btn active" onclick="setMode('light',this)">Light</button>
+  <button class="mode-btn" onclick="setMode('dark',this)">Dark</button>
+  <button class="mode-btn" onclick="setMode('reading',this)">Reading</button>
+</div>
+
+<div class="ds-shell">
+
+  <!-- ===== SIDEBAR ===== -->
+  <nav class="ds-sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-name">Tax<span>Ease</span> AI</div>
+      <div class="sidebar-brand-sub">PRD + Design System</div>
+    </div>
+
+    <div class="sidebar-section-label">Product</div>
+    <a class="sidebar-link" onclick="goTo('overview',this)"><i class="ti ti-file-text"></i> Overview</a>
+    <a class="sidebar-link" onclick="goTo('users',this)"><i class="ti ti-users"></i> Users</a>
+    <a class="sidebar-link" onclick="goTo('features',this)"><i class="ti ti-list-check"></i> Features</a>
+    <a class="sidebar-link" onclick="goTo('mvp',this)"><i class="ti ti-target"></i> MVP Scope</a>
+    <a class="sidebar-link" onclick="goTo('tech',this)"><i class="ti ti-code"></i> Tech Stack</a>
+    <a class="sidebar-link" onclick="goTo('metrics',this)"><i class="ti ti-chart-bar"></i> Metrics</a>
+
+    <div class="sidebar-section-label">Design</div>
+    <a class="sidebar-link" onclick="goTo('colors',this)"><i class="ti ti-palette"></i> Colors</a>
+    <a class="sidebar-link" onclick="goTo('typography',this)"><i class="ti ti-typography"></i> Typography</a>
+    <a class="sidebar-link" onclick="goTo('components',this)"><i class="ti ti-components"></i> Components</a>
+    <a class="sidebar-link" onclick="goTo('spacing',this)"><i class="ti ti-spacing-horizontal"></i> Spacing</a>
+    <a class="sidebar-link" onclick="goTo('screens',this)"><i class="ti ti-device-mobile"></i> Screens</a>
+    <a class="sidebar-link" onclick="goTo('motion',this)"><i class="ti ti-player-play"></i> Motion</a>
+  </nav>
+
+  <!-- ===== MAIN ===== -->
+  <main class="ds-main">
+
+    <!-- PAGE HEADER -->
+    <div style="margin-bottom:60px;">
+      <h1 style="font-size:38px;font-weight:800;letter-spacing:-0.03em;color:var(--text-primary);line-height:1.1;margin-bottom:10px;">TaxEase AI</h1>
+      <p style="font-size:15px;color:var(--text-tertiary);max-width:520px;line-height:1.7;margin-bottom:20px;">Product Requirements Document and Design System — Hackathon Build · India Market · May 2025</p>
+      <div class="flex gap-8 flex-wrap">
+        <span class="pill pill-orange">v1.2</span>
+        <span class="pill pill-teal">India · 82M taxpayers</span>
+        <span class="pill pill-neutral">Hackathon Build</span>
+      </div>
+    </div>
+
+    <!-- ==================== OVERVIEW ==================== -->
+    <section class="ds-section" id="overview">
+      <div class="ds-section-eyebrow">01 — Product</div>
+      <h2 class="ds-section-title">Overview</h2>
+      <p class="ds-section-desc">TaxEase AI is a conversational, 
+AI-powered tax filing platform designed to make India's tax system 
+accessible to every citizen — not just chartered accountants.</p>
+
+      <div class="info-card highlight">
+        <div class="info-card-title"><i class="ti ti-quote"></i> One-line pitch</div>
+        <p style="font-size:15px;font-weight:700;color:var(--text-primary);">"We
+ are building ChatGPT for taxes — an AI-powered platform that helps 
+ordinary people understand, file, and benefit from taxes in the simplest
+ way possible."</p>
+      </div>
+
+      <div class="ds-subsection-title">Problem Statement</div>
+      <p style="font-size:14px;color:var(--text-tertiary);line-height:1.7;margin-bottom:16px;">India
+ has ~82 million taxpayers, yet the majority find tax filing stressful, 
+confusing, and opaque. Current systems are built for chartered 
+accountants — not for a 22-year-old freelancer, a salaried employee, or a
+ gig worker.</p>
+
+      <div class="grid-2">
+        <div class="info-card">
+          <div class="info-card-title"><i class="ti ti-x"></i> What's broken today</div>
+          <ul style="padding-left:1.1rem;margin:0;">
+            <li style="font-size:13px;color:var(--text-tertiary);line-height:1.8;">Dense jargon (TDS, 80C, Form 16, ITR)</li>
+            <li style="font-size:13px;color:var(--text-tertiary);line-height:1.8;">Form-heavy, non-conversational UX</li>
+            <li style="font-size:13px;color:var(--text-tertiary);line-height:1.8;">Zero refund transparency</li>
+            <li style="font-size:13px;color:var(--text-tertiary);line-height:1.8;">No explanation of where taxes go</li>
+            <li style="font-size:13px;color:var(--text-tertiary);line-height:1.8;">High dependency on CAs for simple filings</li>
+          </ul>
+        </div>
+        <div class="info-card teal">
+          <div class="info-card-title"><i class="ti ti-check"></i> What we solve</div>
+          <ul style="padding-left:1.1rem;margin:0;">
+            <li style="font-size:13px;color:var(--text-tertiary);line-height:1.8;">Conversational AI guides every step</li>
+            <li style="font-size:13px;color:var(--text-tertiary);line-height:1.8;">Jargon explained in plain English/Hinglish</li>
+            <li style="font-size:13px;color:var(--text-tertiary);line-height:1.8;">Real-time refund tracking and marketplace</li>
+            <li style="font-size:13px;color:var(--text-tertiary);line-height:1.8;">Tax usage visualization builds trust</li>
+            <li style="font-size:13px;color:var(--text-tertiary);line-height:1.8;">Zero-to-filed in under 15 minutes</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="ds-subsection-title">Strategic Goals</div>
+      <div class="grid-3">
+        <div class="stat-card">
+          <div class="sc-label">Primary</div>
+          <div class="sc-value" style="font-size:17px;margin-top:4px;">Accessibility</div>
+          <div class="sc-desc">Make tax filing achievable for anyone with a smartphone</div>
+        </div>
+        <div class="stat-card">
+          <div class="sc-label">Secondary</div>
+          <div class="sc-value" style="font-size:17px;margin-top:4px;">Financial literacy</div>
+          <div class="sc-desc">Help users understand taxes, refunds, and deductions</div>
+        </div>
+        <div class="stat-card">
+          <div class="sc-label">Tertiary</div>
+          <div class="sc-value" style="font-size:17px;margin-top:4px;">Emotional trust</div>
+          <div class="sc-desc">Transform taxes from stress into a rewarding experience</div>
+        </div>
+      </div>
+
+      <div class="ds-subsection-title">Competitive Positioning</div>
+      <table class="data-table">
+        <thead><tr><th>Capability</th><th>ClearTax / TaxBuddy</th><th>TaxEase AI</th></tr></thead>
+        <tbody>
+          <tr><td>Conversational filing</td><td class="cross">✗ Form-heavy</td><td class="check">✓ AI chat-first</td></tr>
+          <tr><td>Plain language explanations</td><td class="cross">✗ Finance jargon</td><td class="check">✓ English / Hinglish</td></tr>
+          <tr><td>Refund marketplace</td><td class="cross">✗ None</td><td class="check">✓ Redeem refunds early</td></tr>
+          <tr><td>Tax usage visualization</td><td class="cross">✗ None</td><td class="check">✓ Where your money goes</td></tr>
+          <tr><td>Guided deduction discovery</td><td class="cross">✗ Manual lookup</td><td class="check">✓ AI-surfaced suggestions</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="ds-rule"></div>
+
+    <!-- ==================== USERS ==================== -->
+    <section class="ds-section" id="users">
+      <div class="ds-section-eyebrow">02 — Product</div>
+      <h2 class="ds-section-title">Target Users</h2>
+      <p class="ds-section-desc">Six primary segments, all India-first. Each has distinct pain points that TaxEase directly addresses.</p>
+
+      <div class="persona-card">
+        <div class="persona-header">
+          <div class="persona-avatar" style="background:#E6F1FB;color:#185FA5;">AR</div>
+          <div>
+            <div class="persona-name">Aarav, 23 — First-time filer</div>
+            <div class="persona-role">Just started job. Received Form 16. Has no idea what to do next.</div>
+          </div>
+        </div>
+        <div class="persona-body">
+          <div class="persona-row"><strong>Pain</strong><span>Overwhelmed by ITR forms. Doesn't know TDS vs income tax.</span></div>
+          <div class="persona-row"><strong>Goal</strong><span>File correctly without a CA. Get refund if applicable.</span></div>
+          <div class="persona-row"><strong>Features</strong><span>AI assistant, jargon simplifier, guided filing flow.</span></div>
+        </div>
+      </div>
+
+      <div class="persona-card">
+        <div class="persona-header">
+          <div class="persona-avatar" style="background:#E1F5EE;color:#0F6E56;">PM</div>
+          <div>
+            <div class="persona-name">Priya, 31 — Salaried employee</div>
+            <div class="persona-role">Files every year but never understands deductions or refunds.</div>
+          </div>
+        </div>
+        <div class="persona-body">
+          <div class="persona-row"><strong>Pain</strong><span>Pays full taxes without claiming eligible deductions (80C, 80D).</span></div>
+          <div class="persona-row"><strong>Goal</strong><span>Maximize refund. Understand what she's actually paying.</span></div>
+          <div class="persona-row"><strong>Features</strong><span>Tax dashboard, deduction finder, refund tracker.</span></div>
+        </div>
+      </div>
+
+      <div class="persona-card">
+        <div class="persona-header">
+          <div class="persona-avatar" style="background:#FAEEDA;color:#854F0B;">RK</div>
+          <div>
+            <div class="persona-name">Rahul, 27 — Freelancer</div>
+            <div class="persona-role">Multiple clients, inconsistent income, no employer TDS.</div>
+          </div>
+        </div>
+        <div class="persona-body">
+          <div class="persona-row"><strong>Pain</strong><span>Doesn't know which ITR form to file. Advance tax confusion.</span></div>
+          <div class="persona-row"><strong>Goal</strong><span>Stay compliant, reduce tax liability, track all income sources.</span></div>
+          <div class="persona-row"><strong>Features</strong><span>AI assistant, tax dashboard, advance tax calculator.</span></div>
+        </div>
+      </div>
+
+      <div class="persona-card">
+        <div class="persona-header">
+          <div class="persona-avatar" style="background:#FBEAF0;color:#993556;">SJ</div>
+          <div>
+            <div class="persona-name">Simran, 20 — Student / intern</div>
+            <div class="persona-role">Earned ₹2L from internship stipends. Confused if she needs to file.</div>
+          </div>
+        </div>
+        <div class="persona-body">
+          <div class="persona-row"><strong>Pain</strong><span>Doesn't know basic thresholds or if she's liable.</span></div>
+          <div class="persona-row"><strong>Goal</strong><span>Quick clarity on whether to file and how.</span></div>
+          <div class="persona-row"><strong>Features</strong><span>Eligibility checker, AI assistant, jargon simplifier.</span></div>
+        </div>
+      </div>
+
+      <div class="ds-subsection-title">User Journey — Happy Path</div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot"><i class="ti ti-door-enter"></i></div>
+          <div class="tl-label">Step 1 — Discovery</div>
+          <div class="tl-title">User lands on platform</div>
+          <div class="tl-desc">Sees clear value prop. One CTA: "File my taxes — it's free." No signup wall. Enters via AI chat directly.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"><i class="ti ti-message"></i></div>
+          <div class="tl-label">Step 2 — Onboarding</div>
+          <div class="tl-title">AI asks simple questions</div>
+          <div class="tl-desc">"Are you salaried or freelancing?" "Did you receive Form 16?" No forms. Just conversation.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"><i class="ti ti-chart-pie"></i></div>
+          <div class="tl-label">Step 3 — Dashboard</div>
+          <div class="tl-title">Tax snapshot appears</div>
+          <div class="tl-desc">Income, TDS paid, deductions found, refund estimate — all visualized in real time as answers come in.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"><i class="ti ti-gift"></i></div>
+          <div class="tl-label">Step 4 — WOW moment</div>
+          <div class="tl-title">Refund marketplace unlock</div>
+          <div class="tl-desc">User sees "You have ₹28,000 refund coming — want ₹24,000 in Amazon vouchers today?" Instant delight.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"><i class="ti ti-check"></i></div>
+          <div class="tl-label">Step 5 — Completion</div>
+          <div class="tl-title">Filing done, tax usage shown</div>
+          <div class="tl-desc">"Your ₹18,200 in taxes built 0.4m of 
+national highway, funded 12 school meals, and supported 2 hospital 
+beds." Emotional connection established.</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="ds-rule"></div>
+
+    <!-- ==================== FEATURES ==================== -->
+    <section class="ds-section" id="features">
+      <div class="ds-section-eyebrow">03 — Product</div>
+      <h2 class="ds-section-title">Core Features</h2>
+      <p class="ds-section-desc">Seven modules, each addressing a specific gap in today's tax filing experience. Priorities mapped to MoSCoW.</p>
+
+      <div class="feature-row">
+        <div class="icon-wrap"><i class="ti ti-message-chatbot"></i></div>
+        <div style="flex:1;">
+          <div class="f-title">AI Conversational Tax Assistant</div>
+          <div class="f-desc">Step-by-step guided filing via natural 
+language. Supports English and Hinglish. Understands context (salaried 
+vs freelancer), explains TDS, 80C, HRA, capital gains. Handles follow-up
+ questions. Uses Claude API with system prompt tuned for Indian tax 
+context. Falls back gracefully when uncertain.</div>
+        </div>
+        <span class="priority-tag p-must">Must have</span>
+      </div>
+
+      <div class="feature-row">
+        <div class="icon-wrap"><i class="ti ti-chart-pie"></i></div>
+        <div style="flex:1;">
+          <div class="f-title">Tax Visualization Dashboard</div>
+          <div class="f-desc">Real-time cards showing gross income, 
+total TDS deducted, eligible deductions, taxable income, net tax 
+payable, and expected refund. Donut chart for income breakdown. Progress
+ bar for refund status. Recharts-powered with animated transitions as 
+data updates from AI conversation.</div>
+        </div>
+        <span class="priority-tag p-must">Must have</span>
+      </div>
+
+      <div class="feature-row">
+        <div class="icon-wrap"><i class="ti ti-book"></i></div>
+        <div style="flex:1;">
+          <div class="f-title">Jargon Simplifier</div>
+          <div class="f-desc">Inline glossary triggered by underlined 
+terms. Tooltip explains: "TDS = Tax Deducted at Source. Think of it as 
+your employer paying your taxes in advance on your behalf." Covers 40+ 
+terms. AI-powered expansion for unlisted terms.</div>
+        </div>
+        <span class="priority-tag p-must">Must have</span>
+      </div>
+
+      <div class="feature-row">
+        <div class="icon-wrap"><i class="ti ti-clock-dollar"></i></div>
+        <div style="flex:1;">
+          <div class="f-title">Refund Tracker</div>
+          <div class="f-desc">Timeline view: Filed → Verified → 
+Processing → Refund Initiated → Credited. Estimated date shown. Push 
+notification simulation for demo. Connects to dashboard refund card. 
+Color-coded progress states.</div>
+        </div>
+        <span class="priority-tag p-must">Must have</span>
+      </div>
+
+      <div class="feature-row">
+        <div class="icon-wrap"><i class="ti ti-gift"></i></div>
+        <div style="flex:1;">
+          <div class="f-title">Refund Marketplace <span style="color:var(--accent-orange);">✦ WOW feature</span></div>
+          <div class="f-desc">Time Value of Money concept applied to tax
+ refunds. User with ₹30,000 expected refund can choose ₹25,000 
+Amazon/Flipkart/Swiggy vouchers today. Platform receives full refund 
+later. Shows conversion rate and instant vs. wait comparison. Framed as 
+demo concept for hackathon.</div>
+        </div>
+        <span class="priority-tag p-must">Must have</span>
+      </div>
+
+      <div class="feature-row">
+        <div class="icon-wrap"><i class="ti ti-map-2"></i></div>
+        <div style="flex:1;">
+          <div class="f-title">Tax Usage Visibility Map</div>
+          <div class="f-desc">After filing, animated breakdown of where 
+user's tax rupees go: Roads (12%), Railways (8%), Healthcare (15%), 
+Education (18%), Defence (13%), Digital India (6%), Other (28%). 
+Personalized: "Your ₹22,000 funded 3 months of a government school 
+teacher's salary." Drives emotional connection.</div>
+        </div>
+        <span class="priority-tag p-should">Should have</span>
+      </div>
+
+      <div class="feature-row">
+        <div class="icon-wrap"><i class="ti ti-route"></i></div>
+        <div style="flex:1;">
+          <div class="f-title">Guided Tax Filing Flow</div>
+          <div class="f-desc">For users who prefer structured flow over 
+chat: step-by-step wizard with progress indicator. Segments: Personal 
+Info → Income Sources → Deductions → Review → File. Each screen has AI 
+helper button. Pre-fills from chat context if available.</div>
+        </div>
+        <span class="priority-tag p-could">Could have</span>
+      </div>
+    </section>
+
+    <div class="ds-rule"></div>
+
+    <!-- ==================== MVP ==================== -->
+    <section class="ds-section" id="mvp">
+      <div class="ds-section-eyebrow">04 — Product</div>
+      <h2 class="ds-section-title">MVP Scope</h2>
+      <p class="ds-section-desc">Hackathon build — ~48 hours. Judges evaluate on innovation, usability, and wow factor.</p>
+
+      <div class="alert alert-info" style="margin-bottom:20px;">
+        <i class="ti ti-bulb alert-icon"></i>
+        <div class="alert-content">
+          <div class="alert-title">Hackathon strategy</div>
+          <div class="alert-body">Prioritize a polished, animated, 
+emotionally resonant demo over backend accuracy. Every screen should be 
+demo-ready and tell a story.</div>
+        </div>
+      </div>
+
+      <div class="ds-subsection-title">Must Have — Demo Blockers</div>
+      <table class="data-table">
+        <thead><tr><th>Page / Feature</th><th>Purpose</th><th>Key screens</th></tr></thead>
+        <tbody>
+          <tr><td>Landing page</td><td>Storytelling + first impression</td><td>Hero, value props, CTA</td></tr>
+          <tr><td>AI Chat Interface</td><td>Core filing experience</td><td>Chat UI, typing indicators, jargon tooltips</td></tr>
+          <tr><td>Tax Dashboard</td><td>Data visualization + refund view</td><td>4 stat cards, donut chart, refund bar</td></tr>
+          <tr><td>Refund Marketplace</td><td>WOW moment / differentiator</td><td>Offer cards, conversion rate, redeem CTA</td></tr>
+          <tr><td>Refund Tracker</td><td>Post-filing transparency</td><td>Status timeline, estimated date</td></tr>
+        </tbody>
+      </table>
+
+      <div class="ds-subsection-title">Should Have — Enhances Demo Quality</div>
+      <table class="data-table">
+        <thead><tr><th>Feature</th><th>Impact</th></tr></thead>
+        <tbody>
+          <tr><td>Tax Usage Visibility Map</td><td>Emotional resonance, highly visual, memorable</td></tr>
+          <tr><td>Jargon simplifier glossary</td><td>Shows depth of product thinking</td></tr>
+          <tr><td>Framer Motion animations</td><td>Premium feel, smooth transitions</td></tr>
+          <tr><td>Mobile responsive layout</td><td>Judges may demo on phone</td></tr>
+        </tbody>
+      </table>
+
+      <div class="ds-subsection-title">Out of Scope — Post-Hackathon</div>
+      <ul style="padding-left:1.2rem;">
+        <li style="font-size:13px;color:var(--text-tertiary);line-height:2;">Real ITR submission via IT Department API</li>
+        <li style="font-size:13px;color:var(--text-tertiary);line-height:2;">Authentication and user accounts</li>
+        <li style="font-size:13px;color:var(--text-tertiary);line-height:2;">CA integration / expert review</li>
+        <li style="font-size:13px;color:var(--text-tertiary);line-height:2;">Form 26AS / AIS auto-import</li>
+        <li style="font-size:13px;color:var(--text-tertiary);line-height:2;">Advance tax calculation engine</li>
+        <li style="font-size:13px;color:var(--text-tertiary);line-height:2;">Multi-language UI (beyond Hinglish in chat)</li>
+      </ul>
+
+      <div class="ds-subsection-title">Demo Flow — 3-Minute Pitch</div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot"><i class="ti ti-home"></i></div>
+          <div class="tl-label">0:00 — 0:30</div>
+          <div class="tl-title">Landing page</div>
+          <div class="tl-desc">Problem statement animation. "82 million taxpayers. Zero who enjoy it." CTA to start filing.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"><i class="ti ti-message"></i></div>
+          <div class="tl-label">0:30 — 1:30</div>
+          <div class="tl-title">AI chat demo</div>
+          <div class="tl-desc">Pre-scripted demo conversation. AI asks 
+about income, TDS, deductions. Jargon tooltip shown on "TDS". Dashboard 
+updates live in split-screen.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"><i class="ti ti-gift"></i></div>
+          <div class="tl-label">1:30 — 2:00</div>
+          <div class="tl-title">Refund marketplace wow moment</div>
+          <div class="tl-desc">Show ₹28,000 refund offer. User chooses ₹24,000 Amazon vouchers today. Confetti animation on redeem.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"><i class="ti ti-map-2"></i></div>
+          <div class="tl-label">2:00 — 2:30</div>
+          <div class="tl-title">Tax usage visualization</div>
+          <div class="tl-desc">Animated breakdown of where taxes went. Personalized message. Emotional close.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"><i class="ti ti-star"></i></div>
+          <div class="tl-label">2:30 — 3:00</div>
+          <div class="tl-title">Pitch summary</div>
+          <div class="tl-desc">"People don't hate taxes because of money. They hate taxes because nobody explains them simply."</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="ds-rule"></div>
+
+    <!-- ==================== TECH ==================== -->
+    <section class="ds-section" id="tech">
+      <div class="ds-section-eyebrow">05 — Product</div>
+      <h2 class="ds-section-title">Tech Stack</h2>
+      <p class="ds-section-desc">Frontend-first build. Deployed on Vercel. AI-powered via Claude API with streaming responses.</p>
+
+      <div class="ds-subsection-title">Frontend</div>
+      <div style="margin-bottom:16px;">
+        <span class="tech-badge"><i class="ti ti-brand-nextjs"></i> Next.js 14</span>
+        <span class="tech-badge"><i class="ti ti-brand-tailwind"></i> TailwindCSS v3</span>
+        <span class="tech-badge">Framer Motion 11</span>
+        <span class="tech-badge">TypeScript</span>
+        <span class="tech-badge">Recharts</span>
+        <span class="tech-badge">shadcn/ui</span>
+      </div>
+
+      <div class="ds-subsection-title">AI Layer</div>
+      <div style="margin-bottom:16px;">
+        <span class="tech-badge">Claude API (claude-sonnet-4-6)</span>
+        <span class="tech-badge">Vercel AI SDK</span>
+        <span class="tech-badge">Streaming UI</span>
+        <span class="tech-badge">Indian tax system prompt</span>
+      </div>
+
+      <div class="ds-subsection-title">Infrastructure</div>
+      <div style="margin-bottom:16px;">
+        <span class="tech-badge"><i class="ti ti-brand-vercel"></i> Vercel</span>
+        <span class="tech-badge">Edge functions</span>
+        <span class="tech-badge">Next.js API Routes</span>
+      </div>
+
+      <div class="ds-subsection-title">System Prompt Design</div>
+      <div style="background:var(--bg-subtle);border:1px solid var(--border-default);border-radius:var(--radius-md);padding:16px;font-family:monospace;font-size:12px;line-height:1.8;color:var(--text-tertiary);white-space:pre-wrap;">You are TaxEase, a friendly Indian tax assistant.
+Speak in simple English or Hinglish. Never use jargon
+without explaining it immediately after.
+
+Current context: {userProfile}
+Filing year: AY 2024-25
+
+Rules:
+- Ask one question at a time
+- Celebrate small wins ("Great, that's the hardest part!")
+- Surface deductions the user may have missed
+- Always show empathy first, then information
+- When uncertain, say so and suggest consulting a CA</div>
+
+      <div class="ds-subsection-title">Data Architecture (Demo)</div>
+      <table class="data-table">
+        <thead><tr><th>Entity</th><th>Storage</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>User tax profile</td><td>localStorage / React state</td><td>No login required for demo</td></tr>
+          <tr><td>Chat history</td><td>React state array</td><td>Passed as context to each API call</td></tr>
+          <tr><td>Dashboard values</td><td>Derived from chat context</td><td>AI extracts structured JSON from responses</td></tr>
+          <tr><td>Jargon terms</td><td>Static JSON (40+ terms)</td><td>Fuzzy search with Fuse.js</td></tr>
+          <tr><td>Marketplace offers</td><td>Static demo data</td><td>Simulated redemption flow</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="ds-rule"></div>
+
+    <!-- ==================== METRICS ==================== -->
+    <section class="ds-section" id="metrics">
+      <div class="ds-section-eyebrow">06 — Product</div>
+      <h2 class="ds-section-title">KPIs &amp; Success Criteria</h2>
+      <p class="ds-section-desc">Post-launch targets over a 3-month horizon. Hackathon judging criteria mapped below.</p>
+
+      <div class="grid-3">
+        <div class="stat-card">
+          <div class="sc-label">Completion rate</div>
+          <div class="sc-value">60%</div>
+          <div class="sc-desc">Users who start chat and complete the filing flow</div>
+        </div>
+        <div class="stat-card">
+          <div class="sc-label">Time to file</div>
+          <div class="sc-value">&lt;15 min</div>
+          <div class="sc-desc">Median time from first message to review screen</div>
+        </div>
+        <div class="stat-card">
+          <div class="sc-label">NPS score</div>
+          <div class="sc-value">50+</div>
+          <div class="sc-desc">Net Promoter Score target (vs ~20 for incumbents)</div>
+        </div>
+      </div>
+      <div class="grid-3" style="margin-top:0;">
+        <div class="stat-card">
+          <div class="sc-label">Marketplace conversion</div>
+          <div class="sc-value">25%</div>
+          <div class="sc-desc">Eligible users who redeem refund offers</div>
+        </div>
+        <div class="stat-card">
+          <div class="sc-label">Jargon engagement</div>
+          <div class="sc-value">3+</div>
+          <div class="sc-desc">Avg tooltip opens per session (engagement proxy)</div>
+        </div>
+        <div class="stat-card">
+          <div class="sc-label">Return rate</div>
+          <div class="sc-value">40%</div>
+          <div class="sc-desc">Users who return to check refund tracker</div>
+        </div>
+      </div>
+
+      <div class="ds-subsection-title">Hackathon Judging Criteria</div>
+      <table class="data-table">
+        <thead><tr><th>Criterion</th><th>Our approach</th><th>Confidence</th></tr></thead>
+        <tbody>
+          <tr><td>Innovation / novelty</td><td>Refund marketplace (TVM concept), tax usage viz</td><td class="check">High ✓</td></tr>
+          <tr><td>Usability / UX</td><td>Conversational AI, zero jargon, animated dashboard</td><td class="check">High ✓</td></tr>
+          <tr><td>Technical execution</td><td>Streaming AI, live dashboard updates, Framer Motion</td><td class="check">High ✓</td></tr>
+          <tr><td>Market impact</td><td>82M underserved taxpayers, India-specific context</td><td class="check">High ✓</td></tr>
+          <tr><td>Demo quality</td><td>Scripted flow, confetti moments, storytelling landing</td><td class="check">High ✓</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="ds-rule"></div>
+
+    <!-- ==================== COLORS ==================== -->
+    <section class="ds-section" id="colors">
+      <div class="ds-section-eyebrow">07 — Design</div>
+      <h2 class="ds-section-title">Color System</h2>
+      <p class="ds-section-desc">TaxEase uses a warm orange/teal brand 
+palette with full light, dark, and reading mode support. All colors are 
+CSS custom properties.</p>
+
+      <div class="ds-subsection-title">Brand Palette</div>
+      <div class="token-grid">
+        <div class="token-card"><div class="token-swatch" style="background:#E8521A;"></div><div class="token-info"><div class="token-name">Flame Orange</div><div class="token-value">#E8521A</div></div></div>
+        <div class="token-card"><div class="token-swatch" style="background:#F4845A;"></div><div class="token-info"><div class="token-name">Coral Mid</div><div class="token-value">#F4845A</div></div></div>
+        <div class="token-card"><div class="token-swatch" style="background:#C94211;"></div><div class="token-info"><div class="token-name">Orange Dark</div><div class="token-value">#C94211</div></div></div>
+        <div class="token-card"><div class="token-swatch" style="background:#FFF0EA;border-bottom:1px solid var(--border-default);"></div><div class="token-info"><div class="token-name">Orange Light</div><div class="token-value">#FFF0EA</div></div></div>
+        <div class="token-card"><div class="token-swatch" style="background:#0F6E56;"></div><div class="token-info"><div class="token-name">Teal</div><div class="token-value">#0F6E56</div></div></div>
+        <div class="token-card"><div class="token-swatch" style="background:#1D9E75;"></div><div class="token-info"><div class="token-name">Teal Mid</div><div class="token-value">#1D9E75</div></div></div>
+        <div class="token-card"><div class="token-swatch" style="background:#E1F5EE;border-bottom:1px solid var(--border-default);"></div><div class="token-info"><div class="token-name">Teal Light</div><div class="token-value">#E1F5EE</div></div></div>
+      </div>
+
+      <div class="ds-subsection-title">Semantic Status Colors</div>
+      <div class="token-grid">
+        <div class="token-card"><div class="token-swatch" style="background:var(--status-success);"></div><div class="token-info"><div class="token-name">Success</div><div class="token-value">Positive states</div></div></div>
+        <div class="token-card"><div class="token-swatch" style="background:var(--status-success-bg);border-bottom:1px solid var(--border-default);"></div><div class="token-info"><div class="token-name">Success BG</div><div class="token-value">Success fills</div></div></div>
+        <div class="token-card"><div class="token-swatch" style="background:var(--status-warning);"></div><div class="token-info"><div class="token-name">Warning</div><div class="token-value">Caution states</div></div></div>
+        <div class="token-card"><div class="token-swatch" style="background:var(--status-error);"></div><div class="token-info"><div class="token-name">Error</div><div class="token-value">Error states</div></div></div>
+        <div class="token-card"><div class="token-swatch" style="background:var(--status-info);"></div><div class="token-info"><div class="token-name">Info</div><div class="token-value">Info states</div></div></div>
+        <div class="token-card"><div class="token-swatch" style="background:var(--text-primary);"></div><div class="token-info"><div class="token-name">Text Primary</div><div class="token-value">Main content</div></div></div>
+        <div class="token-card"><div class="token-swatch" style="background:var(--text-tertiary);"></div><div class="token-info"><div class="token-name">Text Tertiary</div><div class="token-value">Meta, hints</div></div></div>
+        <div class="token-card"><div class="token-swatch" style="background:var(--bg-subtle);border-bottom:1px solid var(--border-default);"></div><div class="token-info"><div class="token-name">bg-subtle</div><div class="token-value">Hover fills</div></div></div>
+      </div>
+    </section>
+
+    <div class="ds-rule"></div>
+
+    <!-- ==================== TYPOGRAPHY ==================== -->
+    <section class="ds-section" id="typography">
+      <div class="ds-section-eyebrow">08 — Design</div>
+      <h2 class="ds-section-title">Typography</h2>
+      <p class="ds-section-desc">All type is set in Manrope. The scale is built for clear hierarchy and dense financial information without visual noise.</p>
+
+      <table class="type-table">
+        <tbody><tr>
+          <td class="type-preview-cell"><span style="font-size:36px;font-weight:800;letter-spacing:-0.03em;color:var(--text-primary);line-height:1.1;">File taxes. Fear nothing.</span></td>
+          <td class="type-meta-cell"><span class="type-meta-label">Size</span><span class="type-meta-val">36px</span></td>
+          <td class="type-meta-cell"><span class="type-meta-label">Weight</span><span class="type-meta-val">800</span></td>
+        </tr>
+        <tr>
+          <td><span style="font-size:26px;font-weight:700;letter-spacing:-0.025em;color:var(--text-primary);">Your tax summary</span></td>
+          <td class="type-meta-cell"><span class="type-meta-label">Size</span><span class="type-meta-val">26px</span></td>
+          <td class="type-meta-cell"><span class="type-meta-label">Weight</span><span class="type-meta-val">700</span></td>
+        </tr>
+        <tr>
+          <td><span style="font-size:18px;font-weight:700;color:var(--text-primary);">Income breakdown</span></td>
+          <td class="type-meta-cell"><span class="type-meta-label">Size</span><span class="type-meta-val">18px</span></td>
+          <td class="type-meta-cell"><span class="type-meta-label">Weight</span><span class="type-meta-val">700</span></td>
+        </tr>
+        <tr>
+          <td><span style="font-size:15px;font-weight:600;color:var(--text-primary);">Deductions found</span></td>
+          <td class="type-meta-cell"><span class="type-meta-label">Size</span><span class="type-meta-val">15px</span></td>
+          <td class="type-meta-cell"><span class="type-meta-label">Weight</span><span class="type-meta-val">600</span></td>
+        </tr>
+        <tr>
+          <td><span style="font-size:14px;color:var(--text-tertiary);line-height:1.65;">Your employer deducted ₹18,200 as TDS. That's Tax Deducted at Source — money paid to the government on your behalf.</span></td>
+          <td class="type-meta-cell"><span class="type-meta-label">Size</span><span class="type-meta-val">14px</span></td>
+          <td class="type-meta-cell"><span class="type-meta-label">Weight</span><span class="type-meta-val">400</span></td>
+        </tr>
+        <tr>
+          <td><span style="font-size:12px;color:var(--text-tertiary);">Updated 2 mins ago · AY 2024-25</span></td>
+          <td class="type-meta-cell"><span class="type-meta-label">Size</span><span class="type-meta-val">12px</span></td>
+          <td class="type-meta-cell"><span class="type-meta-label">Weight</span><span class="type-meta-val">400</span></td>
+        </tr>
+        <tr>
+          <td><span style="font-size:10px;font-weight:700;color:var(--text-disabled);text-transform:uppercase;letter-spacing:0.1em;">Total Refund</span></td>
+          <td class="type-meta-cell"><span class="type-meta-label">Size</span><span class="type-meta-val">10px</span></td>
+          <td class="type-meta-cell"><span class="type-meta-label">Weight</span><span class="type-meta-val">700 UP</span></td>
+        </tr>
+      </tbody></table>
+
+      <div class="ds-subsection-title">Number Display (Dashboard)</div>
+      <div style="background:var(--bg-surface-1);border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:20px;display:flex;gap:2rem;flex-wrap:wrap;box-shadow:var(--shadow-sm);">
+        <div>
+          <div style="font-size:10px;font-weight:700;color:var(--text-disabled);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px;">Refund expected</div>
+          <div style="font-size:32px;font-weight:800;color:var(--text-primary);letter-spacing:-0.03em;">₹28,450</div>
+        </div>
+        <div>
+          <div style="font-size:10px;font-weight:700;color:var(--text-disabled);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px;">TDS paid</div>
+          <div style="font-size:32px;font-weight:800;color:var(--accent-teal);letter-spacing:-0.03em;">₹42,000</div>
+        </div>
+        <div>
+          <div style="font-size:10px;font-weight:700;color:var(--text-disabled);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px;">Tax liability</div>
+          <div style="font-size:32px;font-weight:800;color:var(--accent-orange);letter-spacing:-0.03em;">₹13,550</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="ds-rule"></div>
+
+    <!-- ==================== COMPONENTS ==================== -->
+    <section class="ds-section" id="components">
+      <div class="ds-section-eyebrow">09 — Design</div>
+      <h2 class="ds-section-title">UI Components</h2>
+      <p class="ds-section-desc">Live component demos across all key patterns. All components respond to the active theme mode.</p>
+
+      <div class="ds-subsection-title">Buttons</div>
+      <div class="btn-block">
+        <div class="btn-block-label">Primary actions</div>
+        <div class="btn-group">
+          <button class="btn btn-primary btn-lg"><i class="ti ti-check"></i> File my taxes</button>
+          <button class="btn btn-primary btn-md"><i class="ti ti-chart-bar"></i> View dashboard</button>
+          <button class="btn btn-primary btn-sm">Get started</button>
+        </div>
+      </div>
+      <div class="btn-block">
+        <div class="btn-block-label">Secondary &amp; ghost</div>
+        <div class="btn-group">
+          <button class="btn btn-secondary btn-md"><i class="ti ti-download"></i> Download PDF</button>
+          <button class="btn btn-ghost btn-md"><i class="ti ti-gift"></i> Redeem refund</button>
+          <button class="btn btn-teal btn-md"><i class="ti ti-shield-check"></i> File safely</button>
+          <button class="btn btn-secondary btn-md" disabled="disabled">Disabled</button>
+        </div>
+      </div>
+
+      <div class="ds-subsection-title">Status Pills</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;padding:18px;background:var(--bg-surface-1);border:1px solid var(--border-default);border-radius:var(--radius-lg);">
+        <span class="pill pill-success"><span class="pill-dot"></span> Refund approved</span>
+        <span class="pill pill-warning"><span class="pill-dot"></span> Processing</span>
+        <span class="pill pill-error"><span class="pill-dot"></span> Action needed</span>
+        <span class="pill pill-info"><span class="pill-dot"></span> Filed</span>
+        <span class="pill pill-orange">Must have</span>
+        <span class="pill pill-teal">Should have</span>
+        <span class="pill pill-neutral">Draft</span>
+      </div>
+
+      <div class="ds-subsection-title">Alerts</div>
+      <div class="alert alert-success">
+        <i class="ti ti-circle-check alert-icon"></i>
+        <div class="alert-content">
+          <div class="alert-title">Refund initiated</div>
+          <div class="alert-body">Your ₹28,450 refund has been processed and will credit in 3–5 business days.</div>
+        </div>
+      </div>
+      <div class="alert alert-warning">
+        <i class="ti ti-alert-triangle alert-icon"></i>
+        <div class="alert-content">
+          <div class="alert-title">Document required</div>
+          <div class="alert-body">Please upload your Form 16 to complete the income verification step.</div>
+        </div>
+      </div>
+      <div class="alert alert-error">
+        <i class="ti ti-circle-x alert-icon"></i>
+        <div class="alert-content">
+          <div class="alert-title">AIS mismatch detected</div>
+          <div class="alert-body">Income reported in AIS (₹9,20,000) differs from what you entered (₹8,40,000). Please reconcile.</div>
+        </div>
+      </div>
+
+      <div class="ds-subsection-title">Progress Bars</div>
+      <div style="background:var(--bg-surface-1);border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:20px;box-shadow:var(--shadow-sm);">
+        <div class="progress-wrap">
+          <div class="progress-header">
+            <span class="progress-label">Filing progress</span>
+            <span class="progress-val">60%</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" style="width:60%;"></div></div>
+        </div>
+        <div class="progress-wrap" style="margin-top:14px;">
+          <div class="progress-header">
+            <span class="progress-label">Refund status</span>
+            <span class="progress-val">Processing</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill fill-teal" style="width:45%;"></div></div>
+        </div>
+        <div class="progress-wrap" style="margin-top:14px;">
+          <div class="progress-header">
+            <span class="progress-label">Deductions claimed</span>
+            <span class="progress-val">₹1,50,000 / ₹1,50,000</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill fill-success" style="width:100%;"></div></div>
+        </div>
+      </div>
+
+      <div class="ds-subsection-title">Tax Dashboard Cards</div>
+      <div class="grid-2">
+        <div class="stat-card">
+          <div class="sc-label">Gross income</div>
+          <div class="sc-value">₹8,40,000</div>
+          <div class="sc-desc">FY 2023-24</div>
+        </div>
+        <div class="stat-card">
+          <div class="sc-label">TDS deducted</div>
+          <div class="sc-value" style="color:var(--accent-teal);">₹42,000</div>
+          <div class="sc-desc">By employer</div>
+        </div>
+        <div class="stat-card">
+          <div class="sc-label">Deductions found</div>
+          <div class="sc-value" style="color:var(--status-info);">₹1,50,000</div>
+          <div class="sc-desc">80C + 80D claimed</div>
+        </div>
+        <div class="stat-card">
+          <div class="sc-label">Refund expected</div>
+          <div class="sc-value" style="color:var(--accent-orange);">₹28,450</div>
+          <div class="sc-desc">In ~45 days</div>
+        </div>
+      </div>
+
+      <div class="ds-subsection-title">Refund Card</div>
+      <div style="max-width:300px;">
+        <div class="refund-card">
+          <div class="rc-label">Expected refund</div>
+          <div class="rc-amount">₹28,450</div>
+          <div class="rc-sub">Estimated by March 15, 2025</div>
+        </div>
+      </div>
+
+      <div class="ds-subsection-title">Input Fields</div>
+      <div style="background:var(--bg-surface-1);border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:20px;box-shadow:var(--shadow-sm);">
+        <div class="input-wrap" style="max-width:360px;">
+          <label class="input-label">Annual income</label>
+          <div style="display:flex;gap:8px;">
+            <input class="input" placeholder="e.g. 8,40,000" style="flex:1;">
+            <button class="btn btn-primary btn-md" style="flex-shrink:0;">Next →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-subsection-title">Skeleton Loading</div>
+      <div style="background:var(--bg-surface-1);border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:20px;box-shadow:var(--shadow-sm);">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="pulse-dot"></div>
+          <div style="flex:1;">
+            <div class="skeleton skel-line" style="width:65%;"></div>
+            <div class="skeleton skel-line" style="width:42%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-subsection-title">Tooltip</div>
+      <div style="padding:20px;background:var(--bg-surface-1);border:1px solid var(--border-default);border-radius:var(--radius-lg);display:flex;gap:16px;align-items:center;">
+        <p style="font-size:14px;color:var(--text-tertiary);">Your employer deducted <span class="tooltip-wrap" style="display:inline-flex;"><u style="color:var(--status-info);cursor:help;text-decoration-style:dotted;">TDS</u><span class="tooltip-box">Tax Deducted at Source — employer pays taxes on your behalf</span></span> of ₹18,200 this year.</p>
+      </div>
+    </section>
+
+    <div class="ds-rule"></div>
+
+    <!-- ==================== SPACING ==================== -->
+    <section class="ds-section" id="spacing">
+      <div class="ds-section-eyebrow">10 — Design</div>
+      <h2 class="ds-section-title">Spacing System</h2>
+      <p class="ds-section-desc">4px base unit. All spacing values are multiples of 4. Consistent across all components.</p>
+
+      <div class="spacing-row"><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:4px;"></div></div><div class="spacing-size">4px</div><div class="spacing-desc">xs — micro gaps, icon padding</div></div>
+      <div class="spacing-row"><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:8px;"></div></div><div class="spacing-size">8px</div><div class="spacing-desc">sm — inline element gaps</div></div>
+      <div class="spacing-row"><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:12px;"></div></div><div class="spacing-size">12px</div><div class="spacing-desc">md — card grid gaps, list item gaps</div></div>
+      <div class="spacing-row"><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:16px;"></div></div><div class="spacing-size">16px</div><div class="spacing-desc">lg — component padding, section gaps</div></div>
+      <div class="spacing-row"><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:24px;"></div></div><div class="spacing-size">24px</div><div class="spacing-desc">xl — card padding, section tops</div></div>
+      <div class="spacing-row"><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:32px;"></div></div><div class="spacing-size">32px</div><div class="spacing-desc">2xl — page section spacing</div></div>
+      <div class="spacing-row"><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:48px;"></div></div><div class="spacing-size">48px</div><div class="spacing-desc">3xl — hero sections, major divisions</div></div>
+      <div class="spacing-row"><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:64px;"></div></div><div class="spacing-size">64px</div><div class="spacing-desc">4xl — full-section vertical padding</div></div>
+
+      <div class="ds-subsection-title">Border Radius</div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:4px;">
+        <div style="background:var(--accent-orange-subtle);border:1px solid #F4845A;width:60px;height:60px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--accent-orange);font-weight:700;text-align:center;line-height:1.4;">6px<br>sm</div>
+        <div style="background:var(--accent-orange-subtle);border:1px solid #F4845A;width:60px;height:60px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--accent-orange);font-weight:700;text-align:center;line-height:1.4;">10px<br>md</div>
+        <div style="background:var(--accent-orange-subtle);border:1px solid #F4845A;width:60px;height:60px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--accent-orange);font-weight:700;text-align:center;line-height:1.4;">16px<br>lg</div>
+        <div style="background:var(--accent-orange-subtle);border:1px solid #F4845A;width:60px;height:60px;border-radius:24px;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--accent-orange);font-weight:700;text-align:center;line-height:1.4;">24px<br>xl</div>
+        <div style="background:var(--accent-orange-subtle);border:1px solid #F4845A;width:60px;height:60px;border-radius:9999px;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--accent-orange);font-weight:700;text-align:center;line-height:1.4;">∞<br>pill</div>
+      </div>
+    </section>
+
+    <div class="ds-rule"></div>
+
+    <!-- ==================== SCREENS ==================== -->
+    <section class="ds-section" id="screens">
+      <div class="ds-section-eyebrow">11 — Design</div>
+      <h2 class="ds-section-title">Key Screen Wireframes</h2>
+      <p class="ds-section-desc">Interactive previews of the two most critical screens — AI chat interface and refund marketplace.</p>
+
+      <div class="ds-subsection-title">AI Chat Interface</div>
+      <div class="screen-frame">
+        <div class="screen-topbar">
+          <i class="ti ti-message-chatbot"></i>
+          TaxEase AI
+          <span style="margin-left:auto;display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:var(--text-tertiary);">
+            <span class="pulse-dot"></span> Online
+          </span>
+        </div>
+        <div class="screen-body" style="min-height:220px;">
+          <div style="margin-bottom:4px;"><span class="chat-meta">TaxEase</span></div>
+          <div class="chat-bubble bubble-ai">Namaste! 👋 I'm TaxEase. Let's file your taxes together — no jargon, no stress. Are you a salaried employee or a freelancer?</div>
+          <div style="text-align:right;margin-bottom:4px;"><span class="chat-meta">You</span></div>
+          <div class="chat-bubble bubble-user">I'm salaried. I got a Form 16 from my employer.</div>
+          <div style="margin-bottom:4px;"><span class="chat-meta">TaxEase</span></div>
+          <div class="chat-bubble bubble-ai">Perfect! Form 16 is your tax certificate from your employer — it shows how much you earned and how much <span class="tooltip-wrap" style="display:inline-flex;"><u style="cursor:help;text-decoration-style:dotted;color:var(--status-info);">TDS</u><span class="tooltip-box">Tax Deducted at Source — your employer pays taxes on your behalf</span></span> was already paid. What was your gross annual salary?</div>
+          <div style="display:flex;gap:8px;margin-top:16px;">
+            <input class="input" placeholder="Type your reply..." style="flex:1;">
+            <button class="btn btn-primary btn-md" style="flex-shrink:0;padding:10px 14px;"><i class="ti ti-send"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-subsection-title">Refund Marketplace</div>
+      <div class="screen-frame">
+        <div class="screen-topbar"><i class="ti ti-gift"></i> Refund marketplace</div>
+        <div class="screen-body">
+          <div class="refund-card">
+            <div class="rc-label">Your refund</div>
+            <div class="rc-amount">₹28,450</div>
+            <div class="rc-sub">Expected in ~45 days after filing</div>
+          </div>
+          <p style="font-size:13px;color:var(--text-tertiary);margin:16px 0 10px;font-weight:600;">Get instant value now instead of waiting:</p>
+          <div style="border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:16px;display:flex;align-items:center;gap:12px;background:var(--bg-surface-1);margin-bottom:8px;box-shadow:var(--shadow-sm);">
+            <div style="width:42px;height:42px;background:#FF9900;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="ti ti-shopping-bag" style="color:#fff;font-size:20px;"></i></div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:700;color:var(--text-primary);">Amazon voucher</div>
+              <div style="font-size:12px;color:var(--text-tertiary);">Get ₹24,000 today · instant delivery</div>
+            </div>
+            <button class="btn btn-primary btn-sm">Redeem</button>
+          </div>
+          <div style="border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:16px;display:flex;align-items:center;gap:12px;background:var(--bg-surface-1);box-shadow:var(--shadow-sm);">
+            <div style="width:42px;height:42px;background:#F26522;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="ti ti-motorbike" style="color:#fff;font-size:20px;"></i></div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:700;color:var(--text-primary);">Swiggy credits</div>
+              <div style="font-size:12px;color:var(--text-tertiary);">Get ₹23,500 today · instant delivery</div>
+            </div>
+            <button class="btn btn-ghost btn-sm">Redeem</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="ds-rule"></div>
+
+    <!-- ==================== MOTION ==================== -->
+    <section class="ds-section" id="motion">
+      <div class="ds-section-eyebrow">12 — Design</div>
+      <h2 class="ds-section-title">Motion Guidelines</h2>
+      <p class="ds-section-desc">Animations should feel purposeful and 
+joyful — never flashy. Every animation should guide attention, provide 
+feedback, or celebrate a user action.</p>
+
+      <div class="alert alert-info">
+        <i class="ti ti-info-circle alert-icon"></i>
+        <div class="alert-content">
+          <div class="alert-title">Motion philosophy</div>
+          <div class="alert-body">Use Framer Motion in production React 
+components. CSS transitions for micro-interactions in static HTML. 
+Prefer spring curves for delight moments, ease-in-out for navigation.</div>
+        </div>
+      </div>
+
+      <div class="ds-subsection-title">Interactive Demo — Hover the card</div>
+      <div style="margin:16px 0;">
+        <div class="motion-demo" title="Hover me"><i class="ti ti-coin"></i></div>
+        <p style="font-size:12px;color:var(--text-tertiary);margin-top:10px;">Spring bounce on hover · cubic-bezier(0.34, 1.56, 0.64, 1) · 200ms</p>
+      </div>
+
+      <div class="ds-subsection-title">Timing Tokens</div>
+      <table class="data-table">
+        <thead><tr><th>Token</th><th>Duration</th><th>Easing</th><th>Use case</th></tr></thead>
+        <tbody>
+          <tr><td>instant</td><td>0ms</td><td>—</td><td>State toggles (show/hide)</td></tr>
+          <tr><td>fast</td><td>100ms</td><td>ease-out</td><td>Button hover, focus rings</td></tr>
+          <tr><td>base</td><td>200ms</td><td>ease-in-out</td><td>Card transitions, tooltips</td></tr>
+          <tr><td>smooth</td><td>300ms</td><td>ease-in-out</td><td>Page transitions, modals</td></tr>
+          <tr><td>spring</td><td>400ms</td><td>cubic-bezier(0.34, 1.56, 0.64, 1)</td><td>Success states, icon bounce</td></tr>
+          <tr><td>slow</td><td>600ms</td><td>ease-in-out</td><td>Dashboard number countup</td></tr>
+          <tr><td>celebration</td><td>1000ms</td><td>ease-out</td><td>Confetti, refund redeem</td></tr>
+        </tbody>
+      </table>
+
+      <div class="ds-subsection-title">Key Animated Moments</div>
+      <div class="feature-row">
+        <div class="icon-wrap"><i class="ti ti-chart-pie"></i></div>
+        <div>
+          <div class="f-title">Dashboard number countup</div>
+          <div class="f-desc">When AI extracts income/TDS from chat, 
+dashboard cards animate 0 → final value over 800ms with ease-out. 
+Confirms data was captured and creates delight.</div>
+        </div>
+      </div>
+      <div class="feature-row">
+        <div class="icon-wrap"><i class="ti ti-confetti"></i></div>
+        <div>
+          <div class="f-title">Refund redemption confetti</div>
+          <div class="f-desc">On clicking "Redeem", canvas-confetti fires in brand orange and teal. Card flips to show voucher code. Duration: 1200ms.</div>
+        </div>
+      </div>
+      <div class="feature-row">
+        <div class="icon-wrap"><i class="ti ti-message"></i></div>
+        <div>
+          <div class="f-title">Chat bubble entrance</div>
+          <div class="f-desc">Each new message slides in from bottom 
+with opacity 0→1 over 200ms. AI typing indicator shows 3-dot pulse 
+before response arrives. Framer Motion layout animation for smooth 
+height changes.</div>
+        </div>
+      </div>
+      <div class="feature-row">
+        <div class="icon-wrap"><i class="ti ti-map-2"></i></div>
+        <div>
+          <div class="f-title">Tax usage map reveal</div>
+          <div class="f-desc">India map SVG segments animate in 
+staggered sequence (100ms delay each). Percentage labels count up. Total
+ takes 1.5s for full reveal — slow it down for emotional impact.</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  function setMode(theme, btn) {
+    document.documentElement.setAttribute('data-theme', theme);
+    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function goTo(id, el) {
+    document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+    el.classList.add('active');
+    const target = document.getElementById(id);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // Update sidebar active link on scroll
+  const sections = document.querySelectorAll('.ds-section');
+  const links = document.querySelectorAll('.sidebar-link');
+  const sectionIds = ['overview','users','features','mvp','tech','metrics','colors','typography','components','spacing','screens','motion'];
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    links.forEach(l => {
+      l.classList.remove('active');
+      if (l.getAttribute('onclick') && l.getAttribute('onclick').includes(`'${current}'`)) {
+        l.classList.add('active');
+      }
+    });
+  }, { passive: true });
+</script>
+
+
+</body></html>

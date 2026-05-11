@@ -1,0 +1,21 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css"><style>
+body{margin:0;padding:18px;font-family:var(--font-body);color:var(--text-primary);
+  background:radial-gradient(120% 80% at 20% 20%, #E8EEF5 0%, transparent 60%),
+             radial-gradient(120% 80% at 90% 80%, #F7EFE6 0%, transparent 55%),
+             #F3F2EF}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.g{border-radius:16px;padding:18px;min-height:96px;position:relative;overflow:hidden;
+   background:var(--glass-bg);-webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);
+   border:1px solid var(--glass-border);box-shadow:var(--shadow-glass)}
+.g.tint{background:var(--glass-bg-tint)}
+.g.strong{background:var(--glass-bg-strong)}
+.g::before{content:"";position:absolute;inset:0;background:var(--glass-highlight);pointer-events:none;border-radius:inherit}
+.lbl{font:800 13px/1.2 var(--font-body);letter-spacing:-0.02em}
+.sub{font:500 11px/1.4 var(--font-mono);color:var(--text-tertiary);margin-top:6px}
+</style></head><body>
+<div class="grid">
+  <div class="g"><div class="lbl">.st-glass</div><div class="sub">--glass-bg<br>blur(18px) saturate(150%)</div></div>
+  <div class="g strong"><div class="lbl">.st-glass-strong</div><div class="sub">--glass-bg-strong<br>0.82 alpha</div></div>
+  <div class="g tint"><div class="lbl">.st-glass-tint</div><div class="sub">--glass-bg-tint<br>cool slate wash</div></div>
+</div>
+</body></html>

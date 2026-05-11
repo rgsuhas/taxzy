@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 56" fill="none">
+  <g transform="translate(4 6)">
+    <rect x="0" y="0" width="44" height="44" rx="12" fill="#3D5A80"></rect>
+    <path d="M11 30 L22 12 L33 30 L28 30 L22 21 L16 30 Z" fill="#E8EEF5"></path>
+    <circle cx="22" cy="34" r="2" fill="#E8EEF5"></circle>
+  </g>
+  <g font-family="Manrope, system-ui, sans-serif" font-weight="800" letter-spacing="-0.025em">
+    <text x="58" y="36" font-size="24" fill="#1C1F23">super</text>
+    <text x="125" y="36" font-size="24" fill="#3D5A80">tax</text>
+  </g>
+</svg>
