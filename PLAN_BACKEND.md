@@ -1,12 +1,15 @@
 # Taxzy — Backend Plan (FastAPI)
 
 ## Team: Backend
+
 ## Stack: Python 3.11+, FastAPI, SQLAlchemy, Postgres, pdfplumber, lxml, google-generativeai, python-jose (JWT), bcrypt, questionary (setup CLI)
 
 ---
 
 ## Context
+
 Taxzy is a conversational, AI-powered tax filing platform for India. Built for a hackathon (~48 hours).
+
 - AI: Gemini 1.5 Flash (free tier)
 - Backend: FastAPI (Python)
 - DB: Local Postgres + SQLAlchemy
@@ -21,6 +24,7 @@ Base URL: `http://localhost:8000`
 All protected routes require: `Authorization: Bearer <jwt_token>`
 
 ### Auth
+
 ```
 POST  /api/auth/register       { username, password } → { user_id, username }
 POST  /api/auth/login          { username, password } → { access_token, token_type }
@@ -29,6 +33,7 @@ GET   /api/auth/me             → { user_id, username, created_at }
 ```
 
 ### Chat / AI (Gemini streaming)
+
 ```
 POST  /api/chat                          { message, conversation_id? }
                                          → SSE stream of Gemini response chunks
@@ -40,6 +45,7 @@ DELETE /api/chat/{conversation_id}       → { message }
 ```
 
 ### Tax Profile
+
 ```
 GET   /api/tax-profile                   → full tax profile object (see schema below)
 PUT   /api/tax-profile                   { field, value } → updated profile
@@ -53,6 +59,7 @@ POST  /api/tax-profile/calculate         → {
 ```
 
 Tax profile schema:
+
 ```json
 {
   "pan": "ABCDE1234F",
@@ -71,6 +78,7 @@ Tax profile schema:
 ```
 
 ### Documents
+
 ```
 POST  /api/documents/upload              multipart: { file, doc_type? }
                                          auto-detects: form16_pdf | ais_json | itr_xml | form26as_pdf
@@ -81,12 +89,14 @@ DELETE /api/documents/{doc_id}           → { message }
 ```
 
 ### PAN Verification
+
 ```
 POST  /api/pan/verify                    { pan } → { valid, full_name, dob, pan_type, status }
                                          (proxies Setu API — keeps API key server-side)
 ```
 
 ### ITR Export
+
 ```
 GET   /api/itr/generate-xml              → downloadable ITR-1 or ITR-2 XML file
                                          (auto-selects form based on tax profile)
@@ -94,6 +104,7 @@ POST  /api/itr/validate                  { xml_content } → { valid, errors: []
 ```
 
 ### Refund Marketplace
+
 ```
 GET   /api/marketplace/offers            → [
                                              { offer_id, brand, logo_url, refund_amount,
@@ -103,6 +114,7 @@ POST  /api/marketplace/redeem            { offer_id } → { voucher_code, brand,
 ```
 
 ### Refund Tracker
+
 ```
 GET   /api/refund/status                 → {
                                              status: "filed"|"verified"|"processing"|"initiated"|"credited",
@@ -113,6 +125,7 @@ GET   /api/refund/status                 → {
 ```
 
 ### Tax Usage Visualization
+
 ```
 POST  /api/tax-usage                     { tax_paid } → {
                                              breakdown: [
@@ -123,6 +136,7 @@ POST  /api/tax-usage                     { tax_paid } → {
 ```
 
 ### Glossary
+
 ```
 GET   /api/glossary                      → [ { term, definition, example } ]
 GET   /api/glossary/{term}               → { term, definition, example }
@@ -193,12 +207,14 @@ backend/
 ## Implementation steps
 
 ### Step 1 — Project bootstrap
+
 - [ ] `pip install fastapi uvicorn sqlalchemy psycopg2-binary pydantic-settings python-jose passlib pdfplumber lxml google-generativeai python-multipart questionary httpx`
 - [ ] `core/config.py` — load `DATABASE_URL`, `GEMINI_API_KEY`, `JWT_SECRET`, `SETU_API_KEY` from `.env`
 - [ ] `core/database.py` — SQLAlchemy async engine + `get_db` dependency
 - [ ] `main.py` — FastAPI app with CORS (`http://localhost:3000`), register all routers
 
 ### Step 2 — DB models + migrations
+
 - [ ] `models/user.py` — id, username, hashed_password, created_at
 - [ ] `models/conversation.py` — id, user_id, created_at
 - [ ] `models/message.py` — id, conversation_id, role (user/assistant), content, created_at
@@ -208,12 +224,14 @@ backend/
 - [ ] Run `Base.metadata.create_all()` on startup (or Alembic migrations)
 
 ### Step 3 — Auth router
+
 - [ ] `POST /api/auth/register` — hash password with bcrypt, insert user
 - [ ] `POST /api/auth/login` — verify password, return JWT (24h expiry)
 - [ ] `GET /api/auth/me` — decode JWT, return user
 - [ ] `core/security.py` — `get_current_user` FastAPI dependency used on all protected routes
 
 ### Step 4 — Gemini service + Chat router
+
 - [ ] `services/gemini.py`:
   - System prompt: Indian tax assistant, Hinglish ok, ask one question at a time
   - `stream_chat(messages, user_profile)` → async generator of text chunks
@@ -225,6 +243,7 @@ backend/
   - `DELETE /api/chat/{conversation_id}` → delete
 
 ### Step 5 — Document parser + router
+
 - [ ] `services/document_parser.py`:
   - `parse_form16_pdf(bytes)` → extract: employer name, gross salary, TDS, 80C deductions
   - `parse_ais_json(bytes)` → extract: all income sources, TDS entries, interest, dividends
@@ -235,15 +254,17 @@ backend/
 - [ ] Store raw bytes in `raw_blob`, parsed dict in `parsed_data` JSONB column
 
 ### Step 6 — Tax calculator service
+
 - [ ] `services/tax_calculator.py`:
   - Old regime slabs (AY 2024-25): 0→2.5L=0%, 2.5L→5L=5%, 5L→10L=20%, >10L=30%
   - New regime slabs: 0→3L=0%, 3L→6L=5%, 6L→9L=10%, 9L→12L=15%, 12L→15L=20%, >15L=30%
   - Apply standard deduction (₹50,000 new regime / ₹50,000 old regime)
   - Apply 80C (max ₹1.5L), 80D (max ₹25,000), HRA calculation
   - Returns: taxable_income, tax_liability, refund_or_payable
-- [ ] `POST /api/tax-profile/calculate` uses this service
+- [ ] `POST /api/tax-profile/calculate` uses this service1
 
 ### Step 7 — ITR XML generator
+
 - [ ] Download ITR-1 XSD schema from incometax.gov.in
 - [ ] `services/itr_generator.py` — build XML tree with lxml from tax profile
 - [ ] Auto-select ITR-1 (salaried, single employer) vs ITR-2 (multiple sources)
@@ -251,11 +272,13 @@ backend/
 - [ ] `POST /api/itr/validate` → validate against XSD, return errors
 
 ### Step 8 — PAN verifier
+
 - [ ] `services/pan_verifier.py` — calls Setu PAN API with API key
 - [ ] `POST /api/pan/verify` — proxy endpoint, returns name/DOB/status
 - [ ] On success: update tax_profile.pan + pan_verified
 
 ### Step 9 — Marketplace, Refund tracker, Tax usage, Glossary
+
 - [ ] `data/marketplace_offers.json` — static offers (Amazon, Flipkart, Swiggy) with conversion rates
 - [ ] `GET /api/marketplace/offers` — read from JSON, filter by user's refund amount
 - [ ] `POST /api/marketplace/redeem` — generate mock voucher code, save to DB
@@ -265,6 +288,7 @@ backend/
 - [ ] `POST /api/glossary/explain` — Gemini call for unknown terms
 
 ### Step 10 — Setup CLI + packaging
+
 - [ ] `setup.py` — questionary prompts: Gemini API key (test ping), Postgres URL, first admin username/password
 - [ ] Writes `.env`, runs `Base.metadata.create_all()`, seeds glossary.json to DB
 - [ ] `.env.example` with all required keys documented
@@ -272,9 +296,11 @@ backend/
 ---
 
 ## Critical path
+
 Steps 3 → 4 → 5 must be done in order. Everything else (6–9) can be parallelised after Step 2.
 
 ## How to run
+
 ```bash
 python setup.py          # first time only
 uvicorn main:app --reload

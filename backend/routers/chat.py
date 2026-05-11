@@ -1,4 +1,6 @@
 import json
+import logging
+import time
 from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -14,6 +16,7 @@ from models.user import User
 from schemas.chat import ChatRequest, ConversationOut, ConversationPreview, MessageOut
 from services.gemini import extract_tax_fields, stream_chat
 
+logger = logging.getLogger("taxzy.chat")
 router = APIRouter(prefix="/api/chat", tags=["chat"])
 
 
@@ -48,7 +51,14 @@ async def post_chat(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
+    t_request = time.perf_counter()
     conv = _get_or_create_conversation(db, current_user.id, body.conversation_id)
+    is_new_conv = body.conversation_id is None
+
+    logger.info(
+        "chat request | user_id=%d conv_id=%d new=%s msg_len=%d",
+        current_user.id, conv.id, is_new_conv, len(body.message),
+    )
 
     user_msg = Message(conversation_id=conv.id, role="user", content=body.message)
     db.add(user_msg)
@@ -64,16 +74,23 @@ async def post_chat(
         full_text = ""
         yield f"data: {json.dumps({'type': 'conversation_id', 'conversation_id': conv.id})}\n\n"
 
-        async for chunk in stream_chat(messages, profile_dict):
-            full_text += chunk
-            yield f"data: {json.dumps({'type': 'chunk', 'text': chunk})}\n\n"
+        try:
+            async for chunk in stream_chat(messages, profile_dict):
+                full_text += chunk
+                yield f"data: {json.dumps({'type': 'chunk', 'text': chunk})}\n\n"
+        except Exception:
+            logger.exception("stream_chat failed | user_id=%d conv_id=%d", current_user.id, conv.id)
+            yield f"data: {json.dumps({'type': 'error', 'message': 'Something went wrong. Please try again.'})}\n\n"
+            yield "data: [DONE]\n\n"
+            return
 
         assistant_msg = Message(conversation_id=conv.id, role="assistant", content=full_text)
         db.add(assistant_msg)
         db.commit()
 
         extracted = await extract_tax_fields(full_text, body.message)
-        if any(v is not None for v in extracted.values()):
+        has_fields = any(v is not None for v in extracted.values())
+        if has_fields:
             if not profile:
                 new_profile = TaxProfile(user_id=current_user.id)
                 db.add(new_profile)
@@ -82,8 +99,11 @@ async def post_chat(
                 _merge_extracted(new_profile, extracted, db)
             else:
                 _merge_extracted(profile, extracted, db)
+            logger.info("profile updated | user_id=%d fields=%s", current_user.id, [k for k, v in extracted.items() if v is not None])
             yield f"data: {json.dumps({'type': 'structured_update', 'fields': extracted})}\n\n"
 
+        elapsed = time.perf_counter() - t_request
+        logger.info("chat done | user_id=%d conv_id=%d reply_len=%d elapsed=%.2fs", current_user.id, conv.id, len(full_text), elapsed)
         yield "data: [DONE]\n\n"
 
     return StreamingResponse(generate(), media_type="text/event-stream")

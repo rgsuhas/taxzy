@@ -1,7 +1,18 @@
+import logging
+import sys
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from core.database import Base, engine
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)-8s %(name)s | %(message)s",
+    datefmt="%Y-%m-%dT%H:%M:%S",
+    stream=sys.stdout,
+)
+logging.getLogger("uvicorn.access").setLevel(logging.WARNING)  # reduce noise from uvicorn request logs
 import models.user  # noqa: F401 — ensure all models are registered before create_all
 import models.conversation  # noqa: F401
 import models.message  # noqa: F401
