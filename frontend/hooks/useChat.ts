@@ -69,16 +69,21 @@ export function useChat() {
 
             try {
               const parsed = JSON.parse(data);
-              // structured_update event
-              if (parsed.type === "structured_update") {
-                updateProfileFromChat(parsed.data as StructuredUpdate);
-                if (parsed.conversation_id) setConversationId(parsed.conversation_id);
+              if (parsed.type === "conversation_id") {
+                setConversationId(parsed.conversation_id);
                 continue;
               }
+              if (parsed.type === "structured_update") {
+                updateProfileFromChat(parsed.fields as StructuredUpdate);
+                continue;
+              }
+              if (parsed.type === "error") {
+                throw new Error(parsed.message);
+              }
               // text chunk
-              if (parsed.chunk !== undefined) {
-                fullContent += parsed.chunk;
-                appendStreamingChunk(parsed.chunk);
+              if (parsed.type === "chunk" && parsed.text !== undefined) {
+                fullContent += parsed.text;
+                appendStreamingChunk(parsed.text);
               } else if (typeof parsed === "string") {
                 fullContent += parsed;
                 appendStreamingChunk(parsed);
