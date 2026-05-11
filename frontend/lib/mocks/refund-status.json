@@ -1,0 +1,12 @@
+{
+  "status": "processing",
+  "current_step": 3,
+  "estimated_date": "2024-08-15",
+  "timeline": [
+    { "step": 1, "label": "Return filed", "date": "2024-07-20", "done": true },
+    { "step": 2, "label": "ITR verified", "date": "2024-07-22", "done": true },
+    { "step": 3, "label": "Processing", "date": "2024-07-25", "done": false },
+    { "step": 4, "label": "Refund initiated", "date": null, "done": false },
+    { "step": 5, "label": "Amount credited", "date": null, "done": false }
+  ]
+}

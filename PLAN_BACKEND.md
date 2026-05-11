@@ -1,4 +1,4 @@
-# TaxEase AI — Backend Plan (FastAPI)
+# Taxzy — Backend Plan (FastAPI)
 
 ## Team: Backend
 ## Stack: Python 3.11+, FastAPI, SQLAlchemy, Postgres, pdfplumber, lxml, google-generativeai, python-jose (JWT), bcrypt, questionary (setup CLI)
@@ -6,7 +6,7 @@
 ---
 
 ## Context
-TaxEase AI is a conversational, AI-powered tax filing platform for India. Built for a hackathon (~48 hours).
+Taxzy is a conversational, AI-powered tax filing platform for India. Built for a hackathon (~48 hours).
 - AI: Gemini 1.5 Flash (free tier)
 - Backend: FastAPI (Python)
 - DB: Local Postgres + SQLAlchemy

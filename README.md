@@ -1,6 +1,6 @@
-# SuperTax — TaxEase AI Design System
+# SuperTax — Taxzy Design System
 
-**Product:** TaxEase AI — a conversational, AI-powered tax filing platform for India.
+**Product:** Taxzy — a conversational, AI-powered tax filing platform for India.
 **Tagline:** "We are building ChatGPT for taxes — an AI-powered platform that helps ordinary people understand, file, and benefit from taxes in the simplest way possible."
 **Market:** India · ~82 million taxpayers · AY 2024-25 onwards.
 **Stage:** Hackathon build → v1.2 design system.
@@ -10,7 +10,7 @@
 
 ## Problem Statement
 
-Tax filing in India is broken for the average person. The Income Tax Department's portal is dense, jargon-heavy, and built for chartered accountants — not the 22-year-old freelancer or the salaried first-time filer who just wants to know how much they're getting back. TaxEase AI is that calm friend who is also good at math: plain language, warm tone, under 15 minutes.
+Tax filing in India is broken for the average person. The Income Tax Department's portal is dense, jargon-heavy, and built for chartered accountants — not the 22-year-old freelancer or the salaried first-time filer who just wants to know how much they're getting back. Taxzy is that calm friend who is also good at math: plain language, warm tone, under 15 minutes.
 
 ---
 
@@ -19,7 +19,7 @@ Tax filing in India is broken for the average person. The Income Tax Department'
 ```
 team117/
 ├── README.md                         ← you are here
-├── taxease_prd_design_system.html    ← primary source: TaxEase AI PRD + full design system
+├── taxzy_prd_design_system.html    ← primary source: Taxzy PRD + full design system
 │
 └── archive/
     ├── VYAS-design-system-final.html     ← sister DS (Navy/Gold) — motion & sidebar reference only
@@ -29,7 +29,7 @@ team117/
         ├── SKILL.md                      ← Claude Code skill descriptor
         ├── colors_and_type.css           ← all design tokens: colors, type, spacing, shadow, glass, motion
         ├── source_README.md              ← original two-line repo README (preserved)
-        ├── taxease_prd_design_system.html
+        ├── taxzy_prd_design_system.html
         ├── VYAS-design-system-final.html
         │
         ├── assets/
@@ -62,7 +62,7 @@ team117/
 
 | File | Role |
 |---|---|
-| `taxease_prd_design_system.html` | **Primary brand source.** Full PRD + design system for TaxEase AI. Earthy slate-blue / stone-neutral palette, Manrope typeface, three-mode theming (light / dark / reading). Every token, component, and copy fragment in this kit traces back to this file. |
+| `taxzy_prd_design_system.html` | **Primary brand source.** Full PRD + design system for Taxzy. Earthy slate-blue / stone-neutral palette, Manrope typeface, three-mode theming (light / dark / reading). Every token, component, and copy fragment in this kit traces back to this file. |
 | `archive/VYAS-design-system-final.html` | Earlier sister DS (Navy/Gold palette). Kept **for reference only** — motion patterns, sidebar layout, and dark-mode behaviour. The navy palette was not carried through; SuperTax is warm and earthy. |
 
 ---

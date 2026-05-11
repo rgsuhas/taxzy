@@ -1,0 +1,22 @@
+{
+  "pan": "ABCDE1234F",
+  "pan_verified": true,
+  "full_name": "Rahul Sharma",
+  "dob": "1992-04-15",
+  "filing_type": "ITR-1",
+  "ay": "2024-25",
+  "gross_income": 1200000,
+  "tds_paid": 85000,
+  "other_income": {
+    "interest": 12000,
+    "dividends": 5000,
+    "capital_gains": 0
+  },
+  "deductions": {
+    "c80": 150000,
+    "d80": 25000,
+    "hra": 96000,
+    "standard": 50000
+  },
+  "regime": "old"
+}

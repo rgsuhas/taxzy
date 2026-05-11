@@ -1,4 +1,4 @@
-# TaxEase AI — Frontend Plan (Next.js)
+# Taxzy — Frontend Plan (Next.js)
 
 ## Team: Frontend
 ## Stack: Next.js 14 (App Router), React, TypeScript, TailwindCSS, shadcn/ui, Framer Motion, Recharts, Vercel AI SDK, canvas-confetti, Fuse.js, Zustand
@@ -6,9 +6,9 @@
 ---
 
 ## Context
-TaxEase AI is a conversational, AI-powered tax filing platform for India. Built for a hackathon (~48 hours).
+Taxzy is a conversational, AI-powered tax filing platform for India. Built for a hackathon (~48 hours).
 - AI responses stream from FastAPI backend (SSE)
-- Design system: Earthy Slate Blue (#3D5A80), Stone neutrals, Manrope typeface — all tokens in `taxease_prd_design_system.html`
+- Design system: Earthy Slate Blue (#3D5A80), Stone neutrals, Manrope typeface — all tokens in `taxzy_prd_design_system.html`
 - Three themes: light (default), dark, reading
 
 ---
@@ -179,7 +179,7 @@ frontend/
 - [ ] Install: `framer-motion recharts zustand canvas-confetti fuse.js @ai-sdk/react`
 - [ ] `npx shadcn@latest init` — set theme to neutral, configure CSS variables
 - [ ] `NEXT_PUBLIC_API_URL=http://localhost:8000` in `.env.local`
-- [ ] Apply TaxEase design tokens to `globals.css`:
+- [ ] Apply Taxzy design tokens to `globals.css`:
   - `--accent: #3D5A80`, `--secondary: #A86545`, `--bg-base: #F3F2EF`
   - Import Manrope (300–800) + JetBrains Mono (400–600) from Google Fonts
   - Define all `[data-theme="light/dark/reading"]` token blocks from PRD

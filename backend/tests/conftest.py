@@ -3,7 +3,7 @@ Shared fixtures for all tests.
 Uses SQLite in-memory so no Postgres install is required.
 """
 import os
-os.environ["DATABASE_URL"] = "sqlite:///./test_taxease.db"
+os.environ["DATABASE_URL"] = "sqlite:///./test_taxzy.db"
 os.environ["GEMINI_API_KEY"] = "fake-key-for-tests"
 os.environ["JWT_SECRET"] = "test-secret-key"
 os.environ["SETU_API_KEY"] = ""
@@ -16,7 +16,7 @@ from sqlalchemy.orm import sessionmaker
 from core.database import Base, get_db
 from main import app
 
-TEST_DB_URL = "sqlite:///./test_taxease.db"
+TEST_DB_URL = "sqlite:///./test_taxzy.db"
 engine = create_engine(TEST_DB_URL, connect_args={"check_same_thread": False})
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

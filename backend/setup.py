@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""First-run setup CLI for TaxEase AI backend."""
+"""First-run setup CLI for Taxzy backend."""
 import json
 import os
 import sys
@@ -79,7 +79,7 @@ def write_env(config: dict):
 
 
 def main():
-    print("\n=== TaxEase AI — First-Run Setup ===\n")
+    print("\n=== Taxzy — First-Run Setup ===\n")
 
     if ENV_FILE.exists():
         overwrite = questionary.confirm(".env already exists. Overwrite?", default=False).ask()
@@ -110,7 +110,7 @@ def main():
     # Database URL
     db_url = questionary.text(
         "PostgreSQL URL:",
-        default="postgresql://postgres:password@localhost:5432/taxease",
+        default="postgresql://postgres:password@localhost:5432/taxzy",
     ).ask()
 
     print("  Testing database connection...")

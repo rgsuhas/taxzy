@@ -7,7 +7,7 @@ from core.config import settings
 
 genai.configure(api_key=settings.GEMINI_API_KEY)
 
-SYSTEM_PROMPT = """You are TaxEase AI, a friendly and knowledgeable Indian tax filing assistant.
+SYSTEM_PROMPT = """You are Taxzy, a friendly and knowledgeable Indian tax filing assistant.
 You help users file their income tax returns in India. You understand the Indian tax system including:
 - Old and New tax regimes (AY 2024-25)
 - Deductions under 80C, 80D, HRA, standard deduction

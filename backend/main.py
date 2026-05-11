@@ -12,7 +12,7 @@ import models.marketplace  # noqa: F401
 from routers import auth, chat, tax_profile, documents, pan, itr, marketplace, refund, tax_usage, glossary
 
 app = FastAPI(
-    title="TaxEase AI",
+    title="Taxzy",
     description="AI-powered Indian tax filing assistant",
     version="1.0.0",
 )
@@ -45,7 +45,7 @@ app.include_router(glossary.router)
 
 @app.get("/")
 def root():
-    return {"message": "TaxEase AI backend", "docs": "/docs"}
+    return {"message": "Taxzy backend", "docs": "/docs"}
 
 
 @app.get("/health")
