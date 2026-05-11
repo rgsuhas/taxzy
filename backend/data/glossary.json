@@ -1,0 +1,202 @@
+[
+  {
+    "term": "TDS",
+    "definition": "Tax Deducted at Source — tax your employer or payer deducts before crediting your income. You get credit for this amount when filing your return.",
+    "example": "If your salary is ₹1,00,000/month and TDS is ₹5,000, you receive ₹95,000 in hand."
+  },
+  {
+    "term": "ITR",
+    "definition": "Income Tax Return — the annual form you file with the Income Tax Department declaring your income, deductions, and tax paid.",
+    "example": "ITR-1 (Sahaj) is for salaried individuals with income up to ₹50 lakh."
+  },
+  {
+    "term": "PAN",
+    "definition": "Permanent Account Number — a 10-character alphanumeric identifier issued by the IT Department, mandatory for filing taxes.",
+    "example": "ABCDE1234F is a valid PAN format."
+  },
+  {
+    "term": "AIS",
+    "definition": "Annual Information Statement — a comprehensive document showing all financial transactions reported to the IT Department against your PAN.",
+    "example": "AIS shows your salary, bank interest, mutual fund transactions, and TDS in one place."
+  },
+  {
+    "term": "Form 16",
+    "definition": "A TDS certificate issued by your employer showing your salary details and the tax deducted. Part A has TDS details; Part B has salary breakdown.",
+    "example": "Your employer provides Form 16 by June 15 after each financial year."
+  },
+  {
+    "term": "Form 26AS",
+    "definition": "Annual tax statement showing all taxes deposited against your PAN — including TDS by employers, banks, and advance tax you paid.",
+    "example": "Cross-check Form 26AS with Form 16 to ensure TDS is correctly deposited."
+  },
+  {
+    "term": "80C",
+    "definition": "Section 80C allows deductions up to ₹1.5 lakh for investments like PPF, ELSS, NSC, LIC premiums, and home loan principal repayment.",
+    "example": "Invest ₹1.5 lakh in PPF to reduce taxable income by ₹1.5 lakh under 80C."
+  },
+  {
+    "term": "80D",
+    "definition": "Section 80D allows deductions for health insurance premiums — up to ₹25,000 for self/family, additional ₹25,000 for parents.",
+    "example": "Pay ₹20,000 for family health insurance to claim ₹20,000 deduction under 80D."
+  },
+  {
+    "term": "HRA",
+    "definition": "House Rent Allowance — a component of salary that partially or fully exempts rent paid from tax, calculated using a formula based on salary, HRA received, and rent paid.",
+    "example": "If you pay ₹15,000/month rent in a metro city, most of it can be exempt under HRA."
+  },
+  {
+    "term": "Standard Deduction",
+    "definition": "A flat ₹50,000 deduction from salary income available to all salaried employees — no proof required.",
+    "example": "With ₹8,00,000 salary, your income after standard deduction is ₹7,50,000."
+  },
+  {
+    "term": "New Tax Regime",
+    "definition": "A simplified tax regime with lower slab rates but no deductions (except standard deduction). Default from AY 2024-25 onwards.",
+    "example": "Under the new regime, ₹7 lakh income attracts zero tax after the ₹25,000 rebate under 87A."
+  },
+  {
+    "term": "Old Tax Regime",
+    "definition": "The traditional tax regime allowing all deductions (80C, 80D, HRA etc.) but with higher slab rates. Beneficial if deductions exceed ₹3.75 lakh.",
+    "example": "Old regime benefits those with large 80C investments, home loans, and HRA claims."
+  },
+  {
+    "term": "Assessment Year",
+    "definition": "The year in which you file tax returns for income earned in the previous financial year. AY 2024-25 covers income from April 2023 to March 2024.",
+    "example": "For salary earned from April 2023 to March 2024, the Assessment Year is 2024-25."
+  },
+  {
+    "term": "Financial Year",
+    "definition": "The 12-month period from April 1 to March 31 in which income is earned. Abbreviated as FY.",
+    "example": "FY 2023-24 runs from 1 April 2023 to 31 March 2024."
+  },
+  {
+    "term": "Advance Tax",
+    "definition": "Tax paid in installments during the financial year itself (not at year-end) when your total tax liability exceeds ₹10,000.",
+    "example": "Freelancers with high income pay advance tax in June, September, December, and March."
+  },
+  {
+    "term": "Section 87A Rebate",
+    "definition": "A tax rebate of up to ₹25,000 available for individuals with taxable income up to ₹7 lakh (new regime) or ₹5 lakh (old regime).",
+    "example": "With ₹6.5 lakh taxable income under the new regime, your full tax liability of ~₹20,000 is waived."
+  },
+  {
+    "term": "Surcharge",
+    "definition": "An additional tax levied on high-income individuals — 10% surcharge on income above ₹50 lakh, increasing up to 25% for income above ₹2 crore.",
+    "example": "On ₹60 lakh income, a 10% surcharge applies on the computed income tax."
+  },
+  {
+    "term": "Cess",
+    "definition": "Health and Education Cess of 4% levied on the total tax (including surcharge) to fund health and education initiatives.",
+    "example": "On ₹10,000 tax, cess of ₹400 makes total liability ₹10,400."
+  },
+  {
+    "term": "PPF",
+    "definition": "Public Provident Fund — a government-backed long-term savings scheme with a 15-year lock-in. Contributions up to ₹1.5 lakh qualify under 80C.",
+    "example": "Depositing ₹1.5 lakh/year in PPF gives you 80C deduction plus tax-free returns."
+  },
+  {
+    "term": "ELSS",
+    "definition": "Equity Linked Savings Scheme — mutual funds with a 3-year lock-in that qualify for 80C deduction up to ₹1.5 lakh.",
+    "example": "ELSS funds have the shortest lock-in period among all 80C instruments."
+  },
+  {
+    "term": "NPS",
+    "definition": "National Pension System — a retirement savings scheme offering an additional ₹50,000 deduction under Section 80CCD(1B) over and above the 80C limit.",
+    "example": "Investing ₹50,000 in NPS gives you an extra ₹50,000 deduction beyond the ₹1.5 lakh 80C cap."
+  },
+  {
+    "term": "Capital Gains",
+    "definition": "Profit from selling capital assets like stocks, mutual funds, or property. Short-term (STCG) and long-term (LTCG) are taxed differently.",
+    "example": "Selling equity shares after 1 year attracts LTCG tax of 10% on gains above ₹1 lakh."
+  },
+  {
+    "term": "Refund",
+    "definition": "When TDS deducted or advance tax paid exceeds actual tax liability, the excess is refunded by the Income Tax Department after filing.",
+    "example": "If TDS paid was ₹50,000 but actual tax is ₹30,000, you get ₹20,000 refunded."
+  },
+  {
+    "term": "Challan 280",
+    "definition": "The form used to pay self-assessment tax, advance tax, or any tax dues directly to the government through NSDL/OLTAS.",
+    "example": "Use Challan 280 on the income tax portal to pay any remaining tax before filing."
+  },
+  {
+    "term": "Self-Assessment Tax",
+    "definition": "Tax paid after the end of the financial year on any remaining tax liability not covered by TDS or advance tax, paid before filing the ITR.",
+    "example": "If your total tax is ₹40,000 and TDS is ₹35,000, pay ₹5,000 as self-assessment tax."
+  },
+  {
+    "term": "ITR-1 (Sahaj)",
+    "definition": "The simplest ITR form for resident individuals with salary/pension income, one house property, and total income up to ₹50 lakh.",
+    "example": "A salaried employee with no business income and income below ₹50 lakh files ITR-1."
+  },
+  {
+    "term": "ITR-2",
+    "definition": "ITR form for individuals with capital gains, multiple house properties, foreign income, or income above ₹50 lakh — but no business income.",
+    "example": "A salaried person who sold mutual funds (capital gains) must file ITR-2."
+  },
+  {
+    "term": "80CCD",
+    "definition": "Section 80CCD covers deductions for NPS contributions — 80CCD(1) within 80C limit and 80CCD(1B) for an additional ₹50,000.",
+    "example": "Employee NPS contribution of ₹50,000 goes into 80CCD(1); personal NPS of ₹50,000 goes into 80CCD(1B)."
+  },
+  {
+    "term": "Gross Total Income",
+    "definition": "The sum of income from all heads (salary, house property, capital gains, other sources) before applying Chapter VI-A deductions.",
+    "example": "Salary ₹8L + Interest ₹50K = Gross Total Income of ₹8.5L before 80C/80D deductions."
+  },
+  {
+    "term": "Taxable Income",
+    "definition": "Income after subtracting all eligible deductions from Gross Total Income — this is the amount on which tax is computed.",
+    "example": "GTI of ₹8L minus ₹1.5L (80C) minus ₹50K (standard deduction) = ₹6L taxable income."
+  },
+  {
+    "term": "Due Date",
+    "definition": "The deadline to file ITR — July 31 for individuals without audit. Late filing attracts penalty of ₹1,000 to ₹5,000 and interest under Section 234A/F.",
+    "example": "For FY 2023-24, the ITR filing due date for individuals is July 31, 2024."
+  },
+  {
+    "term": "e-Verify",
+    "definition": "The mandatory step to complete ITR filing — done via Aadhaar OTP, net banking, or DSC within 30 days of submission.",
+    "example": "File the ITR on the portal, then e-verify using your Aadhaar OTP to complete the process."
+  },
+  {
+    "term": "Deductor",
+    "definition": "Any person or entity legally required to deduct TDS before making payment — employers, banks, contractors, etc.",
+    "example": "Your employer is a deductor who deducts TDS from your monthly salary."
+  },
+  {
+    "term": "TAN",
+    "definition": "Tax Deduction and Collection Account Number — a 10-character identifier mandatory for anyone required to deduct or collect tax.",
+    "example": "Your employer's TAN appears on your Form 16 and in Form 26AS."
+  },
+  {
+    "term": "Section 24B",
+    "definition": "Allows deduction of up to ₹2 lakh on home loan interest for a self-occupied property under the old regime.",
+    "example": "Pay ₹2.5 lakh interest on home loan but only ₹2 lakh is deductible under Section 24B."
+  },
+  {
+    "term": "HUF",
+    "definition": "Hindu Undivided Family — a separate taxable entity under Indian tax law consisting of a family descended from a common ancestor.",
+    "example": "A HUF can have its own PAN and file its own tax return separately from individual members."
+  },
+  {
+    "term": "Belated Return",
+    "definition": "An ITR filed after the due date but before December 31 of the assessment year — attracts late fee under Section 234F.",
+    "example": "Missing July 31 deadline? File a belated return by December 31 with a ₹5,000 penalty."
+  },
+  {
+    "term": "Revised Return",
+    "definition": "A corrected ITR filed to fix mistakes in the original return — can be filed before December 31 of the assessment year.",
+    "example": "If you forgot to include interest income, file a revised return to correct the omission."
+  },
+  {
+    "term": "Section 234A",
+    "definition": "Interest charged at 1% per month for delay in filing ITR beyond the due date, calculated on the unpaid tax amount.",
+    "example": "Filing 2 months late with ₹10,000 unpaid tax attracts ₹200 interest under 234A."
+  },
+  {
+    "term": "Section 234B",
+    "definition": "Interest at 1% per month for shortfall in advance tax — applies when advance tax paid is less than 90% of assessed tax.",
+    "example": "If assessed tax is ₹50,000 but advance tax paid is only ₹40,000, 234B interest applies."
+  }
+]

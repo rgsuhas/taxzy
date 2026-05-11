@@ -1,0 +1,47 @@
+[
+  {
+    "offer_id": "AMZ001",
+    "brand": "Amazon",
+    "logo_url": "https://logo.clearbit.com/amazon.in",
+    "conversion_rate": 1.1,
+    "delivery": "instant",
+    "min_refund": 1000,
+    "description": "Get 10% extra as Amazon Pay balance"
+  },
+  {
+    "offer_id": "FLK001",
+    "brand": "Flipkart",
+    "logo_url": "https://logo.clearbit.com/flipkart.com",
+    "conversion_rate": 1.12,
+    "delivery": "instant",
+    "min_refund": 1000,
+    "description": "Get 12% extra as Flipkart credits"
+  },
+  {
+    "offer_id": "SWG001",
+    "brand": "Swiggy",
+    "logo_url": "https://logo.clearbit.com/swiggy.com",
+    "conversion_rate": 1.15,
+    "delivery": "instant",
+    "min_refund": 500,
+    "description": "Get 15% extra as Swiggy Money"
+  },
+  {
+    "offer_id": "ZMT001",
+    "brand": "Zomato",
+    "logo_url": "https://logo.clearbit.com/zomato.com",
+    "conversion_rate": 1.12,
+    "delivery": "instant",
+    "min_refund": 500,
+    "description": "Get 12% extra as Zomato credits"
+  },
+  {
+    "offer_id": "MKT001",
+    "brand": "Myntra",
+    "logo_url": "https://logo.clearbit.com/myntra.com",
+    "conversion_rate": 1.08,
+    "delivery": "instant",
+    "min_refund": 2000,
+    "description": "Get 8% extra as Myntra store credits"
+  }
+]
