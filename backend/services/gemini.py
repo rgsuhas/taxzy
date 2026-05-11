@@ -1,11 +1,12 @@
 import json
 from typing import AsyncGenerator, Optional
 
-import google.generativeai as genai
+from google import genai
+from google.genai import types
 
 from core.config import settings
 
-genai.configure(api_key=settings.GEMINI_API_KEY)
+client = genai.Client(api_key=settings.GEMINI_API_KEY)
 
 SYSTEM_PROMPT = """You are Taxzy, a friendly and knowledgeable Indian tax filing assistant.
 You help users file their income tax returns in India. You understand the Indian tax system including:
@@ -32,32 +33,32 @@ When extracting information from conversations, look for:
 
 
 async def stream_chat(messages: list[dict], user_profile: Optional[dict] = None) -> AsyncGenerator[str, None]:
-    model = genai.GenerativeModel(
-        model_name="gemini-1.5-flash",
-        system_instruction=SYSTEM_PROMPT,
-    )
-
     profile_context = ""
     if user_profile:
         profile_context = f"\n\n[Current tax profile: {json.dumps(user_profile)}]"
 
-    history = []
-    for msg in messages[:-1]:
-        history.append({"role": msg["role"], "parts": [msg["content"] + (profile_context if msg == messages[0] else "")]})
+    contents = []
+    for i, msg in enumerate(messages):
+        role = "user" if msg["role"] == "user" else "model"
+        content = msg["content"]
+        if i == 0 and profile_context:
+            content += profile_context
+        contents.append(types.Content(role=role, parts=[types.Part(text=content)]))
 
-    chat = model.start_chat(history=history)
-    last_message = messages[-1]["content"] if messages else ""
+    config = types.GenerateContentConfig(
+        system_instruction=SYSTEM_PROMPT,
+    )
 
-    response = await chat.send_message_async(last_message, stream=True)
-
-    async for chunk in response:
+    async for chunk in await client.aio.models.generate_content_stream(
+        model="gemini-2.0-flash",
+        contents=contents,
+        config=config,
+    ):
         if chunk.text:
             yield chunk.text
 
 
 async def extract_tax_fields(full_response: str, user_message: str) -> dict:
-    model = genai.GenerativeModel(model_name="gemini-1.5-flash")
-
     prompt = f"""Extract any tax-related information from this conversation exchange.
 User said: {user_message}
 Assistant replied: {full_response}
@@ -73,7 +74,10 @@ Fields to extract:
 Respond with ONLY valid JSON, no explanation."""
 
     try:
-        response = model.generate_content(prompt)
+        response = await client.aio.models.generate_content(
+            model="gemini-2.0-flash",
+            contents=prompt,
+        )
         text = response.text.strip()
         if text.startswith("```"):
             text = text.split("```")[1]
@@ -85,14 +89,16 @@ Respond with ONLY valid JSON, no explanation."""
 
 
 async def explain_term(term: str) -> dict:
-    model = genai.GenerativeModel(model_name="gemini-1.5-flash")
     prompt = f"""Explain the Indian tax term "{term}" in simple terms.
 Return JSON: {{"term": "{term}", "definition": "...", "example": "..."}}
 Keep definition under 100 words. Example should be practical.
 Respond with ONLY valid JSON."""
 
     try:
-        response = model.generate_content(prompt)
+        response = await client.aio.models.generate_content(
+            model="gemini-2.0-flash",
+            contents=prompt,
+        )
         text = response.text.strip()
         if text.startswith("```"):
             text = text.split("```")[1]
