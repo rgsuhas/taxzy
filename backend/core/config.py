@@ -2,7 +2,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    DATABASE_URL: str = "postgresql://postgres:password@localhost:5432/taxzy"
+    DATABASE_URL: str = "postgresql://postgres:taxzy123@localhost:5399/taxzy"
     GEMINI_API_KEY: str = ""
     JWT_SECRET: str = "change-me-in-production"
     JWT_ALGORITHM: str = "HS256"

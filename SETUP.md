@@ -47,7 +47,7 @@ pip install -r requirements.txt
 Create `backend/.env`:
 
 ```env
-DATABASE_URL=postgresql://postgres:password@localhost:5432/taxzy
+DATABASE_URL=postgresql://postgres:taxzy123@localhost:5399/taxzy
 GEMINI_API_KEY=your_gemini_api_key_here
 JWT_SECRET=change-this-to-a-long-random-string
 SETU_API_KEY=your_setu_api_key_here        # optional, for PAN verification

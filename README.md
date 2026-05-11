@@ -108,7 +108,7 @@ Backend reads from `backend/.env`. All keys:
 
 | Variable | Default | Required |
 |----------|---------|----------|
-| `DATABASE_URL` | `postgresql://postgres:password@localhost:5432/taxzy` | Yes |
+| `DATABASE_URL` | `postgresql://postgres:taxzy123@localhost:5399/taxzy` | Yes |
 | `GEMINI_API_KEY` | — | Yes |
 | `JWT_SECRET` | `change-me-in-production` | Yes (change in prod) |
 | `JWT_ALGORITHM` | `HS256` | No |

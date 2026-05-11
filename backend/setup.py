@@ -110,7 +110,7 @@ def main():
     # Database URL
     db_url = questionary.text(
         "PostgreSQL URL:",
-        default="postgresql://postgres:password@localhost:5432/taxzy",
+        default="postgresql://postgres:taxzy123@localhost:5399/taxzy",
     ).ask()
 
     print("  Testing database connection...")
