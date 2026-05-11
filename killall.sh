@@ -9,6 +9,7 @@ NC='\033[0m'
 log()  { echo -e "${GREEN}[killall]${NC} $1"; }
 warn() { echo -e "${RED}[killall]${NC} $1"; }
 
+# Kill a process group by pid file (kills parent + all children)
 kill_pid_file() {
   local name="$1"
   local pidfile="$2"
@@ -16,7 +17,9 @@ kill_pid_file() {
     local pid
     pid=$(cat "$pidfile")
     if kill -0 "$pid" 2>/dev/null; then
-      kill "$pid" && log "Stopped $name (pid $pid)"
+      # Kill the entire process group so child processes (e.g. next dev) also die
+      kill -- -"$pid" 2>/dev/null || kill "$pid" 2>/dev/null
+      log "Stopped $name (pid $pid)"
     else
       warn "$name pid $pid not running"
     fi
@@ -29,12 +32,17 @@ kill_pid_file() {
 kill_pid_file "backend"  "$ROOT/.backend.pid"
 kill_pid_file "frontend" "$ROOT/.frontend.pid"
 
-# Fallback: kill anything still holding the ports
-for port in 8000 3000; do
-  pid=$(lsof -ti tcp:"$port" 2>/dev/null || true)
-  if [ -n "$pid" ]; then
-    kill "$pid" 2>/dev/null && warn "Force-killed stale process on :$port (pid $pid)"
+# Fallback: kill anything still holding our ports or stray next-dev servers
+# Next.js may grab 3000, 3001, 3002, etc. when ports are in use
+for port in 8000 3000 3001 3002 3003; do
+  pids=$(lsof -ti tcp:"$port" 2>/dev/null || true)
+  if [ -n "$pids" ]; then
+    echo "$pids" | xargs kill 2>/dev/null && warn "Force-killed stale process on :$port (pids $pids)"
   fi
 done
+
+# Also kill any stray next-dev processes by name
+pkill -f "next dev" 2>/dev/null && warn "Killed stray 'next dev' processes" || true
+pkill -f "next-server" 2>/dev/null || true
 
 log "All services stopped."

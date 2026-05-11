@@ -13,7 +13,7 @@ log()  { echo -e "${GREEN}[runall]${NC} $1"; }
 err()  { echo -e "${RED}[runall]${NC} $1"; }
 
 # Kill any stale processes on our ports before starting
-for port in 8000 3000; do
+for port in 8000 3000 3001 3002 3003; do
   pids=$(lsof -ti tcp:"$port" 2>/dev/null || true)
   if [ -n "$pids" ]; then
     log "Killing stale processes on :$port (pids $pids)"
@@ -40,7 +40,7 @@ fi
 source "$VENV_DIR/bin/activate"
 pip install -q -r requirements.txt
 
-nohup uvicorn main:app --reload --host 0.0.0.0 --port 8000 > "$ROOT/backend.log" 2>&1 &
+setsid nohup uvicorn main:app --reload --host 0.0.0.0 --port 8000 > "$ROOT/backend.log" 2>&1 &
 BACKEND_PID=$!
 echo $BACKEND_PID > "$ROOT/.backend.pid"
 log "Backend starting on ${BLUE}http://localhost:8000${NC} (pid $BACKEND_PID)"
@@ -56,7 +56,7 @@ if [ ! -d "node_modules" ]; then
   npm install
 fi
 
-nohup npm run dev > "$ROOT/frontend.log" 2>&1 &
+setsid nohup npm run dev > "$ROOT/frontend.log" 2>&1 &
 FRONTEND_PID=$!
 echo $FRONTEND_PID > "$ROOT/.frontend.pid"
 log "Frontend starting on ${BLUE}http://localhost:3000${NC} (pid $FRONTEND_PID)"
