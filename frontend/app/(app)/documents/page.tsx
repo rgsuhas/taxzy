@@ -7,7 +7,8 @@ import { FolderGridCard } from "@/components/documents/FolderGridCard";
 import { CreateFolderSheet } from "@/components/documents/CreateFolderSheet";
 import { AISGuide } from "@/components/documents/AISGuide";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, FolderOpen, Plus, Loader2 } from "lucide-react";
+import { ChevronLeft, FolderOpen, Plus, Loader2, SearchX } from "lucide-react";
+import { useTaxStore } from "@/store/taxStore";
 import type { Document, DocumentUploadResponse } from "@/types/api";
 
 interface FolderGroup {
@@ -117,6 +118,30 @@ export default function DocumentsPage() {
 
   const openFolder = folders.find((f) => f.id === openFolderId) ?? null;
 
+  const { searchQuery } = useTaxStore();
+  const q = searchQuery.trim().toLowerCase();
+
+  // Filtered views
+  const visibleFolders = q
+    ? folders.filter((f) =>
+        f.folderName.toLowerCase().includes(q) ||
+        f.docs.some((d) => d.filename.toLowerCase().includes(q))
+      )
+    : folders;
+
+  const visibleDocs = q
+    ? docs.filter((d) => d.filename.toLowerCase().includes(q))
+    : docs;
+
+  // Inside an open folder, also filter the files
+  const visibleFolderDocs = openFolder
+    ? q
+      ? openFolder.docs.filter((d) => d.filename.toLowerCase().includes(q))
+      : openFolder.docs
+    : [];
+
+  const noResults = q && visibleFolders.length === 0 && visibleDocs.length === 0;
+
   return (
     <div className="p-6 max-w-3xl mx-auto space-y-6">
       {/* Header */}
@@ -203,9 +228,14 @@ export default function DocumentsPage() {
                   Add files
                 </button>
               </div>
+            ) : visibleFolderDocs.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-16 text-center text-[var(--taxzy-stone)]">
+                <SearchX size={36} className="mb-3 opacity-40" />
+                <p className="text-sm font-medium">No files match "{searchQuery}"</p>
+              </div>
             ) : (
               <div className="grid grid-cols-3 gap-3">
-                {openFolder.docs.map((doc) => (
+                {visibleFolderDocs.map((doc) => (
                   <DocGridCard
                     key={doc.doc_id}
                     doc={doc}
@@ -223,13 +253,19 @@ export default function DocumentsPage() {
             exit={{ opacity: 0, x: 24 }}
             transition={{ duration: 0.2 }}
           >
-            {(folders.length > 0 || docs.length > 0) && (
+            {noResults ? (
+              <div className="flex flex-col items-center justify-center py-20 text-center text-[var(--taxzy-stone)]">
+                <SearchX size={36} className="mb-3 opacity-40" />
+                <p className="text-sm font-medium">No results for "{searchQuery}"</p>
+                <p className="text-xs mt-1">Try a different file or folder name</p>
+              </div>
+            ) : (folders.length > 0 || docs.length > 0) && (
               <div className="space-y-6">
-                {folders.length > 0 && (
+                {visibleFolders.length > 0 && (
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-widest text-[var(--taxzy-stone)] mb-3">Folders</p>
                     <div className="grid grid-cols-3 gap-3">
-                      {folders.map((folder) => (
+                      {visibleFolders.map((folder) => (
                         <FolderGridCard
                           key={folder.id}
                           folderName={folder.folderName}
@@ -243,11 +279,11 @@ export default function DocumentsPage() {
                   </div>
                 )}
 
-                {docs.length > 0 && (
+                {visibleDocs.length > 0 && (
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-widest text-[var(--taxzy-stone)] mb-3">Files</p>
                     <div className="grid grid-cols-3 gap-3">
-                      {docs.map((doc) => (
+                      {visibleDocs.map((doc) => (
                         <DocGridCard key={doc.doc_id} doc={doc} onDelete={onDeleteDoc} />
                       ))}
                     </div>
