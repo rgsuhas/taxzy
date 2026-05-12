@@ -41,8 +41,9 @@ for port in 8000 3000 3001 3002 3003; do
   fi
 done
 
-# Also kill any stray next-dev processes by name
+# Also kill any stray next-dev and uvicorn processes by name
 pkill -f "next dev" 2>/dev/null && warn "Killed stray 'next dev' processes" || true
 pkill -f "next-server" 2>/dev/null || true
+pkill -f "uvicorn main:app" 2>/dev/null && warn "Killed stray uvicorn processes" || true
 
 log "All services stopped."

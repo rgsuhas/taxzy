@@ -1,7 +1,10 @@
 import logging
 import sys
+from contextlib import asynccontextmanager
 
+# pyrefly: ignore [missing-import]
 from fastapi import FastAPI
+# pyrefly: ignore [missing-import]
 from fastapi.middleware.cors import CORSMiddleware
 
 from core.database import Base, engine
@@ -12,7 +15,10 @@ logging.basicConfig(
     datefmt="%Y-%m-%dT%H:%M:%S",
     stream=sys.stdout,
 )
-logging.getLogger("uvicorn.access").setLevel(logging.WARNING)  # reduce noise from uvicorn request logs
+logging.getLogger("uvicorn.access").setLevel(logging.WARNING)
+logging.getLogger("httpx").setLevel(logging.WARNING)
+logging.getLogger("google_genai").setLevel(logging.WARNING)
+logging.getLogger("google.auth").setLevel(logging.WARNING)
 import models.user  # noqa: F401 — ensure all models are registered before create_all
 import models.conversation  # noqa: F401
 import models.message  # noqa: F401
@@ -22,10 +28,17 @@ import models.marketplace  # noqa: F401
 
 from routers import auth, chat, tax_profile, documents, pan, itr, marketplace, refund, tax_usage, glossary
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    Base.metadata.create_all(bind=engine)
+    yield
+
+
 app = FastAPI(
     title="Taxzy",
     description="AI-powered Indian tax filing assistant",
     version="1.0.0",
+    lifespan=lifespan,
 )
 
 app.add_middleware(
@@ -35,11 +48,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-@app.on_event("startup")
-def create_tables():
-    Base.metadata.create_all(bind=engine)
 
 
 app.include_router(auth.router)
