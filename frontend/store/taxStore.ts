@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import type { TaxProfile, TaxCalculation, Message, StructuredUpdate } from "@/types/api";
 
-type Theme = "light" | "dark" | "reading";
+type Theme = "light" | "dark";
 
 interface TaxStore {
   // Theme
@@ -26,6 +26,10 @@ interface TaxStore {
   setStreamingContent: (content: string) => void;
   appendStreamingChunk: (chunk: string) => void;
   setConversationId: (id: number | null) => void;
+
+  // Search
+  searchQuery: string;
+  setSearchQuery: (q: string) => void;
 
   // Filing progress
   filingProgress: number;
@@ -74,6 +78,9 @@ export const useTaxStore = create<TaxStore>((set, get) => ({
   setStreamingContent: (streamingContent) => set({ streamingContent }),
   appendStreamingChunk: (chunk) => set((s) => ({ streamingContent: s.streamingContent + chunk })),
   setConversationId: (id) => set({ currentConversationId: id }),
+
+  searchQuery: "",
+  setSearchQuery: (searchQuery) => set({ searchQuery }),
 
   filingProgress: 0,
   computeFilingProgress: () => {
