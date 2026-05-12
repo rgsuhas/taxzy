@@ -62,10 +62,10 @@ export default function ProblemSolution() {
           >
             <div className="flex items-center gap-3 mb-6">
               <div
-                className="w-8 h-8 rounded-xl flex items-center justify-center text-base"
+                className="w-8 h-8 rounded-xl flex items-center justify-center"
                 style={{ background: "rgba(220,38,38,0.08)" }}
               >
-                ❌
+                <X size={16} style={{ color: "#DC2626" }} />
               </div>
               <div>
                 <p className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: "#9CA3AF" }}>
@@ -113,10 +113,10 @@ export default function ProblemSolution() {
           >
             <div className="flex items-center gap-3 mb-6">
               <div
-                className="w-8 h-8 rounded-xl flex items-center justify-center text-base"
+                className="w-8 h-8 rounded-xl flex items-center justify-center"
                 style={{ background: "rgba(22,163,74,0.1)" }}
               >
-                ✅
+                <CheckCircle2 size={16} style={{ color: "#16A34A" }} />
               </div>
               <div>
                 <p className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: "#9CA3AF" }}>

@@ -4,6 +4,7 @@ import { StatCard } from "@/components/dashboard/StatCard";
 import { TaxDonutChart } from "@/components/dashboard/TaxDonutChart";
 import { RefundCard } from "@/components/dashboard/RefundCard";
 import { DeductionBar } from "@/components/dashboard/DeductionBar";
+import { FilingCalendar } from "@/components/dashboard/FilingCalendar";
 import { motion } from "framer-motion";
 import { DollarSign, BadgePercent, Wallet, TrendingUp, MessageCircle } from "lucide-react";
 import Link from "next/link";
@@ -71,7 +72,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Charts */}
-      <div className="grid md:grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-2 gap-4 mb-6">
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2, delay: 0.3 }}>
           <TaxDonutChart calculation={calculation} />
         </motion.div>
@@ -79,6 +80,9 @@ export default function DashboardPage() {
           <DeductionBar breakdown={calculation.deductions_breakdown} />
         </motion.div>
       </div>
+
+      {/* Filing calendar */}
+      <FilingCalendar />
     </div>
   );
 }

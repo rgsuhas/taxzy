@@ -1,10 +1,9 @@
 "use client";
 import { useTaxStore } from "@/store/taxStore";
 import { cn } from "@/lib/utils";
-import { Sun, Moon, BookOpen } from "lucide-react";
+import { Moon, BookOpen } from "lucide-react";
 
 const modes = [
-  { key: "light", label: "Light", icon: Sun },
   { key: "dark", label: "Dark", icon: Moon },
   { key: "reading", label: "Reading", icon: BookOpen },
 ] as const;

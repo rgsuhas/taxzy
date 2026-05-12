@@ -20,13 +20,20 @@ export function useChat() {
     updateProfileFromChat,
   } = useTaxStore();
 
-  const sendMessage = useCallback(async (text: string) => {
-    if (isStreaming || !text.trim()) return;
+  const sendMessage = useCallback(async (text: string, attachment?: { name: string; content: string }) => {
+    const trimmed = text.trim();
+    if (isStreaming || (!trimmed && !attachment)) return;
+
+    // Build display content and API content
+    const displayContent = trimmed + (attachment ? `\n\n[Attached: ${attachment.name}]` : "");
+    const apiContent = attachment
+      ? `${trimmed}\n\n<attached_json name="${attachment.name}">\n${attachment.content}\n</attached_json>`
+      : trimmed;
 
     const userMsg: Message = {
       id: Date.now(),
       role: "user",
-      content: text,
+      content: displayContent,
       created_at: new Date().toISOString(),
     };
     appendMessage(userMsg);
@@ -42,7 +49,7 @@ export function useChat() {
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
         body: JSON.stringify({
-          message: text,
+          message: apiContent,
           conversation_id: currentConversationId,
         }),
       });
