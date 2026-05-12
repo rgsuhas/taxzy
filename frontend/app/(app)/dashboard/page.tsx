@@ -24,7 +24,7 @@ export default function DashboardPage() {
     );
   }
 
-  if (!hasIncome || !calculation) {
+  if (!hasIncome || !calculation || !profile) {
     return (
       <div className="p-6 flex flex-col items-center justify-center min-h-[60vh] text-center">
         <div className="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-10 max-w-sm">
