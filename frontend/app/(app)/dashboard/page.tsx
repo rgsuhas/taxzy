@@ -1,25 +1,44 @@
 "use client";
-import { useEffect } from "react";
 import { useTaxProfile } from "@/hooks/useTaxProfile";
 import { StatCard } from "@/components/dashboard/StatCard";
 import { TaxDonutChart } from "@/components/dashboard/TaxDonutChart";
 import { RefundCard } from "@/components/dashboard/RefundCard";
 import { DeductionBar } from "@/components/dashboard/DeductionBar";
 import { motion } from "framer-motion";
-import { DollarSign, BadgePercent, Wallet, TrendingUp } from "lucide-react";
+import { DollarSign, BadgePercent, Wallet, TrendingUp, MessageCircle } from "lucide-react";
+import Link from "next/link";
 
 export default function DashboardPage() {
-  const { profile, calculation, refresh } = useTaxProfile();
+  const { profile, calculation, loading, hasIncome } = useTaxProfile();
 
-  useEffect(() => { refresh(); }, []);
-
-  if (!calculation || !profile) {
+  if (loading) {
     return (
       <div className="p-6">
         <div className="animate-pulse space-y-4">
           {[1, 2, 3, 4].map((i) => (
             <div key={i} className="h-24 rounded-xl bg-[var(--muted)]" />
           ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (!hasIncome || !calculation) {
+    return (
+      <div className="p-6 flex flex-col items-center justify-center min-h-[60vh] text-center">
+        <div className="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-10 max-w-sm">
+          <MessageCircle className="w-10 h-10 text-[var(--taxzy-stone)] mx-auto mb-4" />
+          <h2 className="text-lg font-bold text-[var(--foreground)] mb-2">No tax data yet</h2>
+          <p className="text-sm text-[var(--taxzy-stone)] mb-6">
+            Chat with KarSmart to fill in your income, TDS, and deductions — your dashboard will populate automatically.
+          </p>
+          <Link
+            href="/chat"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[var(--taxzy-slate)] text-white text-sm font-medium hover:opacity-90 transition-opacity"
+          >
+            <MessageCircle className="w-4 h-4" />
+            Start chat
+          </Link>
         </div>
       </div>
     );
