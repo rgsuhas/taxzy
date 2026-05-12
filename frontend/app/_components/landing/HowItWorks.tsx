@@ -53,44 +53,6 @@ export default function HowItWorks() {
         <div className="relative flex flex-col md:flex-row gap-6 md:gap-0 items-stretch">
           {steps.map((step, i) => (
             <div key={i} className="relative flex-1 flex flex-col">
-              {/* Connecting line (desktop) */}
-              {i < steps.length - 1 && (
-                <div
-                  className="hidden md:block absolute top-[52px] z-10"
-                  style={{ left: "calc(50% + 52px)", width: "calc(100% - 100px)" }}
-                >
-                  <svg
-                    width="100%"
-                    height="20"
-                    viewBox="0 0 120 20"
-                    fill="none"
-                    preserveAspectRatio="none"
-                  >
-                    {/* Straight dashed line, left → right */}
-                    <motion.line
-                      x1="0" y1="10" x2="106" y2="10"
-                      stroke="#3D5A80"
-                      strokeWidth="1.5"
-                      strokeDasharray="5 3"
-                      strokeLinecap="round"
-                      initial={{ pathLength: 0, opacity: 0 }}
-                      whileInView={{ pathLength: 1, opacity: 0.5 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.55, ease: "easeOut", delay: 0.35 + i * 0.15 }}
-                    />
-                    {/* Solid filled right-pointing arrowhead */}
-                    <motion.polygon
-                      points="106,4 120,10 106,16"
-                      fill="#3D5A80"
-                      fillOpacity="0.5"
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.18, delay: 0.85 + i * 0.15 }}
-                    />
-                  </svg>
-                </div>
-              )}
 
               <motion.div
                 initial={{ opacity: 0, y: 24 }}

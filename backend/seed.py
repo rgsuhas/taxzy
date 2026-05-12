@@ -45,7 +45,7 @@ def main():
         profiles = [
             (1200000, 85000,  {"80c": 150000, "80d": 25000, "hra": 120000}, "old", "2024-25"),
             (1800000, 210000, {"80c": 50000,  "80d": 15000, "hra": None},   "new", "2024-25"),
-            (950000,  45000,  {"80c": 100000, "80d": 20000, "hra": 60000},  "old", "2024-25"),
+            (950000,  72000,  {"80c": 100000, "80d": 20000, "hra": 60000},  "old", "2024-25"),
             (650000,  30000,  {"80c": 80000,  "80d": None,  "hra": None},   "new", "2024-25"),
             (2200000, 320000, {"80c": 150000, "80d": 50000, "hra": 180000}, "old", "2024-25"),
         ]
@@ -102,15 +102,35 @@ def main():
             db.add(Document(user_id=demo_user.id, doc_type=doc_type, filename=filename,
                             raw_blob=None, parsed_data=parsed, uploaded_at=dt(days_ago=7)))
 
-        for offer_id, voucher, amount, days_ago in [
-            ("cleartax_50off", "CLEAR-TXZY-4821", 499.0, 15),
-            ("hdfc_cashback",  "HDFC-CB-7743",    200.0, 8),
-        ]:
-            db.add(Redemption(user_id=demo_user.id, offer_id=offer_id, voucher_code=voucher,
-                              amount=amount, redeemed_at=dt(days_ago=days_ago)))
+        # (user_index, offer_id, voucher, amount, days_ago, status)
+        # Amit's refund: ₹9.5L income, ₹72K TDS, old regime => ₹13,240 refund
+        # AMZ 1.1x=14564, FLK 1.12x=14829, SWG 1.15x=15226, ZMT 1.12x=14829
+        redemptions_data = [
+            # demo (Rahul) — 2 claimed, 1 pending
+            (0, "AMZ001", "AMZ-TXZY-4821",  1320.0, 15, "claimed"),
+            (0, "SWG001", "SWG-CB-7743",     517.5,  8, "claimed"),
+            (0, "FLK001", "FLK-PEND-0012",  1344.0,  2, "pending"),
+            # priya — 1 claimed, 1 pending
+            (1, "ZMT001", "ZMT-PRYA-3391",  2520.0, 20, "claimed"),
+            (1, "MKT001", "MKT-PEND-8821",  2592.0,  3, "pending"),
+            # amit — 4 claimed (2 from prior year, 2 current), 2 pending (filed 2 days ago)
+            (2, "AMZ001", "AMZ-AMIT-2291", 11440.0, 42, "claimed"),
+            (2, "SWG001", "SWG-AMIT-8834",  4255.0, 38, "claimed"),
+            (2, "FLK001", "FLK-AMIT-5571", 14829.0,  9, "claimed"),
+            (2, "ZMT001", "ZMT-AMIT-1103", 14829.0,  9, "claimed"),
+            (2, "AMZ001", "AMZ-PEND-5544", 14564.0,  2, "pending"),
+            (2, "SWG001", "SWG-PEND-7712", 15226.0,  2, "pending"),
+            # rajesh — 1 claimed
+            (4, "FLK001", "FLK-RAJ-9932",  3696.0, 30, "claimed"),
+        ]
+
+        for u_idx, offer_id, voucher, amount, days_ago, status in redemptions_data:
+            u = users[u_idx][0]
+            db.add(Redemption(user_id=u.id, offer_id=offer_id, voucher_code=voucher,
+                              amount=amount, status=status, redeemed_at=dt(days_ago=days_ago)))
 
         db.commit()
-        print("Seeded: 5 users, 5 tax profiles, 3 conversations, 8 messages, 3 documents, 2 redemptions")
+        print("Seeded: 5 users, 5 tax profiles, 3 conversations, 8 messages, 3 documents, 12 redemptions (8 claimed, 4 pending)")
         print("Demo login: username=demo  password=demo1234")
 
 
