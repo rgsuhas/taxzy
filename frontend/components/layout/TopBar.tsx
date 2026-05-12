@@ -1,30 +1,28 @@
 "use client";
-import { useState } from "react";
+import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { useTaxStore } from "@/store/taxStore";
 import { cn } from "@/lib/utils";
-import { Sun, Moon, BookOpen, Search } from "lucide-react";
-
-const modes = [
-  { key: "light",   label: "Light",   icon: Sun },
-  { key: "dark",    label: "Dark",    icon: Moon },
-  { key: "reading", label: "Reading", icon: BookOpen },
-] as const;
+import { Sun, Moon, Search, X } from "lucide-react";
 
 const PAGE_TITLES: Record<string, string> = {
-  "/chat":       "Chat",
-  "/dashboard":  "Dashboard",
-  "/documents":  "Documents",
-  "/marketplace":"Marketplace",
-  "/tracker":    "Tracker",
-  "/tax-usage":  "Tax Usage",
+  "/chat":        "Chat",
+  "/dashboard":   "Dashboard",
+  "/documents":   "Documents",
+  "/marketplace": "Marketplace",
+  "/tracker":     "Tracker",
+  "/tax-usage":   "Tax Usage",
 };
 
 export function TopBar() {
-  const { theme, setTheme } = useTaxStore();
+  const { theme, setTheme, searchQuery, setSearchQuery } = useTaxStore();
   const pathname = usePathname();
-  const [search, setSearch] = useState("");
 
+  useEffect(() => {
+    if (pathname !== "/documents") setSearchQuery("");
+  }, [pathname, setSearchQuery]);
+
+  const isDocuments = pathname === "/documents";
   const title = PAGE_TITLES[pathname] ?? "KarSmart";
 
   return (
@@ -34,39 +32,46 @@ export function TopBar() {
         {title}
       </h2>
 
-      {/* Search bar */}
-      <div className="flex-1 flex items-center gap-2 bg-[var(--muted)] rounded-lg px-3 py-1.5">
-        <Search size={14} className="text-[var(--taxzy-stone)] shrink-0" />
-        <input
-          type="text"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search..."
-          className="flex-1 bg-transparent text-sm text-[var(--foreground)] placeholder:text-[var(--taxzy-stone)] outline-none"
-        />
+      {/* Pill search bar — centered */}
+      <div className="flex-1 flex justify-center">
+        <div className={cn(
+          "flex items-center gap-2 bg-[var(--muted)] rounded-full px-4 py-1.5 w-full max-w-sm border border-transparent transition-colors",
+          isDocuments
+            ? "focus-within:border-[var(--taxzy-slate)]/40"
+            : "opacity-40 pointer-events-none"
+        )}>
+          <Search size={13} className="text-[var(--taxzy-stone)] shrink-0" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder={isDocuments ? "Search files and folders…" : "Search…"}
+            className="flex-1 bg-transparent text-sm text-[var(--foreground)] placeholder:text-[var(--taxzy-stone)] outline-none min-w-0"
+          />
+          {searchQuery && (
+            <button onClick={() => setSearchQuery("")} className="shrink-0">
+              <X size={12} className="text-[var(--taxzy-stone)] hover:text-[var(--foreground)]" />
+            </button>
+          )}
+        </div>
       </div>
 
-      {/* Mode switcher */}
-      <div className="flex items-center gap-1 bg-[var(--muted)] rounded-full px-1 py-1 shrink-0">
-        {modes.map((m) => {
-          const Icon = m.icon;
-          return (
-            <button
-              key={m.key}
-              onClick={() => setTheme(m.key)}
-              title={m.label}
-              className={cn(
-                "p-1.5 rounded-full transition-all duration-200",
-                theme === m.key
-                  ? "bg-[var(--taxzy-slate)] text-white shadow-sm"
-                  : "text-[var(--taxzy-stone)] hover:text-[var(--taxzy-ink)]"
-              )}
-            >
-              <Icon size={15} />
-            </button>
-          );
-        })}
-      </div>
+      {/* Theme toggle */}
+      <button
+        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+        title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+        className={cn(
+          "shrink-0 flex items-center gap-2 px-3 py-1.5 rounded-full transition-all duration-300 focus:outline-none text-xs font-medium",
+          theme === "dark"
+            ? "bg-gradient-to-r from-slate-700 to-slate-600 hover:from-slate-600 hover:to-slate-500 text-yellow-300 shadow-lg shadow-slate-900/40 border border-slate-500/50"
+            : "bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-300 hover:to-orange-300 text-white shadow-lg shadow-amber-500/30 border border-amber-300/60"
+        )}
+      >
+        {theme === "dark"
+          ? <><Sun size={14} strokeWidth={2.5} /><span>Light</span></>
+          : <><Moon size={14} strokeWidth={2.5} /><span>Dark</span></>
+        }
+      </button>
     </div>
   );
 }

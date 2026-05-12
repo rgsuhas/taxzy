@@ -1,11 +1,11 @@
 "use client";
 import { useTaxStore } from "@/store/taxStore";
 import { cn } from "@/lib/utils";
-import { Moon, BookOpen } from "lucide-react";
+import { Sun, Moon } from "lucide-react";
 
 const modes = [
-  { key: "dark", label: "Dark", icon: Moon },
-  { key: "reading", label: "Reading", icon: BookOpen },
+  { key: "light", label: "Light", icon: Sun },
+  { key: "dark",  label: "Dark",  icon: Moon },
 ] as const;
 
 export function ModeSwitcher() {
