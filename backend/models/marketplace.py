@@ -13,4 +13,6 @@ class Redemption(Base):
     offer_id: Mapped[str] = mapped_column(String(50), nullable=False)
     voucher_code: Mapped[str] = mapped_column(String(50), nullable=False)
     amount: Mapped[float] = mapped_column(Numeric(10, 2), nullable=False)
+    # "claimed" = voucher delivered; "pending" = locked in, awaiting ITR processing
+    status: Mapped[str] = mapped_column(String(20), nullable=False, default="claimed")
     redeemed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))

@@ -52,9 +52,10 @@ def redeem_offer(
         offer_id=body.offer_id,
         voucher_code=voucher_code,
         amount=voucher_amount,
+        status="claimed",
         redeemed_at=now,
     )
     db.add(redemption)
     db.commit()
 
-    return RedeemResponse(voucher_code=voucher_code, brand=offer["brand"], amount=voucher_amount, redeemed_at=now)
+    return RedeemResponse(voucher_code=voucher_code, brand=offer["brand"], amount=voucher_amount, status="claimed", redeemed_at=now)

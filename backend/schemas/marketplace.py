@@ -21,4 +21,5 @@ class RedeemResponse(BaseModel):
     voucher_code: str
     brand: str
     amount: float
+    status: str
     redeemed_at: datetime
