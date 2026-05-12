@@ -8,6 +8,7 @@ import {
   FileText,
   ShoppingBag,
   ClipboardList,
+  MapPin,
   Map,
   FileJson,
 } from "lucide-react";

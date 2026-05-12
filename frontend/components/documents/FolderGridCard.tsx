@@ -1,6 +1,6 @@
 "use client";
-import { useRef, useState } from "react";
-import { Trash2, Plus, Loader2, MoreVertical, FolderOpen } from "lucide-react";
+import { useRef, useState, useEffect } from "react";
+import { Trash2, Plus, Loader2, MoreVertical, FolderOpen, AlertCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { uploadDocument } from "@/lib/api";
 import type { Document } from "@/types/api";
@@ -16,21 +16,48 @@ interface Props {
 export function FolderGridCard({ folderName, fileCount, onOpen, onDelete, onAddFiles }: Props) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Always keep a fresh reference to onAddFiles so the async handler never uses a stale closure
+  const onAddFilesRef = useRef(onAddFiles);
+  useEffect(() => { onAddFilesRef.current = onAddFiles; }, [onAddFiles]);
 
   const handleAddFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
+    // Reset the input value immediately so the same file can be re-selected later
+    e.target.value = "";
     if (!files.length) return;
+
     setUploading(true);
+    setError(null);
     const added: Document[] = [];
+
     try {
       for (const file of files) {
         const res = await uploadDocument(file);
-        added.push({ doc_id: res.doc_id, doc_type: res.doc_type, filename: file.name, uploaded_at: new Date().toISOString() });
+        added.push({
+          doc_id: res.doc_id,
+          doc_type: res.doc_type,
+          filename: file.name,
+          uploaded_at: new Date().toISOString(),
+        });
       }
-      onAddFiles(added);
-    } catch {}
-    finally { setUploading(false); e.target.value = ""; }
+      // Use the ref so we always call the latest version of the callback
+      onAddFilesRef.current(added);
+    } catch (err) {
+      setError((err as Error).message || "Upload failed — please try again");
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const openFilePicker = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setMenuOpen(false);
+    // Small delay lets the menu finish closing before the native dialog opens,
+    // keeping us inside the browser's trusted-user-gesture window
+    setTimeout(() => inputRef.current?.click(), 0);
   };
 
   return (
@@ -43,23 +70,17 @@ export function FolderGridCard({ folderName, fileCount, onOpen, onDelete, onAddF
     >
       {/* Folder banner */}
       <div className="bg-gradient-to-br from-amber-400 to-orange-500 flex flex-col items-center justify-center py-7 gap-2 relative rounded-t-2xl overflow-hidden">
-        {/* Folder shape */}
         <div className="relative w-16 h-12">
-          {/* Folder tab */}
           <div className="absolute top-0 left-0 w-7 h-3 bg-white/30 rounded-t-md" />
-          {/* Folder body */}
           <div className="absolute top-2.5 inset-x-0 bottom-0 bg-white/25 rounded-md rounded-tl-none" />
-          {/* Inner lines suggesting files */}
           <div className="absolute top-5 left-2.5 right-2.5 space-y-1">
             <div className="h-0.5 bg-white/40 rounded" />
             <div className="h-0.5 bg-white/40 rounded w-3/4" />
             <div className="h-0.5 bg-white/40 rounded w-1/2" />
           </div>
         </div>
-
-        {/* File count badge */}
         <span className="text-[10px] font-bold text-white/90 bg-white/20 px-2 py-0.5 rounded-full">
-          {fileCount === 0 ? "Empty" : `${fileCount} ${fileCount === 1 ? "file" : "files"}`}
+          {uploading ? "Uploading…" : fileCount === 0 ? "Empty" : `${fileCount} ${fileCount === 1 ? "file" : "files"}`}
         </span>
       </div>
 
@@ -67,16 +88,26 @@ export function FolderGridCard({ folderName, fileCount, onOpen, onDelete, onAddF
       <div className="px-3 py-2.5 flex items-start justify-between gap-1">
         <div className="min-w-0 flex-1">
           <p className="text-[12px] font-semibold text-[var(--foreground)] truncate leading-tight">{folderName}</p>
-          <p className="text-[10px] text-[var(--taxzy-stone)] mt-0.5">Folder</p>
+          {error ? (
+            <p className="text-[10px] text-destructive mt-0.5 flex items-center gap-1 truncate">
+              <AlertCircle size={9} />
+              {error}
+            </p>
+          ) : (
+            <p className="text-[10px] text-[var(--taxzy-stone)] mt-0.5">Folder</p>
+          )}
         </div>
 
-        {/* Menu trigger */}
+        {/* Three-dot menu */}
         <div className="relative shrink-0">
           <button
             onClick={(e) => { e.stopPropagation(); setMenuOpen((v) => !v); }}
             className="p-1 rounded-md opacity-0 group-hover:opacity-100 hover:bg-[var(--muted)] transition-all"
           >
-            <MoreVertical size={13} className="text-[var(--foreground)]" />
+            {uploading
+              ? <Loader2 size={13} className="animate-spin text-[var(--foreground)]" />
+              : <MoreVertical size={13} className="text-[var(--foreground)]" />
+            }
           </button>
 
           <AnimatePresence>
@@ -97,14 +128,6 @@ export function FolderGridCard({ folderName, fileCount, onOpen, onDelete, onAddF
                     <FolderOpen size={12} />
                     Open
                   </button>
-                  <button
-                    onClick={(e) => { e.stopPropagation(); setMenuOpen(false); inputRef.current?.click(); }}
-                    disabled={uploading}
-                    className="w-full flex items-center gap-2 px-3 py-2 text-xs text-[var(--foreground)] hover:bg-[var(--muted)] transition-colors disabled:opacity-40"
-                  >
-                    {uploading ? <Loader2 size={12} className="animate-spin" /> : <Plus size={12} />}
-                    Add files
-                  </button>
                   <div className="border-t border-[var(--border)] my-1" />
                   <button
                     onClick={(e) => { e.stopPropagation(); setMenuOpen(false); onDelete(); }}
@@ -120,6 +143,7 @@ export function FolderGridCard({ folderName, fileCount, onOpen, onDelete, onAddF
         </div>
       </div>
 
+      {/* Hidden file input — always mounted */}
       <input
         ref={inputRef}
         type="file"

@@ -1,13 +1,13 @@
 "use client";
-import { useEffect, useState } from "react";
-import { getDocuments } from "@/lib/api";
+import { useRef, useEffect, useState } from "react";
+import { getDocuments, uploadDocument } from "@/lib/api";
 import { UploadZone, FolderUploadResult } from "@/components/documents/UploadZone";
 import { DocGridCard } from "@/components/documents/DocGridCard";
 import { FolderGridCard } from "@/components/documents/FolderGridCard";
 import { CreateFolderSheet } from "@/components/documents/CreateFolderSheet";
 import { AISGuide } from "@/components/documents/AISGuide";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, FolderOpen } from "lucide-react";
+import { ChevronLeft, FolderOpen, Plus, Loader2 } from "lucide-react";
 import type { Document, DocumentUploadResponse } from "@/types/api";
 
 interface FolderGroup {
@@ -36,58 +36,84 @@ export default function DocumentsPage() {
   const [docs, setDocs] = useState<Document[]>([]);
   const [folders, setFolders] = useState<FolderGroup[]>([]);
   const [openFolderId, setOpenFolderId] = useState<string | null>(null);
+  const [addingToFolder, setAddingToFolder] = useState(false);
+  const folderInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setFolders(loadFolders());
     getDocuments().then(setDocs).catch(() => {});
   }, []);
 
-  const updateFolders = (next: FolderGroup[]) => {
-    setFolders(next);
-    saveFolders(next);
+  // Always use functional update to avoid stale closures
+  const mutateFolders = (updater: (prev: FolderGroup[]) => FolderGroup[]) => {
+    setFolders((prev) => {
+      const next = updater(prev);
+      saveFolders(next);
+      return next;
+    });
   };
 
+  // ── Root-level uploads ──
   const onUpload = (res: DocumentUploadResponse, filename: string) => {
-{ href: "/itr-wizard", label: "Wizard",    icon: ClipboardList },    setDocs((prev) => [
+    setDocs((prev) => [
       { doc_id: res.doc_id, doc_type: res.doc_type, filename, uploaded_at: new Date().toISOString() },
       ...prev,
     ]);
   };
 
   const onFolderUpload = (result: FolderUploadResult) => {
-    const next = [
+    mutateFolders((prev) => [
       { id: `${result.folderName}-${Date.now()}`, folderName: result.folderName, docs: result.docs, uploadedAt: result.uploadedAt },
-      ...folders,
-    ];
-    updateFolders(next);
-  };
-
-  const createFolder = (name: string) => {
-    if (folders.some((f) => f.folderName.toLowerCase() === name.toLowerCase())) return;
-    updateFolders([
-      { id: `${name}-${Date.now()}`, folderName: name, docs: [], uploadedAt: new Date().toISOString() },
-      ...folders,
+      ...prev,
     ]);
   };
 
-  const onDeleteDoc = (id: number) => setDocs((prev) => prev.filter((d) => d.doc_id !== id));
-
-  const onDeleteDocInFolder = (folderId: string, docId: number) => {
-    updateFolders(folders.map((f) =>
-      f.id === folderId ? { ...f, docs: f.docs.filter((d) => d.doc_id !== docId) } : f
-    ));
+  // ── Folder management ──
+  const createFolder = (name: string) => {
+    mutateFolders((prev) => {
+      if (prev.some((f) => f.folderName.toLowerCase() === name.toLowerCase())) return prev;
+      return [
+        { id: `${name}-${Date.now()}`, folderName: name, docs: [], uploadedAt: new Date().toISOString() },
+        ...prev,
+      ];
+    });
   };
 
   const onDeleteFolder = (folderId: string) => {
     if (openFolderId === folderId) setOpenFolderId(null);
-    updateFolders(folders.filter((f) => f.id !== folderId));
+    mutateFolders((prev) => prev.filter((f) => f.id !== folderId));
   };
 
   const onAddFilesToFolder = (folderId: string, newDocs: Document[]) => {
-    updateFolders(folders.map((f) =>
-      f.id === folderId ? { ...f, docs: [...f.docs, ...newDocs] } : f
-    ));
+    mutateFolders((prev) =>
+      prev.map((f) => f.id === folderId ? { ...f, docs: [...f.docs, ...newDocs] } : f)
+    );
   };
+
+  const onDeleteDocInFolder = (folderId: string, docId: number) => {
+    mutateFolders((prev) =>
+      prev.map((f) => f.id === folderId ? { ...f, docs: f.docs.filter((d) => d.doc_id !== docId) } : f)
+    );
+  };
+
+  // ── Upload files directly into the open folder ──
+  const handleUploadIntoOpenFolder = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!openFolderId) return;
+    const files = Array.from(e.target.files || []);
+    if (!files.length) return;
+    setAddingToFolder(true);
+    const added: Document[] = [];
+    try {
+      for (const file of files) {
+        const res = await uploadDocument(file);
+        added.push({ doc_id: res.doc_id, doc_type: res.doc_type, filename: file.name, uploaded_at: new Date().toISOString() });
+      }
+      onAddFilesToFolder(openFolderId, added);
+    } catch {}
+    finally { setAddingToFolder(false); e.target.value = ""; }
+  };
+
+  const onDeleteDoc = (id: number) => setDocs((prev) => prev.filter((d) => d.doc_id !== id));
 
   const openFolder = folders.find((f) => f.id === openFolderId) ?? null;
 
@@ -95,7 +121,7 @@ export default function DocumentsPage() {
     <div className="p-6 max-w-3xl mx-auto space-y-6">
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }}>
-        <div className="flex items-start justify-between">
+        <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 min-w-0">
             {openFolder ? (
               <>
@@ -119,11 +145,34 @@ export default function DocumentsPage() {
               </div>
             )}
           </div>
-          {!openFolder && <CreateFolderSheet onCreateFolder={createFolder} />}
+
+          {/* Actions */}
+          {openFolder ? (
+            <div>
+              <button
+                onClick={() => folderInputRef.current?.click()}
+                disabled={addingToFolder}
+                className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border border-[var(--border)] bg-[var(--card)] hover:bg-[var(--muted)] transition-colors font-medium text-[var(--foreground)] disabled:opacity-40"
+              >
+                {addingToFolder ? <Loader2 size={13} className="animate-spin" /> : <Plus size={13} />}
+                Add files
+              </button>
+              <input
+                ref={folderInputRef}
+                type="file"
+                multiple
+                accept=".pdf,.json,.xml"
+                className="hidden"
+                onChange={handleUploadIntoOpenFolder}
+              />
+            </div>
+          ) : (
+            <CreateFolderSheet onCreateFolder={createFolder} />
+          )}
         </div>
       </motion.div>
 
-      {/* Upload zone — hidden when inside a folder */}
+      {/* Upload zone — only on root view */}
       {!openFolder && (
         <>
           <UploadZone onUploadSuccess={onUpload} onFolderUpload={onFolderUpload} />
@@ -134,7 +183,6 @@ export default function DocumentsPage() {
       {/* Grid */}
       <AnimatePresence mode="wait">
         {openFolder ? (
-          /* ── Folder contents ── */
           <motion.div
             key={openFolder.id}
             initial={{ opacity: 0, x: 24 }}
@@ -146,10 +194,17 @@ export default function DocumentsPage() {
               <div className="flex flex-col items-center justify-center py-16 text-center text-[var(--taxzy-stone)]">
                 <FolderOpen size={40} className="text-amber-300 mb-3" />
                 <p className="text-sm font-medium">This folder is empty</p>
-                <p className="text-xs mt-1">Hover the folder card and click + to add files</p>
+                <p className="text-xs mt-1 mb-4">Click "Add files" above to upload files into this folder</p>
+                <button
+                  onClick={() => folderInputRef.current?.click()}
+                  className="flex items-center gap-1.5 text-xs px-4 py-2 rounded-lg bg-[var(--taxzy-slate)] text-white font-medium hover:opacity-90 transition-opacity"
+                >
+                  <Plus size={13} />
+                  Add files
+                </button>
               </div>
             ) : (
-              <div className="grid grid-cols-3 sm:grid-cols-3 gap-3">
+              <div className="grid grid-cols-3 gap-3">
                 {openFolder.docs.map((doc) => (
                   <DocGridCard
                     key={doc.doc_id}
@@ -161,7 +216,6 @@ export default function DocumentsPage() {
             )}
           </motion.div>
         ) : (
-          /* ── Root grid ── */
           <motion.div
             key="root"
             initial={{ opacity: 0, x: -24 }}
@@ -171,11 +225,10 @@ export default function DocumentsPage() {
           >
             {(folders.length > 0 || docs.length > 0) && (
               <div className="space-y-6">
-                {/* Folders section */}
                 {folders.length > 0 && (
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-widest text-[var(--taxzy-stone)] mb-3">Folders</p>
-                    <div className="grid grid-cols-3 sm:grid-cols-3 gap-3">
+                    <div className="grid grid-cols-3 gap-3">
                       {folders.map((folder) => (
                         <FolderGridCard
                           key={folder.id}
@@ -190,11 +243,10 @@ export default function DocumentsPage() {
                   </div>
                 )}
 
-                {/* Loose files section */}
                 {docs.length > 0 && (
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-widest text-[var(--taxzy-stone)] mb-3">Files</p>
-                    <div className="grid grid-cols-3 sm:grid-cols-3 gap-3">
+                    <div className="grid grid-cols-3 gap-3">
                       {docs.map((doc) => (
                         <DocGridCard key={doc.doc_id} doc={doc} onDelete={onDeleteDoc} />
                       ))}
