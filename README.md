@@ -1,6 +1,23 @@
 # Taxzy
 
+[![License: GPL v2](https://img.shields.io/badge/License-GPL_v2-blue.svg)](LICENSE)
+[![Open Source](https://img.shields.io/badge/Open%20Source-%E2%9D%A4-red)](https://github.com/rgsuhas/super-tax)
+
 AI-powered Indian tax filing platform. Conversational interface for ITR filing, document parsing, refund tracking, and tax education — built for salaried individuals and freelancers, not CAs.
+
+**Local-first**: your tax data stays on your machine. The only external calls are to the Gemini API (your key) and Setu (optional PAN verification).
+
+## Quick start (Docker)
+
+```bash
+git clone https://github.com/rgsuhas/super-tax.git
+cd super-tax
+cp .env.example backend/.env
+# Edit backend/.env — set GEMINI_API_KEY
+docker compose up --build
+```
+
+App runs at `http://localhost:3000`. See [docs/deployment/docker.md](docs/deployment/docker.md) for details.
 
 ---
 
@@ -54,7 +71,7 @@ super-tax/
 
 ## Quick start
 
-See [SETUP.md](./SETUP.md) for first-time environment setup.
+See [SETUP.md](./SETUP.md) for bare-metal setup, or [docs/deployment/](docs/deployment/) for all deployment options including Docker and Fly.io.
 
 Once the environment is ready:
 

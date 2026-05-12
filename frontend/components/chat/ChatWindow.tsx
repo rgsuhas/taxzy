@@ -31,10 +31,10 @@ export function ChatWindow() {
   return (
     <div className="flex flex-col h-full">
       {/* Outer layout — centres the column */}
-      <div className="flex flex-col flex-1 items-center overflow-hidden py-4 px-[4cm]">
+      <div className="flex flex-col flex-1 items-center overflow-hidden py-4 px-4 sm:px-8 md:px-12">
 
         {/* Black-bordered chat box */}
-        <div className="flex flex-col w-1/2 flex-1 overflow-hidden">
+        <div className="flex flex-col w-full sm:w-4/5 md:w-2/3 lg:w-1/2 flex-1 overflow-hidden">
           <AnimatePresence mode="wait">
             {isEmpty ? (
               <motion.div
@@ -68,13 +68,13 @@ export function ChatWindow() {
         </div>
 
         {/* Input — below the bordered box */}
-        <div className="w-1/2 mt-3">
+        <div className="w-full sm:w-4/5 md:w-2/3 lg:w-1/2 mt-3">
           <ChatInput onSend={sendMessage} disabled={isStreaming} />
         </div>
 
         {/* Quick-prompt chips — only on empty state */}
         {isEmpty && (
-          <div className="flex flex-wrap gap-2 justify-center w-1/2 mt-3">
+          <div className="flex flex-wrap gap-2 justify-center w-full sm:w-4/5 md:w-2/3 lg:w-1/2 mt-3">
             {QUICK_PROMPTS.map((p) => (
               <button
                 key={p.label}

@@ -4,6 +4,7 @@ import SocialProof from "./_components/landing/SocialProof";
 import ProblemSolution from "./_components/landing/ProblemSolution";
 import HowItWorks from "./_components/landing/HowItWorks";
 import Features from "./_components/landing/Features";
+import OpenSource from "./_components/landing/OpenSource";
 import Pricing from "./_components/landing/Pricing";
 import Testimonials from "./_components/landing/Testimonials";
 import FAQ from "./_components/landing/FAQ";
@@ -19,6 +20,7 @@ export default function LandingPage() {
       <ProblemSolution />
       <HowItWorks />
       <Features />
+      <OpenSource />
       <Pricing />
       <Testimonials />
       <FAQ />

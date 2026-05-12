@@ -60,3 +60,15 @@ out/
 .turbo/
 *.tsbuildinfo
 next-env.d.ts
+
+# Process files
+*.pid
+.backend.pid
+.frontend.pid
+.ngrok_fe.pid
+.ngrok_be.pid
+.ngrok_fe.log
+.ngrok_be.log
+
+# Frontend local env (contains ngrok URLs, should not be committed)
+frontend/.env.local

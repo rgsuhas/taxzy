@@ -26,6 +26,7 @@ import models.tax_profile  # noqa: F401
 import models.document  # noqa: F401
 import models.marketplace  # noqa: F401
 
+from core.config import settings
 from routers import auth, chat, tax_profile, documents, pan, itr, marketplace, refund, tax_usage, glossary
 
 @asynccontextmanager
@@ -43,7 +44,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
+    allow_origins=[o.strip() for o in settings.CORS_ORIGINS.split(",") if o.strip()],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

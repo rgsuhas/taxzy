@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://taxzy-backend.fly.dev/api/:path*"
+    }
+  ]
+}
