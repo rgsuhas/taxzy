@@ -106,7 +106,14 @@ async def post_chat(
         logger.info("chat done | user_id=%d conv_id=%d reply_len=%d elapsed=%.2fs", current_user.id, conv.id, len(full_text), elapsed)
         yield "data: [DONE]\n\n"
 
-    return StreamingResponse(generate(), media_type="text/event-stream")
+    return StreamingResponse(
+        generate(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "X-Accel-Buffering": "no",
+        },
+    )
 
 
 def _merge_extracted(profile: TaxProfile, fields: dict, db: Session):
