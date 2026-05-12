@@ -1,146 +1,263 @@
 "use client";
-import { useEffect, useState } from "react";
-import { getDocuments } from "@/lib/api";
-import { UploadZone } from "@/components/documents/UploadZone";
-import { DocCard } from "@/components/documents/DocCard";
+import { useRef, useEffect, useState } from "react";
+import { getDocuments, uploadDocument } from "@/lib/api";
+import { UploadZone, FolderUploadResult } from "@/components/documents/UploadZone";
+import { DocGridCard } from "@/components/documents/DocGridCard";
+import { FolderGridCard } from "@/components/documents/FolderGridCard";
+import { CreateFolderSheet } from "@/components/documents/CreateFolderSheet";
 import { AISGuide } from "@/components/documents/AISGuide";
 import { motion, AnimatePresence } from "framer-motion";
-import { FolderOpen, FolderClosed, ChevronDown } from "lucide-react";
+import { ChevronLeft, FolderOpen, Plus, Loader2 } from "lucide-react";
 import type { Document, DocumentUploadResponse } from "@/types/api";
 
-function getMonthKey(iso: string) {
-  const d = new Date(iso);
-  return d.toLocaleDateString("en-IN", { month: "long", year: "numeric" });
-}
-
-function groupByMonth(docs: Document[]): Map<string, Document[]> {
-  const map = new Map<string, Document[]>();
-  for (const doc of docs) {
-    const key = getMonthKey(doc.uploaded_at);
-    if (!map.has(key)) map.set(key, []);
-    map.get(key)!.push(doc);
-  }
-  return map;
-}
-
-function FolderGroup({
-  month,
-  docs,
-  onDelete,
-  defaultOpen,
-}: {
-  month: string;
+interface FolderGroup {
+  id: string;
+  folderName: string;
   docs: Document[];
-  onDelete: (id: number) => void;
-  defaultOpen: boolean;
-}) {
-  const [open, setOpen] = useState(defaultOpen);
+  uploadedAt: string;
+}
 
-  return (
-    <div
-      className="rounded-xl overflow-hidden"
-      style={{ border: "1px solid var(--border)" }}
-    >
-      {/* Folder header */}
-      <button
-        onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-[var(--muted)]"
-        style={{ background: "var(--card)" }}
-      >
-        {open ? (
-          <FolderOpen size={16} className="text-[var(--taxzy-slate)] flex-shrink-0" />
-        ) : (
-          <FolderClosed size={16} className="text-[var(--taxzy-stone)] flex-shrink-0" />
-        )}
-        <span className="text-sm font-semibold text-[var(--foreground)] flex-1">{month}</span>
-        <span
-          className="text-[10px] font-semibold px-2 py-0.5 rounded-full"
-          style={{ background: "rgba(61,90,128,0.09)", color: "#3D5A80" }}
-        >
-          {docs.length} file{docs.length !== 1 ? "s" : ""}
-        </span>
-        <ChevronDown
-          size={14}
-          className="text-[var(--taxzy-stone)] transition-transform duration-200"
-          style={{ transform: open ? "rotate(180deg)" : "rotate(0deg)" }}
-        />
-      </button>
+const STORAGE_KEY = "taxzy_folders";
 
-      {/* Folder contents */}
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2, ease: "easeInOut" }}
-            style={{ overflow: "hidden" }}
-          >
-            <div
-              className="px-3 py-2 space-y-2"
-              style={{ borderTop: "1px solid var(--border)", background: "var(--muted)" }}
-            >
-              {docs.map((doc) => (
-                <DocCard key={doc.doc_id} doc={doc} onDelete={onDelete} />
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
+function loadFolders(): FolderGroup[] {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveFolders(folders: FolderGroup[]) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(folders));
 }
 
 export default function DocumentsPage() {
   const [docs, setDocs] = useState<Document[]>([]);
+  const [folders, setFolders] = useState<FolderGroup[]>([]);
+  const [openFolderId, setOpenFolderId] = useState<string | null>(null);
+  const [addingToFolder, setAddingToFolder] = useState(false);
+  const folderInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    setFolders(loadFolders());
     getDocuments().then(setDocs).catch(() => {});
   }, []);
 
-  const onUpload = (res: DocumentUploadResponse) => {
-    const newDoc: Document = {
-      doc_id: res.doc_id,
-      doc_type: res.doc_type,
-      filename: `Document_${res.doc_id}`,
-      uploaded_at: new Date().toISOString(),
-    };
-    setDocs((prev) => [newDoc, ...prev]);
+  // Always use functional update to avoid stale closures
+  const mutateFolders = (updater: (prev: FolderGroup[]) => FolderGroup[]) => {
+    setFolders((prev) => {
+      const next = updater(prev);
+      saveFolders(next);
+      return next;
+    });
   };
 
-  const onDelete = (id: number) => setDocs((prev) => prev.filter((d) => d.doc_id !== id));
+  // ── Root-level uploads ──
+  const onUpload = (res: DocumentUploadResponse, filename: string) => {
+    setDocs((prev) => [
+      { doc_id: res.doc_id, doc_type: res.doc_type, filename, uploaded_at: new Date().toISOString() },
+      ...prev,
+    ]);
+  };
 
-  const grouped = groupByMonth(docs);
-  const months = Array.from(grouped.keys());
+  const onFolderUpload = (result: FolderUploadResult) => {
+    mutateFolders((prev) => [
+      { id: `${result.folderName}-${Date.now()}`, folderName: result.folderName, docs: result.docs, uploadedAt: result.uploadedAt },
+      ...prev,
+    ]);
+  };
+
+  // ── Folder management ──
+  const createFolder = (name: string) => {
+    mutateFolders((prev) => {
+      if (prev.some((f) => f.folderName.toLowerCase() === name.toLowerCase())) return prev;
+      return [
+        { id: `${name}-${Date.now()}`, folderName: name, docs: [], uploadedAt: new Date().toISOString() },
+        ...prev,
+      ];
+    });
+  };
+
+  const onDeleteFolder = (folderId: string) => {
+    if (openFolderId === folderId) setOpenFolderId(null);
+    mutateFolders((prev) => prev.filter((f) => f.id !== folderId));
+  };
+
+  const onAddFilesToFolder = (folderId: string, newDocs: Document[]) => {
+    mutateFolders((prev) =>
+      prev.map((f) => f.id === folderId ? { ...f, docs: [...f.docs, ...newDocs] } : f)
+    );
+  };
+
+  const onDeleteDocInFolder = (folderId: string, docId: number) => {
+    mutateFolders((prev) =>
+      prev.map((f) => f.id === folderId ? { ...f, docs: f.docs.filter((d) => d.doc_id !== docId) } : f)
+    );
+  };
+
+  // ── Upload files directly into the open folder ──
+  const handleUploadIntoOpenFolder = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!openFolderId) return;
+    const files = Array.from(e.target.files || []);
+    if (!files.length) return;
+    setAddingToFolder(true);
+    const added: Document[] = [];
+    try {
+      for (const file of files) {
+        const res = await uploadDocument(file);
+        added.push({ doc_id: res.doc_id, doc_type: res.doc_type, filename: file.name, uploaded_at: new Date().toISOString() });
+      }
+      onAddFilesToFolder(openFolderId, added);
+    } catch {}
+    finally { setAddingToFolder(false); e.target.value = ""; }
+  };
+
+  const onDeleteDoc = (id: number) => setDocs((prev) => prev.filter((d) => d.doc_id !== id));
+
+  const openFolder = folders.find((f) => f.id === openFolderId) ?? null;
 
   return (
-    <div className="p-6 max-w-2xl mx-auto space-y-6">
+    <div className="p-6 max-w-3xl mx-auto space-y-6">
+      {/* Header */}
       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }}>
-        <h1 className="text-xl font-bold text-[var(--foreground)] mb-1">Documents</h1>
-        <p className="text-sm text-[var(--taxzy-stone)]">Upload Form 16, AIS, or any tax document</p>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2 min-w-0">
+            {openFolder ? (
+              <>
+                <button
+                  onClick={() => setOpenFolderId(null)}
+                  className="flex items-center gap-1 text-sm text-[var(--taxzy-stone)] hover:text-[var(--foreground)] transition-colors"
+                >
+                  <ChevronLeft size={16} />
+                  Documents
+                </button>
+                <span className="text-[var(--taxzy-stone)]">/</span>
+                <div className="flex items-center gap-1.5">
+                  <FolderOpen size={16} className="text-amber-500 shrink-0" />
+                  <span className="text-sm font-semibold text-[var(--foreground)] truncate">{openFolder.folderName}</span>
+                </div>
+              </>
+            ) : (
+              <div>
+                <h1 className="text-xl font-bold text-[var(--foreground)] mb-1">Documents</h1>
+                <p className="text-sm text-[var(--taxzy-stone)]">Upload files or organise them into monthly folders</p>
+              </div>
+            )}
+          </div>
+
+          {/* Actions */}
+          {openFolder ? (
+            <div>
+              <button
+                onClick={() => folderInputRef.current?.click()}
+                disabled={addingToFolder}
+                className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border border-[var(--border)] bg-[var(--card)] hover:bg-[var(--muted)] transition-colors font-medium text-[var(--foreground)] disabled:opacity-40"
+              >
+                {addingToFolder ? <Loader2 size={13} className="animate-spin" /> : <Plus size={13} />}
+                Add files
+              </button>
+              <input
+                ref={folderInputRef}
+                type="file"
+                multiple
+                accept=".pdf,.json,.xml"
+                className="hidden"
+                onChange={handleUploadIntoOpenFolder}
+              />
+            </div>
+          ) : (
+            <CreateFolderSheet onCreateFolder={createFolder} />
+          )}
+        </div>
       </motion.div>
 
-      <UploadZone onUploadSuccess={onUpload} />
-      <AISGuide />
-
-      {docs.length > 0 && (
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-widest text-[var(--taxzy-stone)] mb-3">
-            Uploaded documents
-          </p>
-          <div className="space-y-3">
-            {months.map((month, i) => (
-              <FolderGroup
-                key={month}
-                month={month}
-                docs={grouped.get(month)!}
-                onDelete={onDelete}
-                defaultOpen={i === 0}
-              />
-            ))}
-          </div>
-        </div>
+      {/* Upload zone — only on root view */}
+      {!openFolder && (
+        <>
+          <UploadZone onUploadSuccess={onUpload} onFolderUpload={onFolderUpload} />
+          <AISGuide />
+        </>
       )}
+
+      {/* Grid */}
+      <AnimatePresence mode="wait">
+        {openFolder ? (
+          <motion.div
+            key={openFolder.id}
+            initial={{ opacity: 0, x: 24 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -24 }}
+            transition={{ duration: 0.2 }}
+          >
+            {openFolder.docs.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-16 text-center text-[var(--taxzy-stone)]">
+                <FolderOpen size={40} className="text-amber-300 mb-3" />
+                <p className="text-sm font-medium">This folder is empty</p>
+                <p className="text-xs mt-1 mb-4">Click "Add files" above to upload files into this folder</p>
+                <button
+                  onClick={() => folderInputRef.current?.click()}
+                  className="flex items-center gap-1.5 text-xs px-4 py-2 rounded-lg bg-[var(--taxzy-slate)] text-white font-medium hover:opacity-90 transition-opacity"
+                >
+                  <Plus size={13} />
+                  Add files
+                </button>
+              </div>
+            ) : (
+              <div className="grid grid-cols-3 gap-3">
+                {openFolder.docs.map((doc) => (
+                  <DocGridCard
+                    key={doc.doc_id}
+                    doc={doc}
+                    onDelete={(id) => onDeleteDocInFolder(openFolder.id, id)}
+                  />
+                ))}
+              </div>
+            )}
+          </motion.div>
+        ) : (
+          <motion.div
+            key="root"
+            initial={{ opacity: 0, x: -24 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 24 }}
+            transition={{ duration: 0.2 }}
+          >
+            {(folders.length > 0 || docs.length > 0) && (
+              <div className="space-y-6">
+                {folders.length > 0 && (
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-widest text-[var(--taxzy-stone)] mb-3">Folders</p>
+                    <div className="grid grid-cols-3 gap-3">
+                      {folders.map((folder) => (
+                        <FolderGridCard
+                          key={folder.id}
+                          folderName={folder.folderName}
+                          fileCount={folder.docs.length}
+                          onOpen={() => setOpenFolderId(folder.id)}
+                          onDelete={() => onDeleteFolder(folder.id)}
+                          onAddFiles={(newDocs) => onAddFilesToFolder(folder.id, newDocs)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {docs.length > 0 && (
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-widest text-[var(--taxzy-stone)] mb-3">Files</p>
+                    <div className="grid grid-cols-3 gap-3">
+                      {docs.map((doc) => (
+                        <DocGridCard key={doc.doc_id} doc={doc} onDelete={onDeleteDoc} />
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
