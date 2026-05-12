@@ -10,11 +10,13 @@ import {
   ShoppingBag,
   MapPin,
   Map,
+  ClipboardList,
 } from "lucide-react";
 
 const nav = [
   { href: "/chat", label: "Chat", icon: MessageSquare },
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/itr-wizard", label: "ITR Wizard", icon: ClipboardList },
   { href: "/documents", label: "Documents", icon: FileText },
   { href: "/marketplace", label: "Marketplace", icon: ShoppingBag },
   { href: "/tracker", label: "Tracker", icon: MapPin },

@@ -12,6 +12,21 @@ NC='\033[0m'
 log()  { echo -e "${GREEN}[runall]${NC} $1"; }
 err()  { echo -e "${RED}[runall]${NC} $1"; }
 
+# --- PostgreSQL ---
+PG_VERSION=17
+PG_CLUSTER=main
+PG_PORT=5399
+if pg_lsclusters -h 2>/dev/null | awk '{print $1, $2, $4}' | grep -q "^$PG_VERSION $PG_CLUSTER online"; then
+  log "PostgreSQL $PG_VERSION/$PG_CLUSTER already running on :$PG_PORT"
+else
+  log "Starting PostgreSQL $PG_VERSION/$PG_CLUSTER on :$PG_PORT..."
+  if ! sudo pg_ctlcluster $PG_VERSION $PG_CLUSTER start 2>&1; then
+    err "Failed to start PostgreSQL. Check pg logs or run: sudo pg_ctlcluster $PG_VERSION $PG_CLUSTER start"
+    exit 1
+  fi
+  log "PostgreSQL started."
+fi
+
 # Kill any stale processes on our ports before starting
 for port in 8000 3000 3001 3002 3003; do
   pids=$(lsof -ti tcp:"$port" 2>/dev/null || true)

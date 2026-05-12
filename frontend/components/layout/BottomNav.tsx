@@ -7,17 +7,17 @@ import {
   LayoutDashboard,
   FileText,
   ShoppingBag,
-  MapPin,
+  ClipboardList,
   Map,
 } from "lucide-react";
 
 const nav = [
-  { href: "/chat", label: "Chat", icon: MessageSquare },
-  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/documents", label: "Docs", icon: FileText },
-  { href: "/marketplace", label: "Market", icon: ShoppingBag },
-  { href: "/tracker", label: "Tracker", icon: MapPin },
-  { href: "/tax-usage", label: "Usage", icon: Map },
+  { href: "/chat",       label: "Chat",      icon: MessageSquare },
+  { href: "/dashboard",  label: "Dashboard", icon: LayoutDashboard },
+  { href: "/itr-wizard", label: "Wizard",    icon: ClipboardList },
+  { href: "/documents",  label: "Docs",      icon: FileText },
+  { href: "/marketplace",label: "Market",    icon: ShoppingBag },
+  { href: "/tax-usage",  label: "Usage",     icon: Map },
 ];
 
 export function BottomNav() {
