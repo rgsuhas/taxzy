@@ -7,7 +7,7 @@ import {
   LayoutDashboard,
   FileText,
   ShoppingBag,
-  MapPin,
+  ClipboardList,
   Map,
   FileJson,
 } from "lucide-react";
@@ -17,6 +17,7 @@ const nav = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/documents", label: "Docs", icon: FileText },
   { href: "/itr-filing", label: "ITR", icon: FileJson },
+  { href: "/itr-wizard", label: "Wizard",    icon: ClipboardList },
   { href: "/marketplace", label: "Market", icon: ShoppingBag },
   { href: "/tracker", label: "Tracker", icon: MapPin },
   { href: "/tax-usage", label: "Usage", icon: Map },

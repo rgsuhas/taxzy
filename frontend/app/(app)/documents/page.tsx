@@ -48,7 +48,7 @@ export default function DocumentsPage() {
   };
 
   const onUpload = (res: DocumentUploadResponse, filename: string) => {
-    setDocs((prev) => [
+{ href: "/itr-wizard", label: "Wizard",    icon: ClipboardList },    setDocs((prev) => [
       { doc_id: res.doc_id, doc_type: res.doc_type, filename, uploaded_at: new Date().toISOString() },
       ...prev,
     ]);

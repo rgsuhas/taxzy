@@ -30,14 +30,14 @@ export default function Footer() {
                 className="font-extrabold text-lg tracking-tight"
                 style={{ color: "#3D5A80" }}
               >
-                Taxzy
+                T<span style={{ color: "#1C1F23" }}>a</span>x<span style={{ color: "#1C1F23" }}>z</span>y
               </span>
             </Link>
             <p className="text-xs leading-relaxed mb-4" style={{ color: "#6B7280" }}>
               AI-powered income tax filing for India. Built for salaried professionals, freelancers, and everyone in between.
             </p>
             <p className="text-xs font-medium" style={{ color: "#9CA3AF" }}>
-              🇮🇳 India &nbsp;·&nbsp; AY 2025-26
+              India &nbsp;·&nbsp; AY 2025-26
             </p>
           </div>
 

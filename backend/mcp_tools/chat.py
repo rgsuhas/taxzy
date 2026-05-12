@@ -1,12 +1,15 @@
 """Non-streaming AI chat MCP tool."""
 import asyncio
 import json
-import google.generativeai as genai
+
+from google import genai
+from google.genai import types
+
 from core.config import settings
 from core.database import SessionLocal
 from models.tax_profile import TaxProfile
 
-genai.configure(api_key=settings.GEMINI_API_KEY)
+client = genai.Client(api_key=settings.GEMINI_API_KEY)
 
 SYSTEM_PROMPT = """You are KarSmart, a friendly Indian tax filing assistant.
 You help users understand and file their income tax returns in India.
@@ -33,11 +36,14 @@ async def _ask_async(question: str, user_id: int | None = None) -> dict:
         finally:
             db.close()
 
-    model = genai.GenerativeModel(
-        model_name="gemini-1.5-flash",
-        system_instruction=SYSTEM_PROMPT + profile_context,
+    response = await client.aio.models.generate_content(
+        model="gemini-2.0-flash",
+        contents=question,
+        config=types.GenerateContentConfig(
+            system_instruction=SYSTEM_PROMPT + profile_context,
+            temperature=0.4,
+        ),
     )
-    response = await model.generate_content_async(question)
     return {"answer": response.text, "user_id": user_id}
 
 

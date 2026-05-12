@@ -11,11 +11,13 @@ import {
   MapPin,
   Map,
   FileJson,
+  ClipboardList,
 } from "lucide-react";
 
 const nav = [
   { href: "/chat", label: "Chat", icon: MessageSquare },
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/itr-wizard", label: "ITR Wizard", icon: ClipboardList },
   { href: "/documents", label: "Documents", icon: FileText },
   { href: "/itr-filing", label: "ITR filing", icon: FileJson },
   { href: "/marketplace", label: "Marketplace", icon: ShoppingBag },
