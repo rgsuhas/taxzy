@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { Bot, Receipt, ShieldCheck, IndianRupee, Clock, Lock } from "lucide-react";
+import { Bot, Receipt, ShieldCheck, IndianRupee, Clock, Lock, Plug } from "lucide-react";
 
 const features = [
   {
@@ -33,6 +33,15 @@ const features = [
     title: "Bank-grade encryption",
     body: "AES-256 at rest, TLS in transit. We never store your Aadhaar or passwords — ever.",
   },
+];
+
+const MCP_TOOLS = [
+  "calculate_tax",
+  "get_tax_profile",
+  "verify_pan",
+  "parse_document",
+  "ask_tax_question",
+  "generate_itr_xml",
 ];
 
 export default function Features() {
@@ -112,6 +121,94 @@ export default function Features() {
             </motion.div>
           ))}
         </div>
+
+        {/* MCP banner */}
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
+          className="mt-10 rounded-2xl overflow-hidden"
+          style={{
+            background: "linear-gradient(135deg, #1C2F45 0%, #3D5A80 100%)",
+            border: "1px solid rgba(61,90,128,0.3)",
+            boxShadow: "0 8px 32px rgba(28,47,69,0.22)",
+          }}
+        >
+          <div className="p-8 md:p-10 flex flex-col md:flex-row gap-8 items-start md:items-center">
+            {/* Left — copy */}
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2.5 mb-3">
+                <div
+                  className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
+                  style={{ background: "rgba(255,255,255,0.12)" }}
+                >
+                  <Plug size={16} style={{ color: "#fff" }} />
+                </div>
+                <span
+                  className="text-[10px] font-bold uppercase tracking-[0.14em] px-2 py-0.5 rounded-full"
+                  style={{ background: "rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.8)" }}
+                >
+                  MCP Server
+                </span>
+              </div>
+              <h3
+                className="text-xl md:text-2xl font-extrabold tracking-tight mb-2"
+                style={{ color: "#fff" }}
+              >
+                Plug Taxzy into any AI agent
+              </h3>
+              <p
+                className="text-sm leading-relaxed max-w-lg"
+                style={{ color: "rgba(255,255,255,0.65)" }}
+              >
+                Taxzy ships as a{" "}
+                <span style={{ color: "rgba(255,255,255,0.9)", fontWeight: 600 }}>
+                  Model Context Protocol server
+                </span>{" "}
+                — connect it to Claude, Cursor, or any MCP-compatible agent and let your AI
+                assistant calculate tax, verify PANs, and generate ITR XML directly from chat.
+              </p>
+              <p
+                className="mt-3 text-xs font-mono px-3 py-1.5 rounded-lg inline-block"
+                style={{ background: "rgba(0,0,0,0.3)", color: "rgba(255,255,255,0.7)" }}
+              >
+                claude mcp add taxzy -- python backend/mcp_server.py
+              </p>
+            </div>
+
+            {/* Right — tool pill list */}
+            <div className="flex-shrink-0 flex flex-wrap gap-2 md:max-w-[260px]">
+              {MCP_TOOLS.map((tool, i) => (
+                <motion.span
+                  key={tool}
+                  initial={{ opacity: 0, scale: 0.88 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.22, delay: 0.18 + i * 0.05 }}
+                  className="text-[11px] font-mono px-2.5 py-1 rounded-lg"
+                  style={{
+                    background: "rgba(255,255,255,0.1)",
+                    color: "rgba(255,255,255,0.75)",
+                    border: "1px solid rgba(255,255,255,0.1)",
+                  }}
+                >
+                  {tool}()
+                </motion.span>
+              ))}
+              <span
+                className="text-[11px] font-mono px-2.5 py-1 rounded-lg"
+                style={{
+                  background: "rgba(255,255,255,0.06)",
+                  color: "rgba(255,255,255,0.4)",
+                  border: "1px solid rgba(255,255,255,0.06)",
+                }}
+              >
+                +5 more
+              </span>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
