@@ -1,9 +1,12 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { History } from "lucide-react";
 import { ChatBubble } from "./ChatBubble";
 import { TypingIndicator } from "./TypingIndicator";
 import { ChatInput } from "./ChatInput";
+import { ChatHistoryDrawer } from "./ChatHistoryDrawer";
 import { useChat } from "@/hooks/useChat";
+import { useTaxStore } from "@/store/taxStore";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Message } from "@/types/api";
 
@@ -16,7 +19,14 @@ const QUICK_PROMPTS = [
 
 export function ChatWindow() {
   const { messages, isStreaming, streamingContent, sendMessage } = useChat();
+  const { setMessages, setConversationId } = useTaxStore();
+  const [historyOpen, setHistoryOpen] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
+
+  function startNewChat() {
+    setMessages([]);
+    setConversationId(null);
+  }
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -30,6 +40,23 @@ export function ChatWindow() {
 
   return (
     <div className="flex flex-col h-full">
+      <ChatHistoryDrawer
+        open={historyOpen}
+        onClose={() => setHistoryOpen(false)}
+        onNewChat={startNewChat}
+      />
+
+      {/* History button — top right */}
+      <div className="flex justify-end px-5 pt-3 shrink-0">
+        <button
+          onClick={() => setHistoryOpen(true)}
+          className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium border border-[var(--border)] bg-[var(--card)] text-[var(--taxzy-stone)] hover:text-[var(--foreground)] hover:bg-[var(--muted)] transition-colors"
+        >
+          <History size={13} />
+          History
+        </button>
+      </div>
+
       {/* Outer layout — centres the column */}
       <div className="flex flex-col flex-1 items-center overflow-hidden py-4 px-4 sm:px-8 md:px-12">
 
