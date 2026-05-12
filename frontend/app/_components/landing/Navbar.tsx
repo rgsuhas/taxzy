@@ -21,11 +21,18 @@ export default function Navbar() {
       className="fixed top-0 left-0 right-0 z-50"
       style={{
         height: scrolled ? 60 : 80,
-        transition: "height 180ms ease-out, box-shadow 180ms ease-out, border-color 180ms ease-out",
-        backdropFilter: "blur(18px) saturate(150%)",
-        background: "rgba(243,242,239,0.82)",
-        borderBottom: scrolled ? "1px solid rgba(216,214,209,0.8)" : "1px solid transparent",
-        boxShadow: scrolled ? "0 1px 16px rgba(0,0,0,0.06)" : "none",
+        transition: "height 200ms ease-out, box-shadow 200ms ease-out, background 200ms ease-out, border-color 200ms ease-out",
+        backdropFilter: scrolled ? "blur(32px) saturate(200%) brightness(1.06)" : "blur(24px) saturate(180%)",
+        WebkitBackdropFilter: scrolled ? "blur(32px) saturate(200%) brightness(1.06)" : "blur(24px) saturate(180%)",
+        background: scrolled
+          ? "linear-gradient(135deg, rgba(255,255,255,0.62) 0%, rgba(243,242,239,0.52) 100%)"
+          : "linear-gradient(135deg, rgba(255,255,255,0.45) 0%, rgba(243,242,239,0.35) 100%)",
+        borderBottom: scrolled
+          ? "1px solid rgba(255,255,255,0.45)"
+          : "1px solid rgba(255,255,255,0.2)",
+        boxShadow: scrolled
+          ? "0 8px 32px rgba(61,90,128,0.1), inset 0 1px 0 rgba(255,255,255,0.7)"
+          : "inset 0 1px 0 rgba(255,255,255,0.4)",
       }}
     >
       <div className="max-w-6xl mx-auto px-6 h-full flex items-center justify-between">
@@ -43,7 +50,7 @@ export default function Navbar() {
             className="font-extrabold text-[1.15rem] tracking-tight select-none"
             style={{ color: "#3D5A80" }}
           >
-            Taxzy
+            T<span style={{ color: "#1C1F23" }}>a</span>x<span style={{ color: "#1C1F23" }}>z</span>y
           </span>
         </Link>
 
@@ -141,9 +148,11 @@ export default function Navbar() {
         <div
           className="md:hidden absolute top-full left-0 right-0 py-4 px-6 flex flex-col gap-3"
           style={{
-            background: "rgba(243,242,239,0.96)",
-            backdropFilter: "blur(18px)",
-            borderBottom: "1px solid rgba(216,214,209,0.8)",
+            background: "rgba(255,255,255,0.7)",
+            backdropFilter: "blur(32px) saturate(200%)",
+            WebkitBackdropFilter: "blur(32px) saturate(200%)",
+            borderBottom: "1px solid rgba(255,255,255,0.45)",
+            boxShadow: "0 8px 32px rgba(61,90,128,0.1)",
           }}
         >
           {["Features", "How it works", "Pricing"].map((label) => (

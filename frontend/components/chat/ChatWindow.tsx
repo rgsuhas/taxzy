@@ -8,10 +8,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import type { Message } from "@/types/api";
 
 const QUICK_PROMPTS = [
-  { label: "Calculate my tax", icon: "🧮" },
-  { label: "Which regime is better?", icon: "⚖️" },
-  { label: "What is 80C?", icon: "📖" },
-  { label: "Check my refund", icon: "💰" },
+  { label: "Calculate my tax" },
+  { label: "Which regime is better?" },
+  { label: "What is 80C?" },
+  { label: "Check my refund" },
 ];
 
 export function ChatWindow() {
@@ -79,9 +79,8 @@ export function ChatWindow() {
               <button
                 key={p.label}
                 onClick={() => sendMessage(p.label)}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-full border border-[var(--border)] bg-[var(--card)] text-sm text-[var(--foreground)] hover:bg-[var(--muted)] transition-colors"
+                className="px-4 py-2 rounded-full border border-[var(--border)] bg-[var(--card)] text-sm text-[var(--foreground)] hover:bg-[var(--muted)] transition-colors"
               >
-                <span>{p.icon}</span>
                 {p.label}
               </button>
             ))}

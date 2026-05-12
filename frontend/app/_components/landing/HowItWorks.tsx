@@ -1,22 +1,23 @@
 "use client";
 import { motion } from "framer-motion";
+import { FileText, MessageSquare, CheckCircle2 } from "lucide-react";
 
 const steps = [
   {
     num: "01",
-    emoji: "📋",
+    Icon: FileText,
     title: "Connect your 26AS or AIS",
     desc: "Link your form 26AS — we pull your TDS, salary, interest income, and capital gains automatically.",
   },
   {
     num: "02",
-    emoji: "🤖",
+    Icon: MessageSquare,
     title: "Chat with AI",
     desc: "Answer simple questions in plain English. No jargon. Taxzy picks the best tax regime for you.",
   },
   {
     num: "03",
-    emoji: "✅",
+    Icon: CheckCircle2,
     title: "File & done",
     desc: "One click to submit to the IT portal. Get your ITR-V and we track acknowledgement for you.",
   },
@@ -56,44 +57,38 @@ export default function HowItWorks() {
               {i < steps.length - 1 && (
                 <div
                   className="hidden md:block absolute top-[52px] z-10"
-                  style={{ left: "calc(50% + 52px)", width: "calc(100% - 104px)" }}
+                  style={{ left: "calc(50% + 52px)", width: "calc(100% - 100px)" }}
                 >
-                  <motion.svg
+                  <svg
                     width="100%"
                     height="20"
                     viewBox="0 0 120 20"
                     fill="none"
                     preserveAspectRatio="none"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: 0.3 + i * 0.2 }}
                   >
-                    <motion.path
-                      d="M0 10 Q60 2 120 10"
+                    {/* Straight dashed line, left → right */}
+                    <motion.line
+                      x1="0" y1="10" x2="106" y2="10"
                       stroke="#3D5A80"
                       strokeWidth="1.5"
-                      strokeDasharray="5 4"
+                      strokeDasharray="5 3"
                       strokeLinecap="round"
-                      fill="none"
                       initial={{ pathLength: 0, opacity: 0 }}
                       whileInView={{ pathLength: 1, opacity: 0.5 }}
                       viewport={{ once: true }}
-                      transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 + i * 0.2 }}
+                      transition={{ duration: 0.55, ease: "easeOut", delay: 0.35 + i * 0.15 }}
                     />
-                    <motion.path
-                      d="M112 6 L120 10 L112 14"
-                      stroke="#3D5A80"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      fill="none"
+                    {/* Solid filled right-pointing arrowhead */}
+                    <motion.polygon
+                      points="106,4 120,10 106,16"
+                      fill="#3D5A80"
+                      fillOpacity="0.5"
                       initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 0.5 }}
+                      whileInView={{ opacity: 1 }}
                       viewport={{ once: true }}
-                      transition={{ duration: 0.2, delay: 0.9 + i * 0.2 }}
+                      transition={{ duration: 0.18, delay: 0.85 + i * 0.15 }}
                     />
-                  </motion.svg>
+                  </svg>
                 </div>
               )}
 
@@ -127,10 +122,10 @@ export default function HowItWorks() {
                 {/* Step badge */}
                 <div className="flex items-center gap-3 mb-5">
                   <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
+                    className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
                     style={{ background: "rgba(61,90,128,0.08)" }}
                   >
-                    {step.emoji}
+                    <step.Icon size={22} style={{ color: "#3D5A80" }} />
                   </div>
                   <span
                     className="text-xs font-bold uppercase tracking-wider px-2 py-1 rounded-lg"
