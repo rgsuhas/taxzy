@@ -219,3 +219,28 @@ export async function generateITRXML(): Promise<Blob> {
   });
   return res.blob();
 }
+
+// ITR JSON converter
+export async function convertITRJson(file: File, targetFormat: string): Promise<{ blob: Blob; filename: string }> {
+  const token = getToken();
+  const fd = new FormData();
+  fd.append("file", file);
+  fd.append("target_format", targetFormat);
+
+  const res = await fetch(`${BASE_URL}/api/itr/convert`, {
+    method: "POST",
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+    body: fd,
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ detail: res.statusText }));
+    throw new Error(err.detail || res.statusText);
+  }
+
+  const disposition = res.headers.get("Content-Disposition") || "";
+  const match = disposition.match(/filename=(.+)/);
+  const filename = match ? match[1] : `itr_data.${targetFormat}`;
+  const blob = await res.blob();
+  return { blob, filename };
+}

@@ -10,12 +10,14 @@ import {
   ShoppingBag,
   MapPin,
   Map,
+  FileJson,
 } from "lucide-react";
 
 const nav = [
   { href: "/chat", label: "Chat", icon: MessageSquare },
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/documents", label: "Documents", icon: FileText },
+  { href: "/itr-filing", label: "ITR filing", icon: FileJson },
   { href: "/marketplace", label: "Marketplace", icon: ShoppingBag },
   { href: "/tracker", label: "Tracker", icon: MapPin },
   { href: "/tax-usage", label: "Tax usage", icon: Map },
