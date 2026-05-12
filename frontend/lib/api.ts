@@ -19,7 +19,9 @@ import type {
 } from "@/types/api";
 
 const USE_MOCKS = process.env.NEXT_PUBLIC_USE_MOCKS === "true";
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+// Relative URLs (/api/...) so Next.js rewrites proxy them to the backend.
+// Set NEXT_PUBLIC_API_URL only to call the backend directly on a separate domain.
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
 async function loadMock<T>(path: string): Promise<T> {
   const mod = await import(`./mocks/${path}.json`);
